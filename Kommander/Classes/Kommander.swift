@@ -8,10 +8,10 @@
 
 import Foundation
 
-public class Kommander {
+open class Kommander {
     
-    private let executor: KommandExecutor
-    private let deliverer: KommandDeliverer
+    fileprivate let executor: KommandExecutor
+    fileprivate let deliverer: KommandDeliverer
     
     public init(executor: KommandExecutor, deliverer: KommandDeliverer) {
         
@@ -19,7 +19,7 @@ public class Kommander {
         self.deliverer = deliverer
     }
     
-    public func makeKommand<T>(action: () throws -> T) -> Kommand<T> {
+    open func makeKommand<T>(_ action: @escaping () throws -> T) -> Kommand<T> {
         return Kommand<T>(action: action, executor: executor, deliverer: deliverer)
     }
 }

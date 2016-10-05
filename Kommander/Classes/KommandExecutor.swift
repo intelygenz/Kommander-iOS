@@ -10,5 +10,5 @@ import Foundation
 
 public protocol KommandExecutor {
     
-    func execute(block: () -> Void)
+    func execute(_ block: @escaping() -> Void)
 }

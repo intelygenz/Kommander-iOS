@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class MainQueueKommandDeliverer: KommandDeliverer {
+open class MainQueueKommandDeliverer: KommandDeliverer {
     
     public init(){
     }
     
-    public func deliver(block: () -> Void) {
-        dispatch_async(dispatch_get_main_queue()) {
+    public func deliver(_ block: @escaping () -> Void) {
+        DispatchQueue.main.async {
             block()
         }
     }

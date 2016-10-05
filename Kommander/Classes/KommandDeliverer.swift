@@ -10,5 +10,5 @@ import Foundation
 
 public protocol KommandDeliverer {
     
-    func deliver(block: () -> Void)
+    func deliver(_ block: @escaping () -> Void)
 }

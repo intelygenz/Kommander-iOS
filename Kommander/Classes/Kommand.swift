@@ -8,45 +8,45 @@
 
 import Foundation
 
-public class Kommand<T> {
+open class Kommand<T> {
 
     public typealias ActionBlock = () throws -> T
-    public typealias SuccessBlock = (result: T) -> Void
-    public typealias ErrorBlock = (error: ErrorType) -> Void
+    public typealias SuccessBlock = (_ result: T) -> Void
+    public typealias ErrorBlock = (_ error: Error) -> Void
     
-    private let action: ActionBlock
-    private var successBlock: SuccessBlock?
-    private var errorBlock: ErrorBlock?
+    fileprivate let action: ActionBlock
+    fileprivate var successBlock: SuccessBlock?
+    fileprivate var errorBlock: ErrorBlock?
     
-    private let executor: KommandExecutor
-    private let deliverer: KommandDeliverer
+    fileprivate let executor: KommandExecutor
+    fileprivate let deliverer: KommandDeliverer
     
-    internal init(action: ActionBlock, executor: KommandExecutor, deliverer: KommandDeliverer) {
+    internal init(action: @escaping ActionBlock, executor: KommandExecutor, deliverer: KommandDeliverer) {
         self.action = action
         self.executor = executor
         self.deliverer = deliverer
     }
     
-    public func onSuccess(onSuccess: SuccessBlock) -> Self {
+    open func onSuccess(_ onSuccess: @escaping SuccessBlock) -> Self {
         self.successBlock = onSuccess
         return self
     }
     
-    public func onError(onError: ErrorBlock) -> Self {
+    open func onError(_ onError: @escaping ErrorBlock) -> Self {
         self.errorBlock = onError
         return self
     }
     
-    public func execute() {        
+    open func execute() {        
         executor.execute { 
             do {
                 let result = try self.action()
                 self.deliverer.deliver {
-                    self.successBlock?(result: result)
+                    self.successBlock?(result)
                 }
             } catch let error {
                 self.deliverer.deliver {
-                    self.errorBlock?(error: error)
+                    self.errorBlock?(error)
                 }
             }
         }

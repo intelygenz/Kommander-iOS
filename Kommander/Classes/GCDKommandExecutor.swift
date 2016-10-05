@@ -8,14 +8,13 @@
 
 import Foundation
 
-public class GCDKommandExecutor: KommandExecutor {
+open class GCDKommandExecutor: KommandExecutor {
     
     public init(){
     }
     
-    public func execute(block: () -> Void) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-            
+    public func execute(_ block: @escaping () -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
             block()
         }
     }
