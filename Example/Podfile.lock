@@ -1,0 +1,16 @@
+PODS:
+  - Kommander (0.1.0)
+
+DEPENDENCIES:
+  - Kommander (from `../`)
+
+EXTERNAL SOURCES:
+  Kommander:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Kommander: e003c4019ba6241eea4ef74b28387fcc1a01b881
+
+PODFILE CHECKSUM: 58cff99162f7aaa1ebbc6d0ff88f2f58b6deef70
+
+COCOAPODS: 1.1.0.rc.2
