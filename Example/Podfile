@@ -1,0 +1,6 @@
+use_frameworks!
+target 'Kommander_Tests' do
+  pod 'Kommander', :path => '../'
+  
+  
+end
