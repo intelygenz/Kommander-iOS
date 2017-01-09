@@ -20,6 +20,13 @@ it, simply add the following line to your Podfile:
 pod "Kommander"
 ```
 
+For Swift 2 compatibility use:
+
+```ruby
+pod 'Kommander', :git => 'https://gitlab.intelygenz.com/ios/kommander.git', :tag => '0.0.9'
+```
+
+
 ## Author
 
 Roberto Estrada, roberto.estrada@intelygenz.com
