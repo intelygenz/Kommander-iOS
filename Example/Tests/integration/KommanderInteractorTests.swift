@@ -2,7 +2,7 @@ import UIKit
 import XCTest
 import Kommander
 
-class KommanderTests: XCTestCase {
+class KommanderInteractorTests: XCTestCase {
     
     var kommander: Kommander!
     var interactor: CommonInteractor!
@@ -93,7 +93,7 @@ class KommanderTests: XCTestCase {
     }
 }
 
-extension KommanderTests {
+extension KommanderInteractorTests {
     
     class CommonInteractor {
         
