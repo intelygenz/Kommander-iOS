@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		2D7B96F268315CF0DEF55EE2 /* Pods_Kommander_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E006490D16BA317ADF2F36 /* Pods_Kommander_Tests.framework */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		5F2D8294CD1BAE19A2BFD84A /* KommanderInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2D8E7877C157560918E956 /* KommanderInteractorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		35E006490D16BA317ADF2F36 /* Pods_Kommander_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kommander_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4637436B59C8E36A84CF375E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		5F2D8E7877C157560918E956 /* KommanderInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KommanderInteractorTests.swift; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* Kommander_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kommander_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		849730B2329A7DC376A96A3B /* Pods-Kommander_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kommander_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kommander_Tests/Pods-Kommander_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A69CF9DCBEC51F2FBA07DCFE /* Pods-Kommander_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kommander_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kommander_Tests/Pods-Kommander_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		AEC9D07871C32035875638F9 /* Kommander.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Kommander.podspec; path = ../Kommander.podspec; sourceTree = "<group>"; };
@@ -44,6 +44,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		5F2D81F27BA5707F86457A64 /* integration */ = {
+			isa = PBXGroup;
+			children = (
+				5F2D8E7877C157560918E956 /* KommanderInteractorTests.swift */,
+			);
+			path = integration;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -66,8 +74,8 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				5F2D81F27BA5707F86457A64 /* integration */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -128,7 +136,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACE41AFB9204008FA782 = {
@@ -219,7 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				5F2D8294CD1BAE19A2BFD84A /* KommanderInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,8 +247,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -284,8 +294,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -304,6 +316,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -312,6 +325,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 849730B2329A7DC376A96A3B /* Pods-Kommander_Tests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -332,6 +346,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A69CF9DCBEC51F2FBA07DCFE /* Pods-Kommander_Tests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
