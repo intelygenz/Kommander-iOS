@@ -16,10 +16,10 @@ public class Kommand<T> {
 
     private final let deliverer: Dispatcher
     private final let executor: Dispatcher
-    private final let actionBlock: ActionBlock
-    private final var successBlock: SuccessBlock?
-    private final var errorBlock: ErrorBlock?
-    private final var action: Any?
+    internal final let actionBlock: ActionBlock
+    private(set) internal final var successBlock: SuccessBlock?
+    private(set) internal final var errorBlock: ErrorBlock?
+    internal final var action: Any?
 
     internal init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: @escaping ActionBlock) {
         self.deliverer = deliverer

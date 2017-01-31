@@ -52,6 +52,28 @@ public class Dispatcher {
         }
     }
 
+    public func execute(_ blocks: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Any] {
+        var actions = [Any]()
+        if concurrent {
+            for block in blocks {
+                actions.append(execute(block))
+            }
+        }
+        else {
+            for block in blocks {
+                let blockOperation = BlockOperation(block: block)
+                if let lastOperation = actions.last as? Operation {
+                    blockOperation.addDependency(lastOperation)
+                }
+                actions.append(blockOperation)
+            }
+            if let operations = actions as? [Operation] {
+                execute(operations, waitUntilFinished: waitUntilFinished)
+            }
+        }
+        return actions
+    }
+
     public func execute(qos: DispatchQoS?, flags: DispatchWorkItemFlags?, block: @escaping @convention(block) () -> ()) -> DispatchWorkItem {
         let work = DispatchWorkItem(qos: qos ?? .default, flags: flags ?? .assignCurrentContext, block: block)
         execute(work)

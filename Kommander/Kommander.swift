@@ -52,4 +52,39 @@ public class Kommander {
         return Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock)
     }
 
+    public func makeKommands<T>(_ actionBlocks: [() throws -> T]) -> [Kommand<T>] {
+        var kommands = [Kommand<T>]()
+        for actionBlock in actionBlocks {
+            kommands.append(Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock))
+        }
+        return kommands
+    }
+
+    func execute<T>(_ kommands: [Kommand<T>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
+        let blocks = kommands.map { kommand -> () -> Void in
+            return {
+                do {
+                    let result = try kommand.actionBlock()
+                    _ = self.deliverer.execute {
+                        kommand.successBlock?(result)
+                    }
+                } catch {
+                    _ = self.deliverer.execute {
+                        kommand.errorBlock?(error)
+                    }
+                }
+            }
+        }
+        let actions = executor.execute(blocks, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
+        for (index, kommand) in kommands.enumerated() {
+            kommand.action = actions[index]
+        }
+    }
+
+    func cancel<T>(_ kommands: [Kommand<T>]) {
+        for kommand in kommands {
+            kommand.cancel()
+        }
+    }
+
 }
