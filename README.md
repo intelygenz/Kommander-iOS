@@ -23,7 +23,7 @@ pod 'Kommander', :git => 'https://gitlab.intelygenz.com/ios/kommander.git', :tag
 For Objective-C compatibility use:
 
 ```ruby
-pod 'Kommander', :git => 'https://gitlab.intelygenz.com/ios/kommander.git', :tag => '0.2.1-objc'
+pod 'Kommander', :git => 'https://gitlab.intelygenz.com/ios/kommander.git', :tag => '0.2.2-objc'
 ```
 
 ## License
