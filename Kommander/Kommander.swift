@@ -52,8 +52,16 @@ import Foundation
         return Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock)
     }
 
-    open func makeKommand(block: @escaping () -> Any?) -> KommandProtocol {
-        return makeKommand(block)
+    open func makeKommand(block: @escaping (_ error: AutoreleasingUnsafeMutablePointer<NSError?>) -> Any?) -> KommandProtocol {
+        let actionBlock = { () throws -> Any? in
+            var error: NSError? = nil
+            let result = block(&error)
+            if let error = error {
+                throw error
+            }
+            return result
+        }
+        return makeKommand(actionBlock)
     }
 
     open func makeKommands<T>(_ actionBlocks: [() throws -> T]) -> [Kommand<T>] {
@@ -64,8 +72,18 @@ import Foundation
         return kommands
     }
 
-    open func makeKommands(blocks: [() -> Any?]) -> [KommandProtocol] {
-        return makeKommands(blocks)
+    open func makeKommands(blocks: [(_ error: AutoreleasingUnsafeMutablePointer<NSError?>) -> Any?]) -> [KommandProtocol] {
+        let actionBlocks = blocks.map { block -> () throws -> Any? in
+            return { () throws -> Any? in
+                var error: NSError? = nil
+                let result = block(&error)
+                if let error = error {
+                    throw error
+                }
+                return result
+            }
+        }
+        return makeKommands(actionBlocks)
     }
 
     open func execute<T>(_ kommands: [Kommand<T>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
