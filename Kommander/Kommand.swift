@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Kommand<T> {
+open class Kommand<T> {
 
     public typealias ActionBlock = () throws -> T
     public typealias SuccessBlock = (_ result: T) -> Void
@@ -21,23 +21,23 @@ public class Kommand<T> {
     private(set) internal final var errorBlock: ErrorBlock?
     internal final var action: Any?
 
-    internal init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: @escaping ActionBlock) {
+    public init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: @escaping ActionBlock) {
         self.deliverer = deliverer
         self.executor = executor
         self.actionBlock = actionBlock
     }
 
-    public func onSuccess(_ onSuccess: @escaping SuccessBlock) -> Self {
+    open func onSuccess(_ onSuccess: @escaping SuccessBlock) -> Self {
         self.successBlock = onSuccess
         return self
     }
 
-    public func onError(_ onError: @escaping ErrorBlock) -> Self {
+    open func onError(_ onError: @escaping ErrorBlock) -> Self {
         self.errorBlock = onError
         return self
     }
 
-    public func execute() {
+    open func execute() {
         action = executor.execute {
             do {
                 let result = try self.actionBlock()
@@ -52,7 +52,7 @@ public class Kommand<T> {
         }
     }
 
-    public func cancel() {
+    open func cancel() {
         if let operation = action as? Operation, operation.isExecuting {
             operation.cancel()
         }

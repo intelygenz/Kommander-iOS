@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Kommander {
+open class Kommander {
 
     private final let deliverer: Dispatcher
     private final let executor: Dispatcher
@@ -48,11 +48,11 @@ public class Kommander {
         executor = Dispatcher(label: name, qos: qos, attributes: attributes, autoreleaseFrequency: autoreleaseFrequency, target: target)
     }
 
-    public func makeKommand<T>(_ actionBlock: @escaping () throws -> T) -> Kommand<T> {
+    open func makeKommand<T>(_ actionBlock: @escaping () throws -> T) -> Kommand<T> {
         return Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock)
     }
 
-    public func makeKommands<T>(_ actionBlocks: [() throws -> T]) -> [Kommand<T>] {
+    open func makeKommands<T>(_ actionBlocks: [() throws -> T]) -> [Kommand<T>] {
         var kommands = [Kommand<T>]()
         for actionBlock in actionBlocks {
             kommands.append(Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock))
@@ -60,7 +60,7 @@ public class Kommander {
         return kommands
     }
 
-    func execute<T>(_ kommands: [Kommand<T>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
+    open func execute<T>(_ kommands: [Kommand<T>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
         let blocks = kommands.map { kommand -> () -> Void in
             return {
                 do {
@@ -81,7 +81,7 @@ public class Kommander {
         }
     }
 
-    func cancel<T>(_ kommands: [Kommand<T>]) {
+    open func cancel<T>(_ kommands: [Kommand<T>]) {
         for kommand in kommands {
             kommand.cancel()
         }
