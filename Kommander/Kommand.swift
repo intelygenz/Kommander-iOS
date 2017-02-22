@@ -8,11 +8,11 @@
 
 import Foundation
 
-open class Kommand<T> {
+public class Kommand<T> {
 
     public typealias ActionBlock = () throws -> T
-    public typealias SuccessBlock = (_ result: T) -> Void
-    public typealias ErrorBlock = (_ error: Error) -> Void
+    public typealias SuccessBlock = (result: T) -> Void
+    public typealias ErrorBlock = (error: ErrorType) -> Void
 
     private final let deliverer: Dispatcher
     private final let executor: Dispatcher
@@ -21,43 +21,43 @@ open class Kommand<T> {
     private(set) internal final var errorBlock: ErrorBlock?
     internal final var action: Any?
 
-    public init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: @escaping ActionBlock) {
+    public init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: ActionBlock) {
         self.deliverer = deliverer
         self.executor = executor
         self.actionBlock = actionBlock
     }
 
-    open func onSuccess(_ onSuccess: @escaping SuccessBlock) -> Self {
+    public func onSuccess(onSuccess: SuccessBlock) -> Self {
         self.successBlock = onSuccess
         return self
     }
 
-    open func onError(_ onError: @escaping ErrorBlock) -> Self {
+    public func onError(onError: ErrorBlock) -> Self {
         self.errorBlock = onError
         return self
     }
 
-    open func execute() {
+    public func execute() {
         action = executor.execute {
             do {
                 let result = try self.actionBlock()
                 _ = self.deliverer.execute {
-                    self.successBlock?(result)
+                    self.successBlock?(result: result)
                 }
             } catch {
                 _ = self.deliverer.execute {
-                    self.errorBlock?(error)
+                    self.errorBlock?(error: error)
                 }
             }
         }
     }
 
-    open func cancel() {
-        if let operation = action as? Operation, operation.isExecuting {
+    public func cancel() {
+        if let operation = action as? NSOperation where operation.executing {
             operation.cancel()
         }
-        else if let work = action as? DispatchWorkItem, !work.isCancelled {
-            work.cancel()
+        else if let block = action as? dispatch_block_t where dispatch_block_testcancel(block) == 0 {
+            dispatch_block_cancel(block)
         }
     }
 

@@ -8,11 +8,11 @@
 
 import Foundation
 
-open class CurrentDispatcher: MainDispatcher {
+public class CurrentDispatcher: MainDispatcher {
 
     public override init() {
         super.init()
-        if let currentOperationQueue = OperationQueue.current {
+        if let currentOperationQueue = NSOperationQueue.currentQueue() {
             operationQueue = currentOperationQueue
             if let underlyingQueue = currentOperationQueue.underlyingQueue {
                 dispatchQueue = underlyingQueue

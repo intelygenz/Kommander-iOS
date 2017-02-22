@@ -8,22 +8,22 @@
 
 import Foundation
 
-open class MainDispatcher: Dispatcher {
+public class MainDispatcher: Dispatcher {
 
     public init() {
-        super.init(name: nil, qos: nil, maxConcurrentOperationCount: OperationQueue.defaultMaxConcurrentOperationCount)
-        operationQueue = OperationQueue.main
-        dispatchQueue = DispatchQueue.main
+        super.init(name: nil, qos: nil, maxConcurrentOperationCount: NSOperationQueueDefaultMaxConcurrentOperationCount)
+        operationQueue = NSOperationQueue.mainQueue()
+        dispatchQueue = dispatch_get_main_queue()
     }
 
-    private override convenience init(name: String?, qos: QualityOfService?, maxConcurrentOperationCount: Int) {
+    private override convenience init(name: String?, qos: NSQualityOfService?, maxConcurrentOperationCount: Int) {
         self.init()
-        assertionFailure("You can't use this initializer for a \(String(describing: type(of: self))).")
+        assertionFailure("You can't use this initializer for a \(String(self.dynamicType)).")
     }
 
-    private override convenience init(label: String?, qos: DispatchQoS?, attributes: DispatchQueue.Attributes?, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency?, target: DispatchQueue?) {
+    private override convenience init(label: String?, qos: dispatch_qos_class_t, attributes: dispatch_queue_attr_t?, target: dispatch_queue_t?) {
         self.init()
-        assertionFailure("You can't use this initializer for a \(String(describing: type(of: self))).")
+        assertionFailure("You can't use this initializer for a \(String(self.dynamicType)).")
     }
 
 }

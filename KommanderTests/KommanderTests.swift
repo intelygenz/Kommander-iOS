@@ -24,9 +24,9 @@ class KommanderTests: XCTestCase {
 
     func test_oneCall() {
 
-        let ex = expectation(description: String(describing: type(of: self)))
+        let ex = expectationWithDescription(String(self.dynamicType))
 
-        interactor.getCounter(name: "C1", to: 3)
+        interactor.getCounter("C1", to: 3)
             .onSuccess({ (name) in
                 ex.fulfill()
             })
@@ -35,16 +35,16 @@ class KommanderTests: XCTestCase {
                 XCTFail()
             }).execute()
 
-        waitForExpectations(timeout: 100, handler: nil)
+        waitForExpectationsWithTimeout(100, handler: nil)
     }
 
     func test_twoCalls() {
 
-        let ex = expectation(description: String(describing: type(of: self)))
+        let ex = expectationWithDescription(String(self.dynamicType))
 
         var successes = 0
 
-        let k1 = interactor.getCounter(name: "C1", to: 3)
+        let k1 = interactor.getCounter("C1", to: 3)
             .onSuccess({ (name) in
                 successes+=1
                 if successes>=2 {
@@ -56,7 +56,7 @@ class KommanderTests: XCTestCase {
                 XCTFail()
             })
 
-        let k2 = interactor.getCounter(name: "C2", to: 5)
+        let k2 = interactor.getCounter("C2", to: 5)
             .onSuccess({ (name) in
                 successes+=1
                 if successes>=2 {
@@ -71,18 +71,18 @@ class KommanderTests: XCTestCase {
         k1.execute()
         k2.execute()
 
-        waitForExpectations(timeout: 100, handler: nil)
+        waitForExpectationsWithTimeout(100, handler: nil)
     }
 
     func test_nCalls() {
 
-        let ex = expectation(description: String(describing: type(of: self)))
+        let ex = expectationWithDescription(String(self.dynamicType))
 
         var successes = 0
         let calls = Int(arc4random_uniform(10) + 1)
 
         for i in 0..<calls {
-            interactor.getCounter(name: "C\(i)", to: 3)
+            interactor.getCounter("C\(i)", to: 3)
                 .onSuccess({ (name) in
                     successes+=1
                     if successes>=calls {
@@ -96,12 +96,12 @@ class KommanderTests: XCTestCase {
                 .execute()
         }
 
-        waitForExpectations(timeout: 100, handler: nil)
+        waitForExpectationsWithTimeout(100, handler: nil)
     }
 
     func test_nCalls_concurrent_waitUntilFinished() {
 
-        let ex = expectation(description: String(describing: type(of: self)))
+        let ex = expectationWithDescription(String(self.dynamicType))
 
         var successes = 0
         let calls = Int(arc4random_uniform(10) + 1)
@@ -109,7 +109,7 @@ class KommanderTests: XCTestCase {
         var kommands = [Kommand<String>]()
 
         for i in 0..<calls {
-            kommands.append(interactor.getCounter(name: "C\(i)", to: 3)
+            kommands.append(interactor.getCounter("C\(i)", to: 3)
                 .onSuccess({ (name) in
                     successes+=1
                     if successes>=calls {
@@ -122,14 +122,14 @@ class KommanderTests: XCTestCase {
                 }))
         }
 
-        interactor.kommander.execute(kommands, concurrent: true, waitUntilFinished: true)
+        interactor.kommander.execute(kommands, waitUntilFinished: true)
 
-        waitForExpectations(timeout: 100, handler: nil)
+        waitForExpectationsWithTimeout(100, handler: nil)
     }
 
     func test_nCalls_concurrent() {
 
-        let ex = expectation(description: String(describing: type(of: self)))
+        let ex = expectationWithDescription(String(self.dynamicType))
 
         var successes = 0
         let calls = Int(arc4random_uniform(10) + 1)
@@ -137,7 +137,7 @@ class KommanderTests: XCTestCase {
         var kommands = [Kommand<String>]()
 
         for i in 0..<calls {
-            kommands.append(interactor.getCounter(name: "C\(i)", to: 3)
+            kommands.append(interactor.getCounter("C\(i)", to: 3)
                 .onSuccess({ (name) in
                     successes+=1
                     if successes>=calls {
@@ -150,65 +150,9 @@ class KommanderTests: XCTestCase {
                 }))
         }
 
-        interactor.kommander.execute(kommands, concurrent: true, waitUntilFinished: false)
+        interactor.kommander.execute(kommands, waitUntilFinished: false)
 
-        waitForExpectations(timeout: 100, handler: nil)
-    }
-
-    func test_nCalls_sequential_waitUntilFinished() {
-
-        let ex = expectation(description: String(describing: type(of: self)))
-
-        var successes = 0
-        let calls = Int(arc4random_uniform(10) + 1)
-
-        var kommands = [Kommand<String>]()
-
-        for i in 0..<calls {
-            kommands.append(interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
-                    successes+=1
-                    if successes>=calls {
-                        ex.fulfill()
-                    }
-                })
-                .onError({ (error) in
-                    ex.fulfill()
-                    XCTFail()
-                }))
-        }
-
-        interactor.kommander.execute(kommands, concurrent: false, waitUntilFinished: true)
-
-        waitForExpectations(timeout: 100, handler: nil)
-    }
-
-    func test_nCalls_sequential() {
-
-        let ex = expectation(description: String(describing: type(of: self)))
-
-        var successes = 0
-        let calls = Int(arc4random_uniform(10) + 1)
-
-        var kommands = [Kommand<String>]()
-
-        for i in 0..<calls {
-            kommands.append(interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
-                    successes+=1
-                    if successes>=calls {
-                        ex.fulfill()
-                    }
-                })
-                .onError({ (error) in
-                    ex.fulfill()
-                    XCTFail()
-                }))
-        }
-
-        interactor.kommander.execute(kommands, concurrent: false, waitUntilFinished: false)
-
-        waitForExpectations(timeout: 100, handler: nil)
+        waitForExpectationsWithTimeout(100, handler: nil)
     }
 
 }

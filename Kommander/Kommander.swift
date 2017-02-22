@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class Kommander {
+public class Kommander {
 
     private final let deliverer: Dispatcher
     private final let executor: Dispatcher
@@ -30,29 +30,29 @@ open class Kommander {
         self.executor = executor ?? Dispatcher()
     }
 
-    public convenience init(name: String?, qos: QualityOfService?, maxConcurrentOperationCount: Int) {
+    public convenience init(name: String?, qos: NSQualityOfService?, maxConcurrentOperationCount: Int) {
         self.init(deliverer: nil, name: name, qos: qos, maxConcurrentOperationCount: maxConcurrentOperationCount)
     }
 
-    public convenience init(name: String?, qos: DispatchQoS?, attributes: DispatchQueue.Attributes?, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency?, target: DispatchQueue?) {
-        self.init(deliverer: nil, name: name, qos: qos, attributes: attributes, autoreleaseFrequency: autoreleaseFrequency, target: target)
+    public convenience init(name: String?, qos: dispatch_qos_class_t, attributes: dispatch_queue_attr_t?, target: dispatch_queue_t?) {
+        self.init(deliverer: nil, name: name, qos: qos, attributes: attributes, target: target)
     }
 
-    public init(deliverer: Dispatcher?, name: String?, qos: QualityOfService?, maxConcurrentOperationCount: Int) {
+    public init(deliverer: Dispatcher?, name: String?, qos: NSQualityOfService?, maxConcurrentOperationCount: Int) {
         self.deliverer = deliverer ?? CurrentDispatcher()
         executor = Dispatcher(name: name, qos: qos, maxConcurrentOperationCount: maxConcurrentOperationCount)
     }
 
-    public init(deliverer: Dispatcher?, name: String?, qos: DispatchQoS?, attributes: DispatchQueue.Attributes?, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency?, target: DispatchQueue?) {
+    public init(deliverer: Dispatcher?, name: String?, qos: dispatch_qos_class_t, attributes: dispatch_queue_attr_t?, target: dispatch_queue_t?) {
         self.deliverer = deliverer ?? CurrentDispatcher()
-        executor = Dispatcher(label: name, qos: qos, attributes: attributes, autoreleaseFrequency: autoreleaseFrequency, target: target)
+        executor = Dispatcher(label: name, qos: qos, attributes: attributes, target: target)
     }
 
-    open func makeKommand<T>(_ actionBlock: @escaping () throws -> T) -> Kommand<T> {
+    public func makeKommand<T>(actionBlock: () throws -> T) -> Kommand<T> {
         return Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock)
     }
 
-    open func makeKommands<T>(_ actionBlocks: [() throws -> T]) -> [Kommand<T>] {
+    public func makeKommands<T>(actionBlocks: [() throws -> T]) -> [Kommand<T>] {
         var kommands = [Kommand<T>]()
         for actionBlock in actionBlocks {
             kommands.append(Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock))
@@ -60,28 +60,28 @@ open class Kommander {
         return kommands
     }
 
-    open func execute<T>(_ kommands: [Kommand<T>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
+    public func execute<T>(kommands: [Kommand<T>], waitUntilFinished: Bool = false) {
         let blocks = kommands.map { kommand -> () -> Void in
             return {
                 do {
                     let result = try kommand.actionBlock()
                     _ = self.deliverer.execute {
-                        kommand.successBlock?(result)
+                        kommand.successBlock?(result: result)
                     }
                 } catch {
                     _ = self.deliverer.execute {
-                        kommand.errorBlock?(error)
+                        kommand.errorBlock?(error: error)
                     }
                 }
             }
         }
-        let actions = executor.execute(blocks, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
-        for (index, kommand) in kommands.enumerated() {
+        let actions = executor.execute(blocks, waitUntilFinished: waitUntilFinished)
+        for (index, kommand) in kommands.enumerate() {
             kommand.action = actions[index]
         }
     }
 
-    open func cancel<T>(_ kommands: [Kommand<T>]) {
+    public func cancel<T>(kommands: [Kommand<T>]) {
         for kommand in kommands {
             kommand.cancel()
         }
