@@ -8,7 +8,15 @@
 
 import Foundation
 
-public class Kommand<T> {
+@objc public protocol KommandProtocol {
+    init(deliverer: Dispatcher, executor: Dispatcher, block: @escaping () -> Any)
+    func onSuccess(block: @escaping (_ result: Any) -> Void) -> KommandProtocol
+    func onError(block: @escaping (_ error: Error) -> Void) -> KommandProtocol
+    func execute()
+    func cancel()
+}
+
+open class Kommand<T>: KommandProtocol {
 
     public typealias ActionBlock = () throws -> T
     public typealias SuccessBlock = (_ result: T) -> Void
@@ -21,23 +29,35 @@ public class Kommand<T> {
     private(set) internal final var errorBlock: ErrorBlock?
     internal final var action: Any?
 
-    internal init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: @escaping ActionBlock) {
+    public init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: @escaping ActionBlock) {
         self.deliverer = deliverer
         self.executor = executor
         self.actionBlock = actionBlock
     }
 
-    public func onSuccess(_ onSuccess: @escaping SuccessBlock) -> Self {
+    public convenience required init(deliverer: Dispatcher, executor: Dispatcher, block: @escaping () -> Any) {
+        self.init(deliverer: deliverer, executor: executor, actionBlock: { return block() as! T })
+    }
+
+    open func onSuccess(_ onSuccess: @escaping SuccessBlock) -> Self {
         self.successBlock = onSuccess
         return self
     }
 
-    public func onError(_ onError: @escaping ErrorBlock) -> Self {
+    open func onSuccess(block: @escaping (Any) -> Void) -> KommandProtocol {
+        return onSuccess(block)
+    }
+
+    open func onError(_ onError: @escaping ErrorBlock) -> Self {
         self.errorBlock = onError
         return self
     }
 
-    public func execute() {
+    open func onError(block: @escaping (Error) -> Void) -> KommandProtocol {
+        return onError(block)
+    }
+
+    open func execute() {
         action = executor.execute {
             do {
                 let result = try self.actionBlock()
@@ -52,7 +72,7 @@ public class Kommand<T> {
         }
     }
 
-    public func cancel() {
+    open func cancel() {
         if let operation = action as? Operation, operation.isExecuting {
             operation.cancel()
         }

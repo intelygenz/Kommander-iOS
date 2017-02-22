@@ -12,13 +12,13 @@ private enum Priority {
     case operation, dispatch
 }
 
-public class Dispatcher {
+@objc open class Dispatcher: NSObject {
 
     internal final var operationQueue = OperationQueue()
     internal final var dispatchQueue = DispatchQueue(label: UUID().uuidString)
     private final var priority = Priority.operation
 
-    public convenience init() {
+    public convenience override init() {
         self.init(name: nil, qos: nil, maxConcurrentOperationCount: OperationQueue.defaultMaxConcurrentOperationCount)
     }
 
@@ -33,26 +33,26 @@ public class Dispatcher {
         priority = .dispatch
     }
 
-    public func execute(_ operation: Operation) {
+    open func execute(operation: Operation) {
         operationQueue.addOperation(operation)
     }
 
-    public func execute(_ operations: [Operation], waitUntilFinished: Bool = false) {
+    open func execute(_ operations: [Operation], waitUntilFinished: Bool = false) {
         operationQueue.addOperations(operations, waitUntilFinished: waitUntilFinished)
     }
 
-    public func execute(_ block: @escaping () -> Void) -> Any {
+    open func execute(_ block: @escaping () -> Void) -> Any {
         if priority == .dispatch {
             return execute(qos: nil, flags: nil, block: block)
         }
         else {
             let blockOperation = BlockOperation(block: block)
-            execute(blockOperation)
+            execute(operation: blockOperation)
             return blockOperation
         }
     }
 
-    public func execute(_ blocks: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Any] {
+    open func execute(_ blocks: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Any] {
         var actions = [Any]()
         if concurrent {
             for block in blocks {
@@ -74,13 +74,13 @@ public class Dispatcher {
         return actions
     }
 
-    public func execute(qos: DispatchQoS?, flags: DispatchWorkItemFlags?, block: @escaping @convention(block) () -> ()) -> DispatchWorkItem {
+    open func execute(qos: DispatchQoS?, flags: DispatchWorkItemFlags?, block: @escaping @convention(block) () -> ()) -> DispatchWorkItem {
         let work = DispatchWorkItem(qos: qos ?? .default, flags: flags ?? .assignCurrentContext, block: block)
         execute(work)
         return work
     }
 
-    public func execute(_ work: DispatchWorkItem) {
+    open func execute(_ work: DispatchWorkItem) {
         dispatchQueue.async(execute: work)
     }
 

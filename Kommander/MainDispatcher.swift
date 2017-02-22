@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MainDispatcher: Dispatcher {
+open class MainDispatcher: Dispatcher {
 
     public init() {
         super.init(name: nil, qos: nil, maxConcurrentOperationCount: OperationQueue.defaultMaxConcurrentOperationCount)

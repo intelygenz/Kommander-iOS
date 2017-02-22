@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CurrentDispatcher: MainDispatcher {
+open class CurrentDispatcher: MainDispatcher {
 
     public override init() {
         super.init()
