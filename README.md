@@ -11,7 +11,19 @@ Kommander is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "Kommander"
+pod 'Kommander'
+```
+
+For Swift 2 compatibility use:
+
+```ruby
+pod 'Kommander', :git => 'https://gitlab.intelygenz.com/ios/kommander.git', :tag => 'swift2'
+```
+
+For Objective-C compatibility use:
+
+```ruby
+pod 'Kommander', :git => 'https://gitlab.intelygenz.com/ios/kommander.git', :tag => '0.2.1-objc'
 ```
 
 ## License
