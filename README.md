@@ -17,7 +17,7 @@ pod 'Kommander'
 For Swift 2 compatibility use:
 
 ```ruby
-pod 'Kommander', :git => 'https://gitlab.intelygenz.com/ios/kommander.git', :tag => 'swift2'
+pod 'Kommander', :git => 'https://gitlab.intelygenz.com/ios/kommander.git', :tag => '0.2.2-swift2'
 ```
 
 For Objective-C compatibility use:
