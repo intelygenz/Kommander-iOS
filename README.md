@@ -21,8 +21,8 @@ Inpired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommander
 - [x] Cancel kommand or multiple kommands
 - [x] Set kommand success block
 - [x] Set kommand error block
-- [x] Main threat dispatcher
-- [x] Current threat dispatcher
+- [x] Main thread dispatcher
+- [x] Current thread dispatcher
 - [x] Custom OperationQueue dispatcher
 - [x] Custom DispatchQueue dispatcher
 - [x] Execute single or multiple Operation
