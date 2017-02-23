@@ -9,6 +9,8 @@
 
 **Kommander** is a Swift library to manage the task execution in different threads. Through the definition a simple but powerful concept, [**Kommand**](https://en.wikipedia.org/wiki/Command_pattern).
 
+Inpired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommander) from [**Wokdsem**](https://github.com/Wokdsem).
+
 
 ![Kommander](https://raw.githubusercontent.com/intelygenz/Kommander-iOS/master/Kommander.png)
 
