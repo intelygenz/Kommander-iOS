@@ -6,7 +6,9 @@
 [![Platform](https://img.shields.io/cocoapods/p/Kommander.svg?style=flat)](http://cocoapods.org/pods/Kommander)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
+
 **Kommander** is a Swift library to manage the task execution in different threads. Through the definition a simple but powerful concept, [**Kommand**](https://en.wikipedia.org/wiki/Command_pattern).
+
 
 ![Kommander](https://raw.githubusercontent.com/intelygenz/Kommander-iOS/master/Kommander.png)
 
@@ -77,10 +79,10 @@ Kommander().makeKommand { () -> Void in
 
 ## Authors
 
-'Juan Trías' => 'juan.trias@intelygenz.com', 'Roberto Estrada' => 'roberto.estrada@intelygenz.com'
-
 [alexruperez](https://github.com/alexruperez), alejandro.ruperez@intelygenz.com
+
 [juantrias](https://github.com/juantrias), juan.trias@intelygenz.com
+
 [RobertoEstrada](https://github.com/RobertoEstrada), roberto.estrada@intelygenz.com'
 
 ## License
