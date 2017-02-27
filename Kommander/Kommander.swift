@@ -48,11 +48,11 @@ open class Kommander {
         executor = Dispatcher(label: name, qos: qos, attributes: attributes, autoreleaseFrequency: autoreleaseFrequency, target: target)
     }
 
-    open func makeKommand<T>(_ actionBlock: @escaping () throws -> T) -> Kommand<T> {
+    open func makeKommand<T>(_ actionBlock: @escaping () throws -> T?) -> Kommand<T> {
         return Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock)
     }
 
-    open func makeKommands<T>(_ actionBlocks: [() throws -> T]) -> [Kommand<T>] {
+    open func makeKommands<T>(_ actionBlocks: [() throws -> T?]) -> [Kommand<T>] {
         var kommands = [Kommand<T>]()
         for actionBlock in actionBlocks {
             kommands.append(Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock))

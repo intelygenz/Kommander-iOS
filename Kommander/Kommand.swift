@@ -10,9 +10,9 @@ import Foundation
 
 open class Kommand<T> {
 
-    public typealias ActionBlock = () throws -> T
-    public typealias SuccessBlock = (_ result: T) -> Void
-    public typealias ErrorBlock = (_ error: Error) -> Void
+    public typealias ActionBlock = () throws -> T?
+    public typealias SuccessBlock = (_ result: T?) -> Void
+    public typealias ErrorBlock = (_ error: Error?) -> Void
 
     private final let deliverer: Dispatcher
     private final let executor: Dispatcher
@@ -37,7 +37,7 @@ open class Kommand<T> {
         return self
     }
 
-    open func execute() {
+    open func execute() -> Self {
         action = executor.execute {
             do {
                 let result = try self.actionBlock()
@@ -50,6 +50,7 @@ open class Kommand<T> {
                 }
             }
         }
+        return self
     }
 
     open func cancel() {
