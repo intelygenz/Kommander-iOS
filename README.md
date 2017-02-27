@@ -6,7 +6,11 @@
 [![Platform](https://img.shields.io/cocoapods/p/Kommander.svg?style=flat)](http://cocoapods.org/pods/Kommander)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
+
 **Kommander** is a Swift library to manage the task execution in different threads. Through the definition a simple but powerful concept, [**Kommand**](https://en.wikipedia.org/wiki/Command_pattern).
+
+Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommander) from [**Wokdsem**](https://github.com/Wokdsem).
+
 
 ![Kommander](https://raw.githubusercontent.com/intelygenz/Kommander-iOS/master/Kommander.png)
 
@@ -17,8 +21,8 @@
 - [x] Cancel kommand or multiple kommands
 - [x] Set kommand success block
 - [x] Set kommand error block
-- [x] Main threat dispatcher
-- [x] Current threat dispatcher
+- [x] Main thread dispatcher
+- [x] Current thread dispatcher
 - [x] Custom OperationQueue dispatcher
 - [x] Custom DispatchQueue dispatcher
 - [x] Execute single or multiple Operation
@@ -39,13 +43,13 @@ pod 'Kommander'
 For Swift 2 compatibility use:
 
 ```ruby
-pod 'Kommander', :git => 'https://github.com/intelygenz/Kommander-iOS.git', :tag => '0.2.2-swift2'
+pod 'Kommander', :git => 'https://github.com/intelygenz/Kommander-iOS.git', :tag => '0.2.3-swift2'
 ```
 
 For Objective-C compatibility use:
 
 ```ruby
-pod 'Kommander', :git => 'https://github.com/intelygenz/Kommander-iOS.git', :tag => '0.2.2-objc'
+pod 'Kommander', :git => 'https://github.com/intelygenz/Kommander-iOS.git', :tag => '0.2.3-objc'
 ```
 
 #### Or you can install it with [Carthage](https://github.com/Carthage/Carthage):
@@ -77,11 +81,11 @@ Kommander().makeKommand { () -> Void in
 
 ## Authors
 
-'Juan Trías' => 'juan.trias@intelygenz.com', 'Roberto Estrada' => 'roberto.estrada@intelygenz.com'
-
 [alexruperez](https://github.com/alexruperez), alejandro.ruperez@intelygenz.com
+
 [juantrias](https://github.com/juantrias), juan.trias@intelygenz.com
-[RobertoEstrada](https://github.com/RobertoEstrada), roberto.estrada@intelygenz.com'
+
+[RobertoEstrada](https://github.com/RobertoEstrada), roberto.estrada@intelygenz.com
 
 ## License
 

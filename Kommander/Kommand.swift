@@ -9,18 +9,17 @@
 import Foundation
 
 @objc public protocol KommandProtocol {
-    init(deliverer: Dispatcher, executor: Dispatcher, block: @escaping () -> Any)
-    func onSuccess(block: @escaping (_ result: Any) -> Void) -> KommandProtocol
-    func onError(block: @escaping (_ error: Error) -> Void) -> KommandProtocol
-    func execute()
+    func onSuccess(block: @escaping (_ result: Any?) -> Void) -> KommandProtocol
+    func onError(block: @escaping (_ error: Error?) -> Void) -> KommandProtocol
+    func execute() -> KommandProtocol
     func cancel()
 }
 
 open class Kommand<T>: KommandProtocol {
 
-    public typealias ActionBlock = () throws -> T
-    public typealias SuccessBlock = (_ result: T) -> Void
-    public typealias ErrorBlock = (_ error: Error) -> Void
+    public typealias ActionBlock = () throws -> T?
+    public typealias SuccessBlock = (_ result: T?) -> Void
+    public typealias ErrorBlock = (_ error: Error?) -> Void
 
     private final let deliverer: Dispatcher
     private final let executor: Dispatcher
@@ -35,16 +34,12 @@ open class Kommand<T>: KommandProtocol {
         self.actionBlock = actionBlock
     }
 
-    public convenience required init(deliverer: Dispatcher, executor: Dispatcher, block: @escaping () -> Any) {
-        self.init(deliverer: deliverer, executor: executor, actionBlock: { return block() as! T })
-    }
-
     open func onSuccess(_ onSuccess: @escaping SuccessBlock) -> Self {
         self.successBlock = onSuccess
         return self
     }
 
-    open func onSuccess(block: @escaping (Any) -> Void) -> KommandProtocol {
+    open func onSuccess(block: @escaping (Any?) -> Void) -> KommandProtocol {
         return onSuccess(block)
     }
 
@@ -53,11 +48,11 @@ open class Kommand<T>: KommandProtocol {
         return self
     }
 
-    open func onError(block: @escaping (Error) -> Void) -> KommandProtocol {
+    open func onError(block: @escaping (Error?) -> Void) -> KommandProtocol {
         return onError(block)
     }
 
-    open func execute() {
+    open func execute() -> KommandProtocol {
         action = executor.execute {
             do {
                 let result = try self.actionBlock()
@@ -70,6 +65,7 @@ open class Kommand<T>: KommandProtocol {
                 }
             }
         }
+        return self
     }
 
     open func cancel() {
