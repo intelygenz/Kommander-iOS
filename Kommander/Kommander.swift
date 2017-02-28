@@ -78,9 +78,11 @@ open class Kommander {
         let blocks = kommands.map { kommand -> () -> Void in
             return {
                 do {
-                    let result = try kommand.actionBlock()
-                    _ = self.deliverer.execute {
-                        kommand.successBlock?(result)
+                    if let actionBlock = kommand.actionBlock {
+                        let result = try actionBlock()
+                        _ = self.deliverer.execute {
+                            kommand.successBlock?(result)
+                        }
                     }
                 } catch {
                     _ = self.deliverer.execute {

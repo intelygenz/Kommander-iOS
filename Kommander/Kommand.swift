@@ -23,7 +23,7 @@ open class Kommand<T> {
     /// Executor
     private final let executor: Dispatcher
     /// Action block
-    internal final let actionBlock: ActionBlock
+    private(set) internal final var actionBlock: ActionBlock?
     /// Success block
     private(set) internal final var successBlock: SuccessBlock?
     /// Error block
@@ -54,9 +54,11 @@ open class Kommand<T> {
     open func execute() -> Self {
         action = executor.execute {
             do {
-                let result = try self.actionBlock()
-                _ = self.deliverer.execute {
-                    self.successBlock?(result)
+                if let actionBlock = self.actionBlock {
+                    let result = try actionBlock()
+                    _ = self.deliverer.execute {
+                        self.successBlock?(result)
+                    }
                 }
             } catch {
                 _ = self.deliverer.execute {
@@ -68,13 +70,19 @@ open class Kommand<T> {
     }
 
     /// Cancel Kommand<T>
-    open func cancel() {
+    open func cancel(_ throwingError: Bool = false) {
         if let operation = action as? Operation, operation.isExecuting {
             operation.cancel()
         }
         else if let work = action as? DispatchWorkItem, !work.isCancelled {
             work.cancel()
         }
+        if throwingError {
+            errorBlock?(CocoaError(.userCancelled))
+        }
+        successBlock = nil
+        errorBlock = nil
+        actionBlock = nil
     }
 
 }
