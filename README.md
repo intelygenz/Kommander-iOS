@@ -69,9 +69,37 @@ dependencies: [
 ## Usage
 
 ```swift
-Kommander().makeKommand { () -> Void in
+_ = Kommander().makeKommand { () -> Void in
     // Your code here
 }.execute()
+```
+
+```swift
+_ = Kommander().makeKommand { () -> String in
+    return "Your string"
+}.onSuccess { yourString in
+    print(yourString)
+}.execute()
+```
+
+```swift
+_ = Kommander().makeKommand { () -> Void in
+    throw CocoaError(.featureUnsupported)
+}.onError({ error in
+    print(String(describing: error!))
+}).execute()
+```
+
+```swift
+let kommand = Kommander().makeKommand { () -> Any in
+    // Your code here
+}.onSuccess { result in
+    // Your success handling here
+}.onError({ error in
+    // Your error handling here
+}).execute()
+
+kommand.cancel()
 ```
 
 ## Etc.

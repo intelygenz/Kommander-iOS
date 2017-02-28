@@ -10,6 +10,7 @@ import Foundation
 
 open class CurrentDispatcher: MainDispatcher {
 
+    /// Dispatcher instance with current OperationQueue
     public override init() {
         super.init()
         if let currentOperationQueue = OperationQueue.current {

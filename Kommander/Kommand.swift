@@ -10,33 +10,46 @@ import Foundation
 
 open class Kommand<T> {
 
-    public typealias ActionBlock = () throws -> T?
-    public typealias SuccessBlock = (_ result: T?) -> Void
+    /// Action block type
+    public typealias ActionBlock = () throws -> T
+    /// Success block type
+    public typealias SuccessBlock = (_ result: T) -> Void
+    /// Error block type
     public typealias ErrorBlock = (_ error: Error?) -> Void
 
+    /// Deliverer
     private final let deliverer: Dispatcher
+    /// Executor
     private final let executor: Dispatcher
+    /// Action block
     internal final let actionBlock: ActionBlock
+    /// Success block
     private(set) internal final var successBlock: SuccessBlock?
+    /// Error block
     private(set) internal final var errorBlock: ErrorBlock?
+    /// Action to cancel
     internal final var action: Any?
 
+    /// Kommand<T> instance with your deliverer, your executor and your actionBlock returning generic and throwing errors
     public init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: @escaping ActionBlock) {
         self.deliverer = deliverer
         self.executor = executor
         self.actionBlock = actionBlock
     }
 
+    /// Specify Kommand<T> success block
     open func onSuccess(_ onSuccess: @escaping SuccessBlock) -> Self {
         self.successBlock = onSuccess
         return self
     }
 
+    /// Specify Kommand<T> error block
     open func onError(_ onError: @escaping ErrorBlock) -> Self {
         self.errorBlock = onError
         return self
     }
 
+    /// Execute Kommand<T>
     open func execute() -> Self {
         action = executor.execute {
             do {
@@ -53,6 +66,7 @@ open class Kommand<T> {
         return self
     }
 
+    /// Cancel Kommand<T>
     open func cancel() {
         if let operation = action as? Operation, operation.isExecuting {
             operation.cancel()
