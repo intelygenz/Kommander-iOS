@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Current queue dispatcher
 open class CurrentDispatcher: MainDispatcher {
 
     /// Dispatcher instance with current OperationQueue

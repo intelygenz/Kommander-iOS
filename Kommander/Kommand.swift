@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Generic Kommand
 open class Kommand<T> {
 
     /// Action block type

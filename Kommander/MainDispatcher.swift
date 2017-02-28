@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Main queue dispatcher
 open class MainDispatcher: Dispatcher {
 
     /// Dispatcher instance with main OperationQueue

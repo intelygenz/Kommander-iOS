@@ -16,6 +16,7 @@ private enum Priority {
     case dispatch
 }
 
+/// Dispatcher
 open class Dispatcher {
 
     /// Dispatcher operation queue

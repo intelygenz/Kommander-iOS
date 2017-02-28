@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Kommander manager
 open class Kommander {
 
     /// Deliverer
