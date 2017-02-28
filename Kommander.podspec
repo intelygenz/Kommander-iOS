@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Kommander'
-  s.version          = '0.2.3'
+  s.version          = '0.2.4'
   s.summary          = 'A command pattern implementation written in Swift 3'
 
   s.homepage         = 'https://github.com/intelygenz/Kommander-iOS'
