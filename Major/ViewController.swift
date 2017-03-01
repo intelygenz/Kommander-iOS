@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     let sleepTime: UInt32 = 2
 
     @IBAction func singleAction(_ sender: UIButton) {
-        _ = kommander.makeKommand { () -> Double in
+        _ = kommander.makeKommand { c -> Double in
             sleep(self.sleepTime)
             return Date().timeIntervalSince1970
         }.onSuccess { result in
@@ -24,15 +24,15 @@ class ViewController: UIViewController {
     }
 
     @IBAction func concurrentAction(_ sender: UIButton) {
-        kommander.execute(kommander.makeKommands([{ () -> Any? in
+        kommander.execute(kommander.makeKommands([{ c -> Any? in
             sleep(self.sleepTime)
             print("Concurrent first: " + String(describing: Date().timeIntervalSince1970))
             return nil
-        }, { () -> Any? in
+        }, { c -> Any? in
             sleep(self.sleepTime)
             print("Concurrent second: " + String(describing: Date().timeIntervalSince1970))
             return nil
-        }, { () -> Any? in
+        }, { c -> Any? in
             sleep(self.sleepTime)
             print("Concurrent third: " + String(describing: Date().timeIntervalSince1970))
             return nil
@@ -40,15 +40,15 @@ class ViewController: UIViewController {
     }
 
     @IBAction func sequentialAction(_ sender: UIButton) {
-        kommander.execute(kommander.makeKommands([{ () -> Any? in
+        kommander.execute(kommander.makeKommands([{ c -> Any? in
             sleep(self.sleepTime)
             print("Sequential first: " + String(describing: Date().timeIntervalSince1970))
             return nil
-        }, { () -> Any? in
+        }, { c -> Any? in
             sleep(self.sleepTime)
             print("Sequential second: " + String(describing: Date().timeIntervalSince1970))
             return nil
-        }, { () -> Any? in
+        }, { c -> Any? in
             sleep(self.sleepTime)
             print("Sequential third: " + String(describing: Date().timeIntervalSince1970))
             return nil
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func errorAction(_ sender: UIButton) {
-        _ = kommander.makeKommand { () -> Void in
+        _ = kommander.makeKommand { c -> Void in
             sleep(self.sleepTime)
             throw CocoaError(.featureUnsupported)
         }.onError { error in
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func crashAction(_ sender: UIButton) {
-        _ = kommander.makeKommand { () -> Void in
+        _ = kommander.makeKommand { c -> Void in
             sleep(self.sleepTime)
             fatalError()
         }.execute()

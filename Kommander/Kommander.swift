@@ -59,27 +59,27 @@ open class Kommander {
         executor = Dispatcher(label: name, qos: qos, attributes: attributes, autoreleaseFrequency: autoreleaseFrequency, target: target)
     }
 
-    /// Build Kommand<T> instance with an actionBlock returning generic and throwing errors
-    open func makeKommand<T>(_ actionBlock: @escaping () throws -> T) -> Kommand<T> {
-        return Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock)
+    /// Build Kommand<Result> instance with an actionBlock returning generic and throwing errors
+    open func makeKommand<Result>(_ actionBlock: @escaping (_ cancelAid: inout Any?) throws -> Result) -> Kommand<Result> {
+        return Kommand<Result>(deliverer: deliverer, executor: executor, actionBlock: actionBlock)
     }
 
-    /// Build [Kommand<T>] instances collection with actionBlocks returning generic and throwing errors
-    open func makeKommands<T>(_ actionBlocks: [() throws -> T]) -> [Kommand<T>] {
-        var kommands = [Kommand<T>]()
+    /// Build [Kommand<Result>] instances collection with actionBlocks returning generic and throwing errors
+    open func makeKommands<Result>(_ actionBlocks: [(_ cancelAid: inout Any?) throws -> Result]) -> [Kommand<Result>] {
+        var kommands = [Kommand<Result>]()
         for actionBlock in actionBlocks {
-            kommands.append(Kommand<T>(deliverer: deliverer, executor: executor, actionBlock: actionBlock))
+            kommands.append(Kommand<Result>(deliverer: deliverer, executor: executor, actionBlock: actionBlock))
         }
         return kommands
     }
 
-    /// Execute [Kommand<T>] instances collection concurrently or sequentially
-    open func execute<T>(_ kommands: [Kommand<T>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
+    /// Execute [Kommand<Result>] instances collection concurrently or sequentially
+    open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
         let blocks = kommands.map { kommand -> () -> Void in
             return {
                 do {
                     if let actionBlock = kommand.actionBlock {
-                        let result = try actionBlock()
+                        let result = try actionBlock(&kommand.cancelAid)
                         _ = self.deliverer.execute {
                             kommand.successBlock?(result)
                         }
@@ -97,10 +97,10 @@ open class Kommander {
         }
     }
 
-    /// Cancel [Kommand<T>] instances collection
-    open func cancel<T>(_ kommands: [Kommand<T>]) {
+    /// Cancel [Kommand<Result>] instances collection
+    open func cancel<Result>(_ kommands: [Kommand<Result>], throwingError: Bool = false) {
         for kommand in kommands {
-            kommand.cancel()
+            kommand.cancel(throwingError)
         }
     }
 
