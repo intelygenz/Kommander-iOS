@@ -5,6 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/Kommander.svg?style=flat)](http://cocoapods.org/pods/Kommander)
 [![Platform](https://img.shields.io/cocoapods/p/Kommander.svg?style=flat)](http://cocoapods.org/pods/Kommander)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Docs](https://img.shields.io/badge/docs-here-green.svg?style=flat)](http://cocoadocs.org/docsets/Kommander)
 
 
 **Kommander** is a Swift library to manage the task execution in different threads. Through the definition a simple but powerful concept, [**Kommand**](https://en.wikipedia.org/wiki/Command_pattern).
@@ -28,6 +29,7 @@ Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommande
 - [x] Execute single or multiple Operation
 - [x] Execute sequential or concurrent blocks
 - [x] Execute DispatchWorkItem
+- [x] Kommand state
 - [x] Swift 2 version
 - [x] Objective-C version
 

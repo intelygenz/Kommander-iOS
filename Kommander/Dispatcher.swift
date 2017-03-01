@@ -20,9 +20,9 @@ private enum Priority {
 open class Dispatcher {
 
     /// Dispatcher operation queue
-    internal final var operationQueue = OperationQueue()
+    final var operationQueue = OperationQueue()
     /// Dispatcher dispatch queue
-    internal final var dispatchQueue = DispatchQueue(label: UUID().uuidString)
+    final var dispatchQueue = DispatchQueue(label: UUID().uuidString)
     /// Dispatcher queue priority
     private final var priority = Priority.operation
 

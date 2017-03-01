@@ -60,12 +60,12 @@ open class Kommander {
     }
 
     /// Build Kommand<Result> instance with an actionBlock returning generic and throwing errors
-    open func makeKommand<Result>(_ actionBlock: @escaping (_ cancelAid: inout Any?) throws -> Result) -> Kommand<Result> {
+    open func makeKommand<Result>(_ actionBlock: @escaping () throws -> Result) -> Kommand<Result> {
         return Kommand<Result>(deliverer: deliverer, executor: executor, actionBlock: actionBlock)
     }
 
     /// Build [Kommand<Result>] instances collection with actionBlocks returning generic and throwing errors
-    open func makeKommands<Result>(_ actionBlocks: [(_ cancelAid: inout Any?) throws -> Result]) -> [Kommand<Result>] {
+    open func makeKommands<Result>(_ actionBlocks: [() throws -> Result]) -> [Kommand<Result>] {
         var kommands = [Kommand<Result>]()
         for actionBlock in actionBlocks {
             kommands.append(Kommand<Result>(deliverer: deliverer, executor: executor, actionBlock: actionBlock))
@@ -77,15 +77,27 @@ open class Kommander {
     open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
         let blocks = kommands.map { kommand -> () -> Void in
             return {
+                guard kommand.state == .ready else {
+                    return
+                }
                 do {
                     if let actionBlock = kommand.actionBlock {
-                        let result = try actionBlock(&kommand.cancelAid)
+                        kommand.state = .running
+                        let result = try actionBlock()
+                        guard kommand.state == .running else {
+                            return
+                        }
                         _ = self.deliverer.execute {
+                            kommand.state = .finished
                             kommand.successBlock?(result)
                         }
                     }
                 } catch {
+                    guard kommand.state == .running else {
+                        return
+                    }
                     _ = self.deliverer.execute {
+                        kommand.state = .finished
                         kommand.errorBlock?(error)
                     }
                 }

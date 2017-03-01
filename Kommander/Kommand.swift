@@ -8,43 +8,51 @@
 
 import Foundation
 
+/// Kommand<Result> state
+public enum State {
+    /// Uninitialized state
+    case uninitialized
+    /// Ready state
+    case ready
+    /// Executing state
+    case running
+    /// Finished state
+    case finished
+    /// Cancelled state
+    case canceled
+}
+
 /// Generic Kommand
 open class Kommand<Result> {
 
     /// Action block type
-    public typealias ActionBlock = (_ cancelAid: inout Any?) throws -> Result
+    public typealias ActionBlock = () throws -> Result
     /// Success block type
     public typealias SuccessBlock = (_ result: Result) -> Void
     /// Error block type
     public typealias ErrorBlock = (_ error: Error?) -> Void
-    /// Cancel block type
-    public typealias CancelBlock = (_ cancelAid: Any?) -> Void
 
-    open var isExecuting = false
-    open var isCancelled = false
+    internal(set) public final var state = State.uninitialized
 
     /// Deliverer
-    private final let deliverer: Dispatcher
+    private final var deliverer: Dispatcher?
     /// Executor
-    private final let executor: Dispatcher
+    private final var executor: Dispatcher?
     /// Action block
-    private(set) internal final var actionBlock: ActionBlock?
+    private(set) final var actionBlock: ActionBlock?
     /// Success block
-    private(set) internal final var successBlock: SuccessBlock?
+    private(set) final var successBlock: SuccessBlock?
     /// Error block
-    private(set) internal final var errorBlock: ErrorBlock?
-    /// Cancel block
-    private(set) internal final var cancelBlock: CancelBlock?
+    private(set) final var errorBlock: ErrorBlock?
     /// Action to cancel
-    internal final var action: Any?
-    /// Cancel aid object
-    internal final var cancelAid: Any? = nil
+    final var action: Any?
 
     /// Kommand<Result> instance with your deliverer, your executor and your actionBlock returning generic and throwing errors
     public init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: @escaping ActionBlock) {
         self.deliverer = deliverer
         self.executor = executor
         self.actionBlock = actionBlock
+        state = .ready
     }
 
     /// Specify Kommand<Result> success block
@@ -59,28 +67,31 @@ open class Kommand<Result> {
         return self
     }
 
-    /// Specify Kommand<Result> error block
-    open func onCancel(_ onCancel: @escaping CancelBlock) -> Self {
-        self.cancelBlock = onCancel
-        return self
-    }
-
     /// Execute Kommand<Result>
     open func execute() -> Self {
-        action = executor.execute {
+        guard state == .ready else {
+            return self
+        }
+        action = executor?.execute {
             do {
-                self.isExecuting = true
                 if let actionBlock = self.actionBlock {
-                    let result = try actionBlock(&self.cancelAid)
-                    _ = self.deliverer.execute {
+                    self.state = .running
+                    let result = try actionBlock()
+                    guard self.state == .running else {
+                        return
+                    }
+                    _ = self.deliverer?.execute {
+                        self.state = .finished
                         self.successBlock?(result)
-                        self.isExecuting = false
                     }
                 }
             } catch {
-                _ = self.deliverer.execute {
+                guard self.state == .running else {
+                    return
+                }
+                _ = self.deliverer?.execute {
+                    self.state = .finished
                     self.errorBlock?(error)
-                    self.isExecuting = false
                 }
             }
         }
@@ -89,10 +100,16 @@ open class Kommand<Result> {
 
     /// Cancel Kommand<Result>
     open func cancel(_ throwingError: Bool = false) {
-        _ = self.deliverer.execute {
-            self.cancelBlock?(self.cancelAid)
+        guard state != .canceled else {
+            return
         }
-        cancelAid = nil
+        _ = self.deliverer?.execute {
+            if throwingError {
+                self.errorBlock?(CocoaError(.userCancelled))
+            }
+            self.errorBlock = nil
+            self.deliverer = nil
+        }
         if let operation = action as? Operation, operation.isExecuting {
             operation.cancel()
         }
@@ -100,14 +117,10 @@ open class Kommand<Result> {
             work.cancel()
         }
         action = nil
-        isCancelled = true
-        if throwingError {
-            errorBlock?(CocoaError(.userCancelled))
-        }
+        executor = nil
         successBlock = nil
-        errorBlock = nil
-        cancelBlock = nil
         actionBlock = nil
+        state = .canceled
     }
 
 }
