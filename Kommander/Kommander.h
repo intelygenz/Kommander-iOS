@@ -13,7 +13,3 @@ FOUNDATION_EXPORT double KommanderVersionNumber;
 
 //! Project version string for Kommander.
 FOUNDATION_EXPORT const unsigned char KommanderVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <Kommander/PublicHeader.h>
-
-
