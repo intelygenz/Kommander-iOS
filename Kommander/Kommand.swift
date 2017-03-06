@@ -32,6 +32,7 @@ open class Kommand<Result> {
     /// Error block type
     public typealias ErrorBlock = (_ error: Error?) -> Void
 
+    /// Kommand<Result> state
     internal(set) public final var state = State.uninitialized
 
     /// Deliverer
