@@ -9,6 +9,7 @@
 import XCTest
 import Kommander
 
+@available(iOSApplicationExtension 9.0, *)
 class MajorUITests: XCTestCase {
 
     let application = XCUIApplication()
