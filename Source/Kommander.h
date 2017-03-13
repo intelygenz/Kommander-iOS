@@ -6,7 +6,7 @@
 //  Copyright © 2017 Intelygenz. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 //! Project version number for Kommander.
 FOUNDATION_EXPORT double KommanderVersionNumber;

@@ -31,6 +31,8 @@ Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommande
 - [x] Execute sequential or concurrent blocks
 - [x] Execute DispatchWorkItem
 - [x] Kommand state
+- [x] watchOS compatible
+- [x] tvOS compatible
 - [x] Swift 2 version
 - [x] Objective-C version
 
