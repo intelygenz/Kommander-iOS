@@ -25,6 +25,7 @@
 		819D15691E76AF7D00BB1F07 /* CurrentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAED1E768EAE00EF01D8 /* CurrentDispatcher.swift */; };
 		819D156A1E76AF7D00BB1F07 /* Kommander.h in Headers */ = {isa = PBXBuildFile; fileRef = 81DBBAF31E768EAE00EF01D8 /* Kommander.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		819D156B1E76CCBB00BB1F07 /* Kommander.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DBBAD71E768DB300EF01D8 /* Kommander.framework */; };
+		819D156D1E76E02600BB1F07 /* DispatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819D156C1E76E02600BB1F07 /* DispatcherTests.swift */; };
 		81DBBAF61E768EAE00EF01D8 /* CurrentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAED1E768EAE00EF01D8 /* CurrentDispatcher.swift */; };
 		81DBBAF71E768EAE00EF01D8 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAEE1E768EAE00EF01D8 /* Dispatcher.swift */; };
 		81DBBAFB1E768EAE00EF01D8 /* Kommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAF21E768EAE00EF01D8 /* Kommand.swift */; };
@@ -164,6 +165,7 @@
 		81925CD51E3A0FFC001701F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		819D15561E769B1B00BB1F07 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		819D155D1E76AEFB00BB1F07 /* Kommander.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kommander.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		819D156C1E76E02600BB1F07 /* DispatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatcherTests.swift; sourceTree = "<group>"; };
 		81DBBAD71E768DB300EF01D8 /* Kommander.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kommander.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81DBBAE41E768DE100EF01D8 /* Kommander.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Kommander.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81DBBAED1E768EAE00EF01D8 /* CurrentDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentDispatcher.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				81925CD31E3A0FFC001701F3 /* KommanderTests.swift */,
+				819D156C1E76E02600BB1F07 /* DispatcherTests.swift */,
 				81925CD51E3A0FFC001701F3 /* Info.plist */,
 			);
 			path = KommanderTests;
@@ -756,6 +759,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				819D156D1E76E02600BB1F07 /* DispatcherTests.swift in Sources */,
 				81925CD41E3A0FFC001701F3 /* KommanderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
