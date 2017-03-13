@@ -24,6 +24,7 @@
 		819D15681E76AF7D00BB1F07 /* MainDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAF51E768EAE00EF01D8 /* MainDispatcher.swift */; };
 		819D15691E76AF7D00BB1F07 /* CurrentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAED1E768EAE00EF01D8 /* CurrentDispatcher.swift */; };
 		819D156A1E76AF7D00BB1F07 /* Kommander.h in Headers */ = {isa = PBXBuildFile; fileRef = 81DBBAF31E768EAE00EF01D8 /* Kommander.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		819D156B1E76CCBB00BB1F07 /* Kommander.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DBBAD71E768DB300EF01D8 /* Kommander.framework */; };
 		81DBBAF61E768EAE00EF01D8 /* CurrentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAED1E768EAE00EF01D8 /* CurrentDispatcher.swift */; };
 		81DBBAF71E768EAE00EF01D8 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAEE1E768EAE00EF01D8 /* Dispatcher.swift */; };
 		81DBBAFB1E768EAE00EF01D8 /* Kommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAF21E768EAE00EF01D8 /* Kommand.swift */; };
@@ -244,6 +245,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				819D156B1E76CCBB00BB1F07 /* Kommander.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1306,6 +1308,7 @@
 				819D15641E76AEFB00BB1F07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		81DBBADE1E768DB300EF01D8 /* Build configuration list for PBXNativeTarget "Kommander watchOS" */ = {
 			isa = XCConfigurationList;
