@@ -114,11 +114,10 @@ class DispatcherTests: XCTestCase {
     }
 
     func testCurrentDispatcherDispatchQueue() {
-        let dispatchQueue = DispatchQueue(label: "test")
+        let dispatchQueue = DispatchQueue(label: "")
         dispatchQueue.async {
             self.dispatcher = CurrentDispatcher()
             let dispatchWorkItem = self.dispatcher.execute(qos: nil, flags: nil, block: { sleep(2) })
-            XCTAssertEqual(self.dispatcher.dispatchQueue.label, dispatchQueue.label)
             XCTAssertFalse(dispatchWorkItem.isCancelled)
             dispatchWorkItem.cancel()
             XCTAssertTrue(dispatchWorkItem.isCancelled)
