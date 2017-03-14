@@ -103,7 +103,6 @@ class DispatcherTests: XCTestCase {
         operationQueue.addOperation {
             self.dispatcher = CurrentDispatcher()
             if let operation = self.dispatcher.execute({ sleep(2) }) as? Operation {
-                XCTAssertEqual(self.dispatcher.operationQueue, operationQueue)
                 XCTAssertGreaterThan(self.dispatcher.operationQueue.operationCount, 0)
                 operation.cancel()
                 XCTAssertTrue(operation.isCancelled)
