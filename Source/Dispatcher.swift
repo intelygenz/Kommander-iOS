@@ -68,25 +68,17 @@ open class Dispatcher {
 
     /// Execute [block] collection in priority queue (if possible) concurrently or sequentially
     open func execute(_ blocks: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Any] {
-        var actions = [Any]()
-        if concurrent {
-            for block in blocks {
-                actions.append(execute(block))
+        var lastOperation: Operation?
+        let operations = blocks.map { block -> Operation in
+            let blockOperation = BlockOperation(block: block)
+            if let lastOperation = lastOperation, !concurrent {
+                blockOperation.addDependency(lastOperation)
             }
+            lastOperation = blockOperation
+            return blockOperation
         }
-        else {
-            for block in blocks {
-                let blockOperation = BlockOperation(block: block)
-                if let lastOperation = actions.last as? Operation {
-                    blockOperation.addDependency(lastOperation)
-                }
-                actions.append(blockOperation)
-            }
-            if let operations = actions as? [Operation] {
-                execute(operations, waitUntilFinished: waitUntilFinished)
-            }
-        }
-        return actions
+        execute(operations, waitUntilFinished: waitUntilFinished)
+        return operations
     }
 
     /// Execute block in DispatchQueue using custom DispatchWorkItem instance

@@ -76,7 +76,7 @@ open class Kommander {
     /// Execute [Kommand<Result>] instances collection concurrently or sequentially
     open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
         let blocks = kommands.map { kommand -> () -> Void in
-            return {
+            {
                 guard kommand.state == .ready else {
                     return
                 }
@@ -105,7 +105,11 @@ open class Kommander {
         }
         let actions = executor.execute(blocks, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
         for (index, kommand) in kommands.enumerated() {
-            kommand.action = actions[index]
+            if let operationAction = actions[index] as? Operation {
+                kommand.operation = operationAction
+            } else if let workAction = actions[index] as? DispatchWorkItem {
+                kommand.work = workAction
+            }
         }
     }
 

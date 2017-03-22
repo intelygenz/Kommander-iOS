@@ -36,17 +36,19 @@ open class Kommand<Result> {
     internal(set) public final var state = State.uninitialized
 
     /// Deliverer
-    private final var deliverer: Dispatcher?
+    private final weak var deliverer: Dispatcher?
     /// Executor
-    private final var executor: Dispatcher?
+    private final weak var executor: Dispatcher?
     /// Action block
     private(set) final var actionBlock: ActionBlock?
     /// Success block
     private(set) final var successBlock: SuccessBlock?
     /// Error block
     private(set) final var errorBlock: ErrorBlock?
-    /// Action to cancel
-    final var action: Any?
+    /// Operation to cancel
+    final weak var operation: Operation?
+    /// Work to cancel
+    final weak var work: DispatchWorkItem?
 
     /// Kommand<Result> instance with your deliverer, your executor and your actionBlock returning generic and throwing errors
     public init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: @escaping ActionBlock) {
@@ -54,6 +56,17 @@ open class Kommand<Result> {
         self.executor = executor
         self.actionBlock = actionBlock
         state = .ready
+    }
+
+    /// Release all resources
+    deinit {
+        operation = nil
+        work = nil
+        deliverer = nil
+        executor = nil
+        actionBlock = nil
+        successBlock = nil
+        errorBlock = nil
     }
 
     /// Specify Kommand<Result> success block
@@ -73,7 +86,7 @@ open class Kommand<Result> {
         guard state == .ready else {
             return self
         }
-        action = executor?.execute {
+        let action = executor?.execute {
             do {
                 if let actionBlock = self.actionBlock {
                     self.state = .running
@@ -96,6 +109,12 @@ open class Kommand<Result> {
                 }
             }
         }
+        if let operationAction = action as? Operation {
+            operation = operationAction
+        } else if let workAction = action as? DispatchWorkItem {
+            work = workAction
+        }
+
         return self
     }
 
@@ -111,13 +130,14 @@ open class Kommand<Result> {
             self.errorBlock = nil
             self.deliverer = nil
         }
-        if let operation = action as? Operation, operation.isExecuting {
+        if let operation = operation, operation.isExecuting {
             operation.cancel()
         }
-        else if let work = action as? DispatchWorkItem, !work.isCancelled {
+        else if let work = work, !work.isCancelled {
             work.cancel()
         }
-        action = nil
+        operation = nil
+        work = nil
         executor = nil
         successBlock = nil
         actionBlock = nil
