@@ -13,13 +13,13 @@ open class MainDispatcher: Dispatcher {
 
     /// Dispatcher instance with main OperationQueue
     public init() {
-        super.init(name: nil, qos: nil, maxConcurrentOperationCount: OperationQueue.defaultMaxConcurrentOperationCount)
+        super.init(name: nil, qos: nil)
         operationQueue = OperationQueue.main
         dispatchQueue = DispatchQueue.main
     }
 
     /// - Warning: You can't use this initializer!
-    private override convenience init(name: String?, qos: QualityOfService?, maxConcurrentOperationCount: Int) {
+    private override convenience init(name: String?, qos: QualityOfService?, maxConcurrentOperationCount: Int? = nil) {
         self.init()
         assertionFailure("You can't use this initializer for a \(String(describing: type(of: self))).")
     }

@@ -16,6 +16,21 @@ open class Kommander {
     /// Executor
     private final let executor: Dispatcher
 
+    /// Kommander instance with CurrentDispatcher deliverer and MainDispatcher executor
+    open static var main: Kommander { return Kommander(executor: Dispatcher.main) }
+    /// Kommander instance with CurrentDispatcher deliverer and CurrentDispatcher executor
+    open static var current: Kommander { return Kommander(executor: Dispatcher.current) }
+    /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with default quality of service
+    open static var `default`: Kommander { return Kommander(executor: Dispatcher.default) }
+    /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with user interactive quality of service
+    open static var userInteractive: Kommander { return Kommander(executor: Dispatcher.userInteractive) }
+    /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with user initiated quality of service
+    open static var userInitiated: Kommander { return Kommander(executor: Dispatcher.userInitiated) }
+    /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with utility quality of service
+    open static var utility: Kommander { return Kommander(executor: Dispatcher.utility) }
+    /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with background quality of service
+    open static var background: Kommander { return Kommander(executor: Dispatcher.background) }
+
     /// Kommander instance with CurrentDispatcher deliverer and default Dispatcher executor
     public convenience init() {
         self.init(deliverer: nil, executor: nil)
@@ -73,6 +88,13 @@ open class Kommander {
         return kommands
     }
 
+    /// Execute [Kommand<Result>] instances collection concurrently or sequentially after delay
+    open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false, after delay: TimeInterval) {
+        executor.execute(after: delay) { 
+            self.execute(kommands, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
+        }
+    }
+
     /// Execute [Kommand<Result>] instances collection concurrently or sequentially
     open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
         let blocks = kommands.map { kommand -> () -> Void in
@@ -110,6 +132,13 @@ open class Kommander {
             } else if let workAction = actions[index] as? DispatchWorkItem {
                 kommand.work = workAction
             }
+        }
+    }
+
+    /// Cancel [Kommand<Result>] instances collection after delay
+    open func cancel<Result>(_ kommands: [Kommand<Result>], throwingError: Bool = false, after delay: TimeInterval) {
+        executor.execute(after: delay) {
+            self.cancel(kommands, throwingError: throwingError)
         }
     }
 

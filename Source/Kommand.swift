@@ -81,6 +81,15 @@ open class Kommand<Result> {
         return self
     }
 
+    /// Execute Kommand<Result> after delay
+    open func execute(after delay: TimeInterval) -> Self {
+        executor?.execute(after: delay, block: { 
+            _ = self.execute()
+        })
+
+        return self
+    }
+
     /// Execute Kommand<Result>
     open func execute() -> Self {
         guard state == .ready else {
@@ -118,6 +127,13 @@ open class Kommand<Result> {
         return self
     }
 
+    /// Cancel Kommand<Result> after delay
+    open func cancel(_ throwingError: Bool = false, after delay: TimeInterval) {
+        executor?.execute(after: delay, block: {
+            _ = self.cancel(throwingError)
+        })
+    }
+
     /// Cancel Kommand<Result>
     open func cancel(_ throwingError: Bool = false) {
         guard state != .canceled else {
@@ -130,7 +146,7 @@ open class Kommand<Result> {
             self.errorBlock = nil
             self.deliverer = nil
         }
-        if let operation = operation, operation.isExecuting {
+        if let operation = operation, !operation.isFinished {
             operation.cancel()
         }
         else if let work = work, !work.isCancelled {
