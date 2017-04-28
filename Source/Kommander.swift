@@ -109,7 +109,7 @@ open class Kommander {
                         guard kommand.state == .running else {
                             return
                         }
-                        _ = self.deliverer.execute {
+                        self.deliverer.execute {
                             kommand.state = .finished
                             kommand.successBlock?(result)
                         }
@@ -118,7 +118,7 @@ open class Kommander {
                     guard kommand.state == .running else {
                         return
                     }
-                    _ = self.deliverer.execute {
+                    self.deliverer.execute {
                         kommand.state = .finished
                         kommand.errorBlock?(error)
                     }

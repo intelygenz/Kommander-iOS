@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Kommander'
-  s.version          = '0.6.0'
+  s.version          = '0.6.1'
   s.summary          = 'A command pattern implementation written in Swift 3'
 
   s.homepage         = 'https://github.com/intelygenz/Kommander-iOS'
@@ -16,4 +16,3 @@ Pod::Spec.new do |s|
 
   s.source_files     ="Source/*.{h,swift}"
 end
-

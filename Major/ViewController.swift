@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     let sleepTime: UInt32 = 2
 
     @IBAction func singleAction(_ sender: UIButton) {
-        _ = kommander.makeKommand { () -> TimeInterval in 
+        kommander.makeKommand { () -> TimeInterval in
             sleep(self.sleepTime)
             return Date().timeIntervalSince1970
         }.onSuccess { result in
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func errorAction(_ sender: UIButton) {
-        _ = kommander.makeKommand {
+        kommander.makeKommand {
             sleep(self.sleepTime)
             throw CocoaError(.featureUnsupported)
         }.onError { error in
@@ -65,7 +65,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func crashAction(_ sender: UIButton) {
-        _ = kommander.makeKommand {
+        kommander.makeKommand {
             sleep(self.sleepTime)
             fatalError()
         }.execute()

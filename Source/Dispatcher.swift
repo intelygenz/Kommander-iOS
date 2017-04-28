@@ -70,7 +70,7 @@ open class Dispatcher {
     }
 
     /// Execute block in priority queue
-    open func execute(_ block: @escaping () -> Void) -> Any {
+    @discardableResult open func execute(_ block: @escaping () -> Void) -> Any {
         if priority == .dispatch {
             return execute(qos: nil, flags: nil, block: block)
         }
@@ -82,7 +82,7 @@ open class Dispatcher {
     }
 
     /// Execute [block] collection in priority queue (if possible) concurrently or sequentially
-    open func execute(_ blocks: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Any] {
+    @discardableResult open func execute(_ blocks: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Any] {
         var lastOperation: Operation?
         let operations = blocks.map { block -> Operation in
             let blockOperation = BlockOperation(block: block)
@@ -112,7 +112,7 @@ open class Dispatcher {
     }
 
     /// Execute block in DispatchQueue using custom DispatchWorkItem instance
-    open func execute(qos: DispatchQoS?, flags: DispatchWorkItemFlags?, block: @escaping @convention(block) () -> ()) -> DispatchWorkItem {
+    @discardableResult open func execute(qos: DispatchQoS?, flags: DispatchWorkItemFlags?, block: @escaping @convention(block) () -> ()) -> DispatchWorkItem {
         let work = DispatchWorkItem(qos: qos ?? .default, flags: flags ?? .assignCurrentContext, block: block)
         execute(work)
         return work

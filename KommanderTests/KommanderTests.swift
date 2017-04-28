@@ -26,7 +26,7 @@ class KommanderTests: XCTestCase {
 
         let ex = expectation(description: String(describing: type(of: self)))
 
-        _ = interactor.getCounter(name: "C1", to: 3)
+        interactor.getCounter(name: "C1", to: 3)
             .onSuccess({ (name) in
                 ex.fulfill()
             })
@@ -68,8 +68,8 @@ class KommanderTests: XCTestCase {
                 XCTFail()
             }).execute()
 
-        _ = k1.execute()
-        _ = k2.execute()
+        k1.execute()
+        k2.execute()
 
         waitForExpectations(timeout: 100, handler: nil)
     }
@@ -82,7 +82,7 @@ class KommanderTests: XCTestCase {
         let calls = Int(arc4random_uniform(10) + 1)
 
         for i in 0..<calls {
-            _ = interactor.getCounter(name: "C\(i)", to: 3)
+            interactor.getCounter(name: "C\(i)", to: 3)
                 .onSuccess({ (name) in
                     successes+=1
                     if successes>=calls {

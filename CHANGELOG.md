@@ -1,3 +1,7 @@
+# Release 0.6.1
+
+- [x] @discardableResult
+
 # Release 0.6.0
 
 - [x] Execute and cancel after delay

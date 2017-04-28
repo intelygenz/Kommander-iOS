@@ -70,28 +70,28 @@ open class Kommand<Result> {
     }
 
     /// Specify Kommand<Result> success block
-    open func onSuccess(_ onSuccess: @escaping SuccessBlock) -> Self {
+    @discardableResult open func onSuccess(_ onSuccess: @escaping SuccessBlock) -> Self {
         self.successBlock = onSuccess
         return self
     }
 
     /// Specify Kommand<Result> error block
-    open func onError(_ onError: @escaping ErrorBlock) -> Self {
+    @discardableResult open func onError(_ onError: @escaping ErrorBlock) -> Self {
         self.errorBlock = onError
         return self
     }
 
     /// Execute Kommand<Result> after delay
-    open func execute(after delay: TimeInterval) -> Self {
+    @discardableResult open func execute(after delay: TimeInterval) -> Self {
         executor?.execute(after: delay, block: { 
-            _ = self.execute()
+            self.execute()
         })
 
         return self
     }
 
     /// Execute Kommand<Result>
-    open func execute() -> Self {
+    @discardableResult open func execute() -> Self {
         guard state == .ready else {
             return self
         }
@@ -103,7 +103,7 @@ open class Kommand<Result> {
                     guard self.state == .running else {
                         return
                     }
-                    _ = self.deliverer?.execute {
+                    self.deliverer?.execute {
                         self.state = .finished
                         self.successBlock?(result)
                     }
@@ -112,7 +112,7 @@ open class Kommand<Result> {
                 guard self.state == .running else {
                     return
                 }
-                _ = self.deliverer?.execute {
+                self.deliverer?.execute {
                     self.state = .finished
                     self.errorBlock?(error)
                 }
@@ -130,7 +130,7 @@ open class Kommand<Result> {
     /// Cancel Kommand<Result> after delay
     open func cancel(_ throwingError: Bool = false, after delay: TimeInterval) {
         executor?.execute(after: delay, block: {
-            _ = self.cancel(throwingError)
+            self.cancel(throwingError)
         })
     }
 
@@ -139,7 +139,7 @@ open class Kommand<Result> {
         guard state != .canceled else {
             return
         }
-        _ = self.deliverer?.execute {
+        self.deliverer?.execute {
             if throwingError {
                 self.errorBlock?(CocoaError(.userCancelled))
             }

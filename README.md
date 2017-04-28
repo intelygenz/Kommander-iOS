@@ -74,13 +74,13 @@ dependencies: [
 ## Usage
 
 ```swift
-_ = Kommander().makeKommand {
+Kommander().makeKommand {
     // Your code here
 }.execute()
 ```
 
 ```swift
-_ = Kommander().makeKommand { () -> String in
+Kommander().makeKommand { () -> String in
     return "Your string"
 }.onSuccess { yourString in
     print(yourString)
@@ -88,7 +88,7 @@ _ = Kommander().makeKommand { () -> String in
 ```
 
 ```swift
-_ = Kommander().makeKommand {
+Kommander().makeKommand {
     throw CocoaError(.featureUnsupported)
 }.onError({ error in
     print(String(describing: error!))
