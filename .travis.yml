@@ -2,8 +2,11 @@ language: objective-c
 xcode_project: Kommander.xcodeproj
 xcode_scheme: Kommander
 
-osx_image: xcode8.2
-xcode_sdk: iphonesimulator10.2
+osx_image: xcode8.3
+xcode_sdk: iphonesimulator10.3
 
 script:
-- xcodebuild -project Kommander.xcodeproj -scheme Kommander -sdk iphonesimulator10.2 -destination "platform=iOS Simulator,name=iPhone 7,OS=10.1" -configuration Debug -enableCodeCoverage YES clean build test
+- xcodebuild -project Kommander.xcodeproj -scheme Kommander -sdk iphonesimulator10.3 -destination "platform=iOS Simulator,name=iPhone 7,OS=10.3" -configuration Debug -enableCodeCoverage YES clean build test
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
