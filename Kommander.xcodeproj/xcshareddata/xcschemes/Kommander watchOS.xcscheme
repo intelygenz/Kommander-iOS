@@ -29,7 +29,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "81925CCD1E3A0FFC001701F3"
+               BuildableName = "KommanderTests.xctest"
+               BlueprintName = "KommanderTests"
+               ReferencedContainer = "container:Kommander.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "81DBBAD61E768DB300EF01D8"
+            BuildableName = "Kommander.framework"
+            BlueprintName = "Kommander watchOS"
+            ReferencedContainer = "container:Kommander.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
