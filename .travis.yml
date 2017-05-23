@@ -1,9 +1,12 @@
 language: swift
-
 osx_image: xcode8.3
-
+env:
+  global:
+    secure: dxvfZPUJZpv9CLJKtLaIIVE9/aOigfEnq9RCO85n9L43Ej2fYayRRJ4s5EhfNRUMqqljk/6GMM3KJszGiM9jYLDgvkuewjtQDyrxgadprAR/21BzRU2BdeE7HbqffS1m112EuwjLmCx1Y8lFLo3s3b3XkOn1c466BnIvQ8IhDW3taOsMb7mT/f1ipD49CEMv+PStc6nLv+KNUgftdY2rn1DxFSNMWoGuTBk4rlcgxWaslmnoW0/o0RghLTA0/VTXwSxLyBb3AOdAFn0wVHavLWJQadPMvSPOBPpxXh4hnTjbZESfzW3aFCY/9QLMI2fzP+tgYRJcH1BMu8tGppR9lwAwTr2NRP8BbMt9/eArpBZ0IODCYdMqux2n6Z5omcWbikvIADoWDB7fBRz7WSGwamWfiumtIJhhJU2PYQK/aH8Jw3Ew/nDo5fPWgtAfdKrRRxaeNRsO4fLKgAeCzK0onsl6/ulDwN2pb2FE9Mw17q3/qoOOUBpOyAu79HILMR1sKEHVmI93cfzaf3uyN+lB8O1ld96sys3Tzq0vEnSRmhrqcOKjaWvqXQIvm6Nrqpw8j5ti6Wi2qI4pKzpc+PB89nlLFauc+6gErRr9w0QbT/RVNC3YGSBAm5PuKjWEfkx0wqetW/dya9RWdXsBegDvrX0wtOaPA0KabChhiFkVfKw=
 script:
-- xcodebuild -workspace Kommander.xcworkspace -scheme Major -destination "platform=iOS Simulator,name=iPhone 7,OS=10.3" -configuration Debug -enableCodeCoverage YES clean build test
-
+- xcodebuild -workspace Kommander.xcworkspace -scheme Major -destination "platform=iOS
+  Simulator,name=iPhone 7,OS=10.3" -configuration Debug -enableCodeCoverage YES clean
+  build test
 after_success:
 - bash <(curl -s https://codecov.io/bash) -J 'Major'
+- sh Scripts/gnscharts.sh Kommander-iOS IG27 none Testing
