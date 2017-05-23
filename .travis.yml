@@ -9,4 +9,4 @@ script:
   build test
 after_success:
 - bash <(curl -s https://codecov.io/bash) -J 'Major'
-- sh Scripts/gnscharts.sh Kommander-iOS IG27 none Testing
+- sh Scripts/gnscharts.sh Kommander Major IG27 none Testing
