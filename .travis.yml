@@ -5,5 +5,5 @@ script:
   Simulator,name=iPhone 7,OS=10.3" -configuration Debug -enableCodeCoverage YES clean
   build test
 after_success:
-- bash <(curl -s https://codecov.io/bash) -J 'Major'
+- bash <(curl -s https://codecov.io/bash)
 - sh Scripts/gnscharts.sh Kommander Major IG27 none Testing
