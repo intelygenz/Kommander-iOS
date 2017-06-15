@@ -1,4 +1,4 @@
-# Kommander
+![Kommander](https://raw.githubusercontent.com/intelygenz/Kommander-iOS/master/Logo.png)
 
 [![Twitter](https://img.shields.io/badge/contact-@intelygenz-0FABFF.svg?style=flat)](http://twitter.com/intelygenz)
 [![Version](https://img.shields.io/cocoapods/v/Kommander.svg?style=flat)](http://cocoapods.org/pods/Kommander)

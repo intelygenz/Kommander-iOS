@@ -89,7 +89,7 @@ open class Kommander {
     }
 
     /// Execute [Kommand<Result>] instances collection concurrently or sequentially after delay
-    open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false, after delay: TimeInterval) {
+    open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false, after delay: DispatchTimeInterval) {
         executor.execute(after: delay) { 
             self.execute(kommands, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
         }
@@ -136,7 +136,7 @@ open class Kommander {
     }
 
     /// Cancel [Kommand<Result>] instances collection after delay
-    open func cancel<Result>(_ kommands: [Kommand<Result>], throwingError: Bool = false, after delay: TimeInterval) {
+    open func cancel<Result>(_ kommands: [Kommand<Result>], throwingError: Bool = false, after delay: DispatchTimeInterval) {
         executor.execute(after: delay) {
             self.cancel(kommands, throwingError: throwingError)
         }

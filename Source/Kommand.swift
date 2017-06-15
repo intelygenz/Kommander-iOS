@@ -82,7 +82,7 @@ open class Kommand<Result> {
     }
 
     /// Execute Kommand<Result> after delay
-    @discardableResult open func execute(after delay: TimeInterval) -> Self {
+    @discardableResult open func execute(after delay: DispatchTimeInterval) -> Self {
         executor?.execute(after: delay, block: { 
             self.execute()
         })
@@ -128,7 +128,7 @@ open class Kommand<Result> {
     }
 
     /// Cancel Kommand<Result> after delay
-    open func cancel(_ throwingError: Bool = false, after delay: TimeInterval) {
+    open func cancel(_ throwingError: Bool = false, after delay: DispatchTimeInterval) {
         executor?.execute(after: delay, block: {
             self.cancel(throwingError)
         })

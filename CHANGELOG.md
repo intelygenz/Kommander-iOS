@@ -1,3 +1,7 @@
+# Release 0.7.0
+
+- [x] Using DispatchTimeInterval instead TimeInterval
+
 # Release 0.6.1
 
 - [x] @discardableResult
