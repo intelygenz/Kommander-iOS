@@ -1,3 +1,7 @@
+# Release 0.8.0
+
+- [x] Swift 4.0
+
 # Release 0.7.0
 
 - [x] Using DispatchTimeInterval instead TimeInterval

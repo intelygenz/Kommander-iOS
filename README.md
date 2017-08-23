@@ -34,6 +34,7 @@ Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommande
 - [x] Kommand state
 - [x] watchOS compatible
 - [x] tvOS compatible
+- [x] Swift 3 version
 - [x] Swift 2 version
 - [x] Objective-C version
 
@@ -44,6 +45,12 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'Kommander'
+```
+
+For Swift 3 compatibility use:
+
+```ruby
+pod 'Kommander', '~> 0.7'
 ```
 
 For Swift 2 compatibility use:

@@ -580,54 +580,56 @@
 					815B58021E6573C700818819 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					815B58151E6573C800818819 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 						TestTargetID = 815B58021E6573C700818819;
 					};
 					81925CC41E3A0FFC001701F3 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					81925CCD1E3A0FFC001701F3 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					819D155C1E76AEFB00BB1F07 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					81DBBAD61E768DB300EF01D8 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					81DBBAE31E768DE100EF01D8 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					81DBBB171E7691F300EF01D8 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					81DBBB231E7691F400EF01D8 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -899,6 +901,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.Major;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -913,6 +916,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.Major;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -926,6 +930,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.MajorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Major;
 			};
 			name = Debug;
@@ -940,6 +945,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.MajorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Major;
 			};
 			name = Release;
@@ -1092,6 +1098,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1105,6 +1112,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1117,6 +1125,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.KommanderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1129,6 +1138,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.KommanderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1143,6 +1153,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1157,6 +1168,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1170,6 +1182,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Debug;
@@ -1184,6 +1197,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Release;
@@ -1198,6 +1212,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Debug;
@@ -1212,6 +1227,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Release;
@@ -1227,6 +1243,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Debug;
@@ -1242,6 +1259,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Release;
@@ -1256,6 +1274,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Debug;
@@ -1270,6 +1289,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Release;
