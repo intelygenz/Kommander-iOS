@@ -98,16 +98,26 @@ open class Dispatcher {
 
     /// Execute block in DispatchQueue after delay
     open func execute(after delay: DispatchTimeInterval, block: @escaping () -> Void) {
+        guard delay != .never else {
+            return
+        }
         dispatchQueue.asyncAfter(deadline: .now() + delay, execute: block)
     }
 
     /// Execute block in DispatchQueue using custom DispatchWorkItem instance after delay
     open func execute(after delay: DispatchTimeInterval, qos: DispatchQoS?, flags: DispatchWorkItemFlags?, block: @escaping @convention(block) () -> ()) {
+        guard delay != .never else {
+            return
+        }
         dispatchQueue.asyncAfter(deadline: .now() + delay, qos: qos ?? .default, flags: flags ?? .assignCurrentContext, execute: block)
     }
 
     /// Execute DispatchWorkItem instance in DispatchQueue after delay
     open func execute(after delay: DispatchTimeInterval, work: DispatchWorkItem) {
+        guard delay != .never else {
+            work.cancel()
+            return
+        }
         dispatchQueue.asyncAfter(deadline: .now() + delay, execute: work)
     }
 
