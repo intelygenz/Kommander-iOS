@@ -24,7 +24,6 @@
 		819D15681E76AF7D00BB1F07 /* MainDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAF51E768EAE00EF01D8 /* MainDispatcher.swift */; };
 		819D15691E76AF7D00BB1F07 /* CurrentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAED1E768EAE00EF01D8 /* CurrentDispatcher.swift */; };
 		819D156A1E76AF7D00BB1F07 /* Kommander.h in Headers */ = {isa = PBXBuildFile; fileRef = 81DBBAF31E768EAE00EF01D8 /* Kommander.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		819D156B1E76CCBB00BB1F07 /* Kommander.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DBBAD71E768DB300EF01D8 /* Kommander.framework */; };
 		819D156D1E76E02600BB1F07 /* DispatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819D156C1E76E02600BB1F07 /* DispatcherTests.swift */; };
 		81DBBAF61E768EAE00EF01D8 /* CurrentDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAED1E768EAE00EF01D8 /* CurrentDispatcher.swift */; };
 		81DBBAF71E768EAE00EF01D8 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBAEE1E768EAE00EF01D8 /* Dispatcher.swift */; };
@@ -51,6 +50,8 @@
 		81DBBB2C1E7691F400EF01D8 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBBB2B1E7691F400EF01D8 /* ExtensionDelegate.swift */; };
 		81DBBB2E1E7691F400EF01D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81DBBB2D1E7691F400EF01D8 /* Assets.xcassets */; };
 		81DBBB331E7691F400EF01D8 /* Major watchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 81DBBB181E7691F300EF01D8 /* Major watchOS.app */; };
+		D56F57291F7BB864005B3692 /* Kommander.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DBBAD71E768DB300EF01D8 /* Kommander.framework */; };
+		D56F572A1F7BB864005B3692 /* Kommander.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81DBBAD71E768DB300EF01D8 /* Kommander.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,13 +97,6 @@
 			remoteGlobalIDString = 81DBBB171E7691F300EF01D8;
 			remoteInfo = "Major watchOS";
 		};
-		81DBBB3B1E7694B900EF01D8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 81925CBC1E3A0FFC001701F3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 81DBBAD61E768DB300EF01D8;
-			remoteInfo = "Kommander watchOS";
-		};
 		81DBBB3D1E7694C500EF01D8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 81925CBC1E3A0FFC001701F3 /* Project object */;
@@ -144,6 +138,17 @@
 				81DBBB251E7691F400EF01D8 /* Major watchOS Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56F572B1F7BB864005B3692 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D56F572A1F7BB864005B3692 /* Kommander.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -247,7 +252,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				819D156B1E76CCBB00BB1F07 /* Kommander.framework in Frameworks */,
+				D56F57291F7BB864005B3692 /* Kommander.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,7 +546,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				81DBBB3C1E7694B900EF01D8 /* PBXTargetDependency */,
 				81DBBB271E7691F400EF01D8 /* PBXTargetDependency */,
 			);
 			name = "Major watchOS";
@@ -556,6 +560,7 @@
 				81DBBB201E7691F400EF01D8 /* Sources */,
 				81DBBB211E7691F400EF01D8 /* Frameworks */,
 				81DBBB221E7691F400EF01D8 /* Resources */,
+				D56F572B1F7BB864005B3692 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -849,11 +854,6 @@
 			target = 81DBBB171E7691F300EF01D8 /* Major watchOS */;
 			targetProxy = 81DBBB301E7691F400EF01D8 /* PBXContainerItemProxy */;
 		};
-		81DBBB3C1E7694B900EF01D8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 81DBBAD61E768DB300EF01D8 /* Kommander watchOS */;
-			targetProxy = 81DBBB3B1E7694B900EF01D8 /* PBXContainerItemProxy */;
-		};
 		81DBBB3E1E7694C500EF01D8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 81DBBAD61E768DB300EF01D8 /* Kommander watchOS */;
@@ -901,7 +901,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.Major;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -916,7 +915,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.Major;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -930,7 +928,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.MajorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Major;
 			};
 			name = Debug;
@@ -945,7 +942,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.MajorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Major;
 			};
 			name = Release;
@@ -1012,7 +1008,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1076,7 +1072,7 @@
 				PRODUCT_NAME = Kommander;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
@@ -1098,7 +1094,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1112,7 +1107,6 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1125,7 +1119,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.KommanderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1138,7 +1131,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelygenz.KommanderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1153,7 +1145,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1168,7 +1159,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1182,7 +1172,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Debug;
@@ -1197,7 +1186,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Release;
@@ -1212,7 +1200,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Debug;
@@ -1227,7 +1214,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 			};
 			name = Release;
@@ -1274,7 +1260,6 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Debug;
@@ -1289,7 +1274,6 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 			};
 			name = Release;
