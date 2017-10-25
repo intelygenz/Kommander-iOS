@@ -25,6 +25,7 @@ open class MainDispatcher: Dispatcher {
     }
 
     /// - Warning: You can't use this initializer!
+    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `MainDispatcher.init()` instead.")
     private override convenience init(label: String?, qos: DispatchQoS?, attributes: DispatchQueue.Attributes?, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency?, target: DispatchQueue?) {
         self.init()
         assertionFailure("You can't use this initializer for a \(String(describing: type(of: self))).")

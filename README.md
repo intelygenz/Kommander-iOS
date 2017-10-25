@@ -26,7 +26,6 @@ Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommande
 - [x] Main thread dispatcher
 - [x] Current thread dispatcher
 - [x] Custom OperationQueue dispatcher
-- [x] Custom DispatchQueue dispatcher
 - [x] Execute single or multiple Operation
 - [x] Execute sequential or concurrent blocks
 - [x] Execute DispatchWorkItem

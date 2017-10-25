@@ -8,14 +8,6 @@
 
 import Foundation
 
-/// Queue priority
-private enum Priority {
-    /// Operation queue priority
-    case operation
-    /// Dispatch queue priority
-    case dispatch
-}
-
 /// Dispatcher
 open class Dispatcher {
 
@@ -23,8 +15,6 @@ open class Dispatcher {
     final var operationQueue = OperationQueue()
     /// Dispatcher dispatch queue
     final var dispatchQueue = DispatchQueue(label: UUID().uuidString)
-    /// Dispatcher queue priority
-    private final var priority = Priority.operation
 
     /// Main queue dispatcher
     open static var main: Dispatcher { return MainDispatcher() }
@@ -54,9 +44,9 @@ open class Dispatcher {
     }
 
     /// Dispatcher instance with custom DispatchQueue
+    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `Dispatcher.init(name:qos:maxConcurrentOperationCount:)` instead.")
     public init(label: String?, qos: DispatchQoS?, attributes: DispatchQueue.Attributes? = nil, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency? = nil, target: DispatchQueue? = nil) {
         dispatchQueue = DispatchQueue(label: label ?? UUID().uuidString, qos: qos ?? .default, attributes: attributes ?? .concurrent, autoreleaseFrequency: autoreleaseFrequency ?? .inherit, target: target)
-        priority = .dispatch
     }
 
     /// Execute Operation instance in OperationQueue
@@ -71,14 +61,9 @@ open class Dispatcher {
 
     /// Execute block in priority queue
     @discardableResult open func execute(_ block: @escaping () -> Void) -> Any {
-        if priority == .dispatch {
-            return execute(qos: nil, flags: nil, block: block)
-        }
-        else {
-            let blockOperation = BlockOperation(block: block)
-            execute(blockOperation)
-            return blockOperation
-        }
+        let blockOperation = BlockOperation(block: block)
+        execute(blockOperation)
+        return blockOperation
     }
 
     /// Execute [block] collection in priority queue (if possible) concurrently or sequentially
@@ -105,6 +90,7 @@ open class Dispatcher {
     }
 
     /// Execute block in DispatchQueue using custom DispatchWorkItem instance after delay
+    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `execute(delay:work:)` instead.")
     open func execute(after delay: DispatchTimeInterval, qos: DispatchQoS?, flags: DispatchWorkItemFlags?, block: @escaping @convention(block) () -> ()) {
         guard delay != .never else {
             return
@@ -122,6 +108,7 @@ open class Dispatcher {
     }
 
     /// Execute block in DispatchQueue using custom DispatchWorkItem instance
+    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `execute(work:)` instead.")
     @discardableResult open func execute(qos: DispatchQoS?, flags: DispatchWorkItemFlags?, block: @escaping @convention(block) () -> ()) -> DispatchWorkItem {
         let work = DispatchWorkItem(qos: qos ?? .default, flags: flags ?? .assignCurrentContext, block: block)
         execute(work)

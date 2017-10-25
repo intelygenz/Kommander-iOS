@@ -1,3 +1,7 @@
+# Release 0.8.1
+
+- [x] Deprecated some DispatchQueue methods and initializers.
+
 # Release 0.8.0
 
 - [x] Swift 4.0
