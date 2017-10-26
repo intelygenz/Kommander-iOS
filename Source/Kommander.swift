@@ -42,6 +42,7 @@ open class Kommander {
     }
 
     /// Kommander instance with your deliverer and default Dispatcher executor
+    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `Kommander.init(deliverer:executor:)` instead.")
     public convenience init(deliverer: Dispatcher) {
         self.init(deliverer: deliverer, executor: nil)
     }
@@ -58,6 +59,7 @@ open class Kommander {
     }
 
     /// Kommander instance with CurrentDispatcher deliverer and custom DispatchQueue executor
+    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `Kommander.init(name:qos:maxConcurrentOperationCount:)` instead.")
     public convenience init(name: String?, qos: DispatchQoS?, attributes: DispatchQueue.Attributes?, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency?, target: DispatchQueue?) {
         self.init(deliverer: nil, name: name, qos: qos, attributes: attributes, autoreleaseFrequency: autoreleaseFrequency, target: target)
     }
@@ -69,6 +71,7 @@ open class Kommander {
     }
 
     /// Kommander instance with your deliverer and custom DispatchQueue executor
+    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `Kommander.init(deliverer:name:qos:maxConcurrentOperationCount:)` instead.")
     public init(deliverer: Dispatcher?, name: String?, qos: DispatchQoS?, attributes: DispatchQueue.Attributes?, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency?, target: DispatchQueue?) {
         self.deliverer = deliverer ?? CurrentDispatcher()
         executor = Dispatcher(label: name, qos: qos, attributes: attributes, autoreleaseFrequency: autoreleaseFrequency, target: target)
