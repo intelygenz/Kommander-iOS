@@ -86,7 +86,8 @@ Kommander().makeKommand {
 ```
 
 ```swift
-Kommander().makeKommand { () -> String in
+Kommander().makeKommand 
+{ () -> String in
     return "Your string"
 }.onSuccess { yourString in
     print(yourString)
@@ -94,7 +95,8 @@ Kommander().makeKommand { () -> String in
 ```
 
 ```swift
-Kommander().makeKommand {
+Kommander().makeKommand 
+{
     throw CocoaError(.featureUnsupported)
 }.onError({ error in
     print(String(describing: error!))
@@ -102,7 +104,8 @@ Kommander().makeKommand {
 ```
 
 ```swift
-let kommand = Kommander().makeKommand { () -> Any? in
+let kommand = Kommander().makeKommand 
+{ () -> Any? in
     // Your code here
 }.onSuccess { result in
     // Your success handling here
