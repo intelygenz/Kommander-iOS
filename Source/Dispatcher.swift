@@ -50,14 +50,14 @@ open class Dispatcher {
     }
 
     /// Execute block in priority queue
-    @discardableResult open func execute(_ block: @escaping () -> Void) -> Any {
+    @discardableResult open func execute(_ block: @escaping () -> Void) -> Operation {
         let blockOperation = BlockOperation(block: block)
         execute(blockOperation)
         return blockOperation
     }
 
     /// Execute [block] collection in priority queue (if possible) concurrently or sequentially
-    @discardableResult open func execute(_ blocks: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Any] {
+    @discardableResult open func execute(_ blocks: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Operation] {
         var lastOperation: Operation?
         let operations = blocks.map { block -> Operation in
             let blockOperation = BlockOperation(block: block)
@@ -93,7 +93,11 @@ open class Dispatcher {
         dispatchQueue.async(execute: work)
     }
 
-    private final func dispatchQoS(_ qos: QualityOfService) -> DispatchQoS {
+}
+
+private extension Dispatcher {
+
+    final func dispatchQoS(_ qos: QualityOfService) -> DispatchQoS {
         switch qos {
         case .userInteractive: return .userInteractive
         case .userInitiated: return .userInitiated

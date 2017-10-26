@@ -96,11 +96,7 @@ open class Kommander {
         }
         let actions = executor.execute(blocks, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
         for (index, kommand) in kommands.enumerated() {
-            if let operationAction = actions[index] as? Operation {
-                kommand.operation = operationAction
-            } else if let workAction = actions[index] as? DispatchWorkItem {
-                kommand.work = workAction
-            }
+            kommand.operation = actions[index]
         }
     }
 

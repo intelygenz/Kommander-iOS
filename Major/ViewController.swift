@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func concurrentAction(_ sender: UIButton) {
-        kommander.execute(kommander.makeKommands([{ () -> Any? in
+        kommander.execute(kommander.makeKommands([ { () -> Any? in
             sleep(self.sleepTime)
             print("Concurrent first: " + String(describing: Date().timeIntervalSince1970))
             return nil
@@ -36,11 +36,11 @@ class ViewController: UIViewController {
             sleep(self.sleepTime)
             print("Concurrent third: " + String(describing: Date().timeIntervalSince1970))
             return nil
-        }]), concurrent: true)
+        } ]), concurrent: true)
     }
 
     @IBAction func sequentialAction(_ sender: UIButton) {
-        kommander.execute(kommander.makeKommands([{ () -> Any? in
+        kommander.execute(kommander.makeKommands([ { () -> Any? in
             sleep(self.sleepTime)
             print("Sequential first: " + String(describing: Date().timeIntervalSince1970))
             return nil
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
             sleep(self.sleepTime)
             print("Sequential third: " + String(describing: Date().timeIntervalSince1970))
             return nil
-        }]), concurrent: false)
+        } ]), concurrent: false)
     }
 
     @IBAction func errorAction(_ sender: UIButton) {

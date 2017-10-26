@@ -32,13 +32,10 @@ class DispatcherTests: XCTestCase {
     }
 
     func testDefaultDispatcherOperationQueue() {
-        if let operation = dispatcher.execute({ sleep(2) }) as? Operation {
-            XCTAssertGreaterThan(dispatcher.operationQueue.operationCount, 0)
-            operation.cancel()
-            XCTAssertTrue(operation.isCancelled)
-        } else {
-            XCTFail("Default dispatcher isn't using OperationQueue.")
-        }
+        let operation = dispatcher.execute({ sleep(2) })
+        XCTAssertGreaterThan(dispatcher.operationQueue.operationCount, 0)
+        operation.cancel()
+        XCTAssertTrue(operation.isCancelled)
     }
 
     func testDefaultDispatcherDispatchQueue() {
@@ -55,25 +52,19 @@ class DispatcherTests: XCTestCase {
         XCTAssertEqual(dispatcher.operationQueue.name, randomName)
         XCTAssertEqual(dispatcher.operationQueue.maxConcurrentOperationCount, 1)
         XCTAssertEqual(dispatcher.operationQueue.qualityOfService, .background)
-        if let operation = dispatcher.execute({ sleep(2) }) as? Operation {
-            XCTAssertGreaterThan(dispatcher.operationQueue.operationCount, 0)
-            operation.cancel()
-            XCTAssertTrue(operation.isCancelled)
-        } else {
-            XCTFail("Custom dispatcher isn't using OperationQueue.")
-        }
+        let operation = dispatcher.execute({ sleep(2) })
+        XCTAssertGreaterThan(dispatcher.operationQueue.operationCount, 0)
+        operation.cancel()
+        XCTAssertTrue(operation.isCancelled)
     }
 
     func testMainDispatcherOperationQueue() {
         dispatcher = .main
-        if let operation = dispatcher.execute({ sleep(2) }) as? Operation {
-            XCTAssertEqual(dispatcher.operationQueue, OperationQueue.main)
-            XCTAssertGreaterThan(dispatcher.operationQueue.operationCount, 0)
-            operation.cancel()
-            XCTAssertTrue(operation.isCancelled)
-        } else {
-            XCTFail("Main dispatcher isn't using OperationQueue.")
-        }
+        let operation = dispatcher.execute({ sleep(2) })
+        XCTAssertEqual(dispatcher.operationQueue, OperationQueue.main)
+        XCTAssertGreaterThan(dispatcher.operationQueue.operationCount, 0)
+        operation.cancel()
+        XCTAssertTrue(operation.isCancelled)
     }
 
     func testMainDispatcherDispatchQueue() {
@@ -90,13 +81,10 @@ class DispatcherTests: XCTestCase {
         let operationQueue = OperationQueue()
         operationQueue.addOperation {
             self.dispatcher = .current
-            if let operation = self.dispatcher.execute({ sleep(2) }) as? Operation {
-                XCTAssertGreaterThan(self.dispatcher.operationQueue.operationCount, 0)
-                operation.cancel()
-                XCTAssertTrue(operation.isCancelled)
-            } else {
-                XCTFail("Current dispatcher isn't using OperationQueue.")
-            }
+            let operation = self.dispatcher.execute({ sleep(2) })
+            XCTAssertGreaterThan(self.dispatcher.operationQueue.operationCount, 0)
+            operation.cancel()
+            XCTAssertTrue(operation.isCancelled)
         }
     }
 

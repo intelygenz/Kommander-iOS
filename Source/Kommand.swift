@@ -46,11 +46,9 @@ open class Kommand<Result> {
     /// Error block
     private(set) final var errorBlock: ErrorBlock?
     /// Operation to cancel
-    final weak var operation: Operation?
-    /// Work to cancel
-    final weak var work: DispatchWorkItem?
+    internal(set) final weak var operation: Operation?
 
-    /// Kommand<Result> instance with your deliverer, your executor and your actionBlock returning generic and throwing errors
+    /// Kommand<Result> instance with deliverer, executor and actionBlock returning generic and throwing errors
     public init(deliverer: Dispatcher = .current, executor: Dispatcher = .default, actionBlock: @escaping ActionBlock) {
         self.deliverer = deliverer
         self.executor = executor
@@ -61,7 +59,6 @@ open class Kommand<Result> {
     /// Release all resources
     deinit {
         operation = nil
-        work = nil
         deliverer = nil
         executor = nil
         actionBlock = nil
@@ -95,7 +92,7 @@ open class Kommand<Result> {
         guard state == .ready else {
             return self
         }
-        let action = executor?.execute {
+        operation = executor?.execute {
             do {
                 if let actionBlock = self.actionBlock {
                     self.state = .running
@@ -118,12 +115,6 @@ open class Kommand<Result> {
                 }
             }
         }
-        if let operationAction = action as? Operation {
-            operation = operationAction
-        } else if let workAction = action as? DispatchWorkItem {
-            work = workAction
-        }
-
         return self
     }
 
@@ -149,11 +140,7 @@ open class Kommand<Result> {
         if let operation = operation, !operation.isFinished {
             operation.cancel()
         }
-        else if let work = work, !work.isCancelled {
-            work.cancel()
-        }
         operation = nil
-        work = nil
         executor = nil
         successBlock = nil
         actionBlock = nil

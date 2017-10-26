@@ -1,3 +1,7 @@
+# Release 0.9.1
+
+- [x] Removed DispatchWorkItem, now internally working with Operation.
+
 # Release 0.9.0
 
 - [x] Removed deprecated DispatchQueue methods and initializers.
