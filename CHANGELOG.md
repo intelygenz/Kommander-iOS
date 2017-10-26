@@ -1,3 +1,7 @@
+# Release 0.9.0
+
+- [x] Removed deprecated DispatchQueue methods and initializers.
+
 # Release 0.8.1
 
 - [x] Deprecated some DispatchQueue methods and initializers.

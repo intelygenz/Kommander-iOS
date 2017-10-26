@@ -51,7 +51,7 @@ open class Kommand<Result> {
     final weak var work: DispatchWorkItem?
 
     /// Kommand<Result> instance with your deliverer, your executor and your actionBlock returning generic and throwing errors
-    public init(deliverer: Dispatcher, executor: Dispatcher, actionBlock: @escaping ActionBlock) {
+    public init(deliverer: Dispatcher = .current, executor: Dispatcher = .default, actionBlock: @escaping ActionBlock) {
         self.deliverer = deliverer
         self.executor = executor
         self.actionBlock = actionBlock

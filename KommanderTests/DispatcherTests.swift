@@ -15,7 +15,7 @@ class DispatcherTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        dispatcher = Dispatcher()
+        dispatcher = .default
     }
     
     override func tearDown() {
@@ -42,7 +42,8 @@ class DispatcherTests: XCTestCase {
     }
 
     func testDefaultDispatcherDispatchQueue() {
-        let dispatchWorkItem = dispatcher.execute(qos: nil, flags: nil) { sleep(2) }
+        let dispatchWorkItem = DispatchWorkItem(qos: .default, flags: .assignCurrentContext) { sleep(2) }
+        dispatcher.execute(dispatchWorkItem)
         XCTAssertFalse(dispatchWorkItem.isCancelled)
         dispatchWorkItem.cancel()
         XCTAssertTrue(dispatchWorkItem.isCancelled)
@@ -63,22 +64,8 @@ class DispatcherTests: XCTestCase {
         }
     }
 
-    func testCustomDispatcherDispatchQueue() {
-        let randomName = UUID().uuidString
-        dispatcher = Dispatcher(label: randomName, qos: .background, attributes: nil, autoreleaseFrequency: nil, target: nil)
-        XCTAssertEqual(dispatcher.dispatchQueue.label, randomName)
-        XCTAssertEqual(dispatcher.dispatchQueue.qos, .background)
-        if let dispatchWorkItem = dispatcher.execute({ sleep(2) }) as? DispatchWorkItem {
-            XCTAssertFalse(dispatchWorkItem.isCancelled)
-            dispatchWorkItem.cancel()
-            XCTAssertTrue(dispatchWorkItem.isCancelled)
-        } else {
-            XCTFail("Custom dispatcher isn't using DispatchQueue.")
-        }
-    }
-
     func testMainDispatcherOperationQueue() {
-        dispatcher = MainDispatcher()
+        dispatcher = .main
         if let operation = dispatcher.execute({ sleep(2) }) as? Operation {
             XCTAssertEqual(dispatcher.operationQueue, OperationQueue.main)
             XCTAssertGreaterThan(dispatcher.operationQueue.operationCount, 0)
@@ -90,8 +77,9 @@ class DispatcherTests: XCTestCase {
     }
 
     func testMainDispatcherDispatchQueue() {
-        dispatcher = MainDispatcher()
-        let dispatchWorkItem = dispatcher.execute(qos: nil, flags: nil, block: { sleep(2) })
+        dispatcher = .main
+        let dispatchWorkItem = DispatchWorkItem(qos: .default, flags: .assignCurrentContext) { sleep(2) }
+        dispatcher.execute(dispatchWorkItem)
         XCTAssertEqual(dispatcher.dispatchQueue, DispatchQueue.main)
         XCTAssertFalse(dispatchWorkItem.isCancelled)
         dispatchWorkItem.cancel()
@@ -101,7 +89,7 @@ class DispatcherTests: XCTestCase {
     func testCurrentDispatcherOperationQueue() {
         let operationQueue = OperationQueue()
         operationQueue.addOperation {
-            self.dispatcher = CurrentDispatcher()
+            self.dispatcher = .current
             if let operation = self.dispatcher.execute({ sleep(2) }) as? Operation {
                 XCTAssertGreaterThan(self.dispatcher.operationQueue.operationCount, 0)
                 operation.cancel()
@@ -115,8 +103,9 @@ class DispatcherTests: XCTestCase {
     func testCurrentDispatcherDispatchQueue() {
         let dispatchQueue = DispatchQueue(label: "")
         dispatchQueue.async {
-            self.dispatcher = CurrentDispatcher()
-            let dispatchWorkItem = self.dispatcher.execute(qos: nil, flags: nil, block: { sleep(2) })
+            self.dispatcher = .current
+            let dispatchWorkItem = DispatchWorkItem(qos: .default, flags: .assignCurrentContext) { sleep(2) }
+            self.dispatcher.execute(dispatchWorkItem)
             XCTAssertFalse(dispatchWorkItem.isCancelled)
             dispatchWorkItem.cancel()
             XCTAssertTrue(dispatchWorkItem.isCancelled)

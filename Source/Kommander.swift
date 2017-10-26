@@ -12,69 +12,35 @@ import Foundation
 open class Kommander {
 
     /// Deliverer
-    private final let deliverer: Dispatcher
+    final let deliverer: Dispatcher
     /// Executor
-    private final let executor: Dispatcher
+    final let executor: Dispatcher
 
     /// Kommander instance with CurrentDispatcher deliverer and MainDispatcher executor
-    open static var main: Kommander { return Kommander(executor: Dispatcher.main) }
+    open static var main: Kommander { return Kommander(executor: .main) }
     /// Kommander instance with CurrentDispatcher deliverer and CurrentDispatcher executor
-    open static var current: Kommander { return Kommander(executor: Dispatcher.current) }
+    open static var current: Kommander { return Kommander(executor: .current) }
     /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with default quality of service
-    open static var `default`: Kommander { return Kommander(executor: Dispatcher.default) }
+    open static var `default`: Kommander { return Kommander() }
     /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with user interactive quality of service
-    open static var userInteractive: Kommander { return Kommander(executor: Dispatcher.userInteractive) }
+    open static var userInteractive: Kommander { return Kommander(executor: .userInteractive) }
     /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with user initiated quality of service
-    open static var userInitiated: Kommander { return Kommander(executor: Dispatcher.userInitiated) }
+    open static var userInitiated: Kommander { return Kommander(executor: .userInitiated) }
     /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with utility quality of service
-    open static var utility: Kommander { return Kommander(executor: Dispatcher.utility) }
+    open static var utility: Kommander { return Kommander(executor: .utility) }
     /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with background quality of service
-    open static var background: Kommander { return Kommander(executor: Dispatcher.background) }
+    open static var background: Kommander { return Kommander(executor: .background) }
 
-    /// Kommander instance with CurrentDispatcher deliverer and default Dispatcher executor
-    public convenience init() {
-        self.init(deliverer: nil, executor: nil)
+    /// Kommander instance with deliverer and executor
+    public init(deliverer: Dispatcher = .current, executor: Dispatcher = .default) {
+        self.deliverer = deliverer
+        self.executor = executor
     }
 
-    /// Kommander instance with CurrentDispatcher deliverer and your executor
-    public convenience init(executor: Dispatcher) {
-        self.init(deliverer: nil, executor: executor)
-    }
-
-    /// Kommander instance with your deliverer and default Dispatcher executor
-    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `Kommander.init(deliverer:executor:)` instead.")
-    public convenience init(deliverer: Dispatcher) {
-        self.init(deliverer: deliverer, executor: nil)
-    }
-
-    /// Kommander instance with your deliverer and your executor
-    public init(deliverer: Dispatcher?, executor: Dispatcher?) {
-        self.deliverer = deliverer ?? CurrentDispatcher()
-        self.executor = executor ?? Dispatcher()
-    }
-
-    /// Kommander instance with CurrentDispatcher deliverer and custom OperationQueue executor
-    public convenience init(name: String?, qos: QualityOfService?, maxConcurrentOperationCount: Int) {
-        self.init(deliverer: nil, name: name, qos: qos, maxConcurrentOperationCount: maxConcurrentOperationCount)
-    }
-
-    /// Kommander instance with CurrentDispatcher deliverer and custom DispatchQueue executor
-    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `Kommander.init(name:qos:maxConcurrentOperationCount:)` instead.")
-    public convenience init(name: String?, qos: DispatchQoS?, attributes: DispatchQueue.Attributes?, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency?, target: DispatchQueue?) {
-        self.init(deliverer: nil, name: name, qos: qos, attributes: attributes, autoreleaseFrequency: autoreleaseFrequency, target: target)
-    }
-
-    /// Kommander instance with your deliverer and custom OperationQueue executor
-    public init(deliverer: Dispatcher?, name: String?, qos: QualityOfService?, maxConcurrentOperationCount: Int) {
-        self.deliverer = deliverer ?? CurrentDispatcher()
+    /// Kommander instance with deliverer and custom OperationQueue executor
+    public init(deliverer: Dispatcher = .current, name: String = UUID().uuidString, qos: QualityOfService = .default, maxConcurrentOperationCount: Int = OperationQueue.defaultMaxConcurrentOperationCount) {
+        self.deliverer = deliverer
         executor = Dispatcher(name: name, qos: qos, maxConcurrentOperationCount: maxConcurrentOperationCount)
-    }
-
-    /// Kommander instance with your deliverer and custom DispatchQueue executor
-    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `Kommander.init(deliverer:name:qos:maxConcurrentOperationCount:)` instead.")
-    public init(deliverer: Dispatcher?, name: String?, qos: DispatchQoS?, attributes: DispatchQueue.Attributes?, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency?, target: DispatchQueue?) {
-        self.deliverer = deliverer ?? CurrentDispatcher()
-        executor = Dispatcher(label: name, qos: qos, attributes: attributes, autoreleaseFrequency: autoreleaseFrequency, target: target)
     }
 
     /// Build Kommand<Result> instance with an actionBlock returning generic and throwing errors

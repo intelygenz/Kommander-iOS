@@ -13,22 +13,9 @@ open class MainDispatcher: Dispatcher {
 
     /// Dispatcher instance with main OperationQueue
     public init() {
-        super.init(name: nil, qos: nil)
+        super.init()
         operationQueue = OperationQueue.main
         dispatchQueue = DispatchQueue.main
-    }
-
-    /// - Warning: You can't use this initializer!
-    private override convenience init(name: String?, qos: QualityOfService?, maxConcurrentOperationCount: Int? = nil) {
-        self.init()
-        assertionFailure("You can't use this initializer for a \(String(describing: type(of: self))).")
-    }
-
-    /// - Warning: You can't use this initializer!
-    @available(*, deprecated, message: "This will be removed in Kommander 0.9. Use `MainDispatcher.init()` instead.")
-    private override convenience init(label: String?, qos: DispatchQoS?, attributes: DispatchQueue.Attributes?, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency?, target: DispatchQueue?) {
-        self.init()
-        assertionFailure("You can't use this initializer for a \(String(describing: type(of: self))).")
     }
 
 }

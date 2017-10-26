@@ -74,6 +74,57 @@ class KommanderTests: XCTestCase {
         waitForExpectations(timeout: 100, handler: nil)
     }
 
+    func test_nCalls_withDelay() {
+
+        let ex = expectation(description: String(describing: type(of: self)))
+
+        var successes = 0
+        let calls = Int(arc4random_uniform(10) + 1)
+
+        for i in 0..<calls {
+            interactor.getCounter(name: "C\(i)", to: 3)
+                .onSuccess({ (name) in
+                    successes+=1
+                    if successes>=calls {
+                        ex.fulfill()
+                    }
+                })
+                .onError({ (error) in
+                    ex.fulfill()
+                    XCTFail()
+                })
+                .execute(after: .seconds(1))
+        }
+
+        waitForExpectations(timeout: 100, handler: nil)
+    }
+
+    func test_nCalls_andCancel() {
+
+        let ex = expectation(description: String(describing: type(of: self)))
+
+        var errors = 0
+        let calls = Int(arc4random_uniform(10) + 1)
+
+        for i in 0..<calls {
+            interactor.getCounter(name: "C\(i)", to: 3)
+                .onSuccess({ (name) in
+                    ex.fulfill()
+                    XCTFail()
+                })
+                .onError({ (error) in
+                    errors+=1
+                    if errors>=calls {
+                        ex.fulfill()
+                    }
+                })
+                .execute()
+                .cancel(true, after: .seconds(2))
+        }
+
+        waitForExpectations(timeout: 100, handler: nil)
+    }
+
     func test_nCalls() {
 
         let ex = expectation(description: String(describing: type(of: self)))
@@ -209,6 +260,19 @@ class KommanderTests: XCTestCase {
         interactor.kommander.execute(kommands, concurrent: false, waitUntilFinished: false)
 
         waitForExpectations(timeout: 100, handler: nil)
+    }
+
+    func testInitializers() {
+        let custom = Kommander(name: "Test", maxConcurrentOperationCount: 2)
+        XCTAssertEqual(custom.executor.operationQueue.name, "Test")
+        XCTAssertEqual(custom.executor.operationQueue.maxConcurrentOperationCount, 2)
+        XCTAssertEqual(Kommander.main.executor.operationQueue, OperationQueue.main)
+        XCTAssertEqual(Kommander.current.executor.operationQueue, OperationQueue.current)
+        XCTAssertEqual(Kommander.default.executor.operationQueue.qualityOfService, .default)
+        XCTAssertEqual(Kommander.userInteractive.executor.operationQueue.qualityOfService, .userInteractive)
+        XCTAssertEqual(Kommander.userInitiated.executor.operationQueue.qualityOfService, .userInitiated)
+        XCTAssertEqual(Kommander.utility.executor.operationQueue.qualityOfService, .utility)
+        XCTAssertEqual(Kommander.background.executor.operationQueue.qualityOfService, .background)
     }
 
 }
