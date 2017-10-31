@@ -134,7 +134,7 @@ open class Kommand<Result> {
         }
         self.deliverer?.execute {
             if throwingError {
-                self.errorBlock?(CocoaError(.userCancelled))
+                self.errorBlock?(KommandCancelledError(kommand: self))
             }
         }
         if let operation = operation, !operation.isFinished {

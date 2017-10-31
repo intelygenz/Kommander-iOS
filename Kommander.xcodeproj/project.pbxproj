@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DE0DE351FA380CD001FAC71 /* KommandCancelledError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0DE341FA380CD001FAC71 /* KommandCancelledError.swift */; };
 		815B58061E6573C800818819 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815B58051E6573C800818819 /* AppDelegate.swift */; };
 		815B58081E6573C800818819 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815B58071E6573C800818819 /* ViewController.swift */; };
 		815B580B1E6573C800818819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 815B58091E6573C800818819 /* Main.storyboard */; };
@@ -154,6 +155,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0DE0DE341FA380CD001FAC71 /* KommandCancelledError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KommandCancelledError.swift; sourceTree = "<group>"; };
 		815B58031E6573C700818819 /* Major.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Major.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		815B58051E6573C800818819 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		815B58071E6573C800818819 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				81DBBAED1E768EAE00EF01D8 /* CurrentDispatcher.swift */,
 				81DBBAF31E768EAE00EF01D8 /* Kommander.h */,
 				819D15561E769B1B00BB1F07 /* Info.plist */,
+				0DE0DE341FA380CD001FAC71 /* KommandCancelledError.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -759,6 +762,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DE0DE351FA380CD001FAC71 /* KommandCancelledError.swift in Sources */,
 				81DBBAF61E768EAE00EF01D8 /* CurrentDispatcher.swift in Sources */,
 				81DBBAFD1E768EAE00EF01D8 /* Kommander.swift in Sources */,
 				81DBBAFE1E768EAE00EF01D8 /* MainDispatcher.swift in Sources */,
