@@ -119,32 +119,48 @@ open class Kommand<Result> {
     }
 
     /// Cancel Kommand<Result> after delay
-    open func cancel(_ throwingError: Bool = false, after delay: DispatchTimeInterval) {
+    @discardableResult open func cancel(_ throwingError: Bool = false, after delay: DispatchTimeInterval) -> Self {
         executor?.execute(after: delay, block: {
             self.cancel(throwingError)
         })
+
+        return self
     }
 
     /// Cancel Kommand<Result>
-    open func cancel(_ throwingError: Bool = false) {
+    @discardableResult open func cancel(_ throwingError: Bool = false) -> Self {
         guard state != .canceled else {
-            return
+            return self
         }
         self.deliverer?.execute {
             if throwingError {
                 self.errorBlock?(CocoaError(.userCancelled))
             }
-            self.errorBlock = nil
-            self.deliverer = nil
         }
         if let operation = operation, !operation.isFinished {
             operation.cancel()
         }
-        operation = nil
-        executor = nil
-        successBlock = nil
-        actionBlock = nil
         state = .canceled
+        return self
+    }
+
+    /// Retry Kommand<Result> after delay
+    @discardableResult open func retry(after delay: DispatchTimeInterval) -> Self {
+        executor?.execute(after: delay, block: {
+            self.retry()
+        })
+
+        return self
+    }
+
+    /// Retry Kommand<Result>
+    @discardableResult open func retry() -> Self {
+        guard state == .canceled else {
+            return self
+        }
+        state = .ready
+        execute()
+        return self
     }
 
 }
