@@ -24,4 +24,5 @@ public struct KommandCancelledError<Result>: RecoverableError {
         kommand.retry()
         return true
     }
+
 }

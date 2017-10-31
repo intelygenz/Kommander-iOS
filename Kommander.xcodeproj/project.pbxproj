@@ -331,9 +331,9 @@
 				81DBBAEE1E768EAE00EF01D8 /* Dispatcher.swift */,
 				81DBBAF51E768EAE00EF01D8 /* MainDispatcher.swift */,
 				81DBBAED1E768EAE00EF01D8 /* CurrentDispatcher.swift */,
+				0DE0DE341FA380CD001FAC71 /* KommandCancelledError.swift */,
 				81DBBAF31E768EAE00EF01D8 /* Kommander.h */,
 				819D15561E769B1B00BB1F07 /* Info.plist */,
-				0DE0DE341FA380CD001FAC71 /* KommandCancelledError.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
