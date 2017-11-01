@@ -83,7 +83,6 @@ open class Kommand<Result> {
         executor?.execute(after: delay, block: { 
             self.execute()
         })
-
         return self
     }
 
@@ -123,7 +122,6 @@ open class Kommand<Result> {
         executor?.execute(after: delay, block: {
             self.cancel(throwingError)
         })
-
         return self
     }
 
@@ -134,7 +132,7 @@ open class Kommand<Result> {
         }
         self.deliverer?.execute {
             if throwingError {
-                self.errorBlock?(KommandCancelledError(kommand: self))
+                self.errorBlock?(KommandCancelledError(self))
             }
         }
         if let operation = operation, !operation.isFinished {
@@ -149,7 +147,6 @@ open class Kommand<Result> {
         executor?.execute(after: delay, block: {
             self.retry()
         })
-
         return self
     }
 
@@ -159,8 +156,7 @@ open class Kommand<Result> {
             return self
         }
         state = .ready
-        execute()
-        return self
+        return execute()
     }
 
 }

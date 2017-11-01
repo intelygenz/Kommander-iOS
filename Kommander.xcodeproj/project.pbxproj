@@ -53,6 +53,9 @@
 		81DBBB331E7691F400EF01D8 /* Major watchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 81DBBB181E7691F300EF01D8 /* Major watchOS.app */; };
 		D56F57291F7BB864005B3692 /* Kommander.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81DBBAD71E768DB300EF01D8 /* Kommander.framework */; };
 		D56F572A1F7BB864005B3692 /* Kommander.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81DBBAD71E768DB300EF01D8 /* Kommander.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D5D3583B1FA9E70500F1C79B /* KommandCancelledError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0DE341FA380CD001FAC71 /* KommandCancelledError.swift */; };
+		D5D3583C1FA9E70500F1C79B /* KommandCancelledError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0DE341FA380CD001FAC71 /* KommandCancelledError.swift */; };
+		D5D3583D1FA9E70600F1C79B /* KommandCancelledError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0DE341FA380CD001FAC71 /* KommandCancelledError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -784,6 +787,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5D3583D1FA9E70600F1C79B /* KommandCancelledError.swift in Sources */,
 				819D15651E76AF7D00BB1F07 /* Kommander.swift in Sources */,
 				819D15691E76AF7D00BB1F07 /* CurrentDispatcher.swift in Sources */,
 				819D15661E76AF7D00BB1F07 /* Kommand.swift in Sources */,
@@ -796,6 +800,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5D3583B1FA9E70500F1C79B /* KommandCancelledError.swift in Sources */,
 				81DBBB071E768EF000EF01D8 /* Kommander.swift in Sources */,
 				81DBBB011E768ED700EF01D8 /* CurrentDispatcher.swift in Sources */,
 				81DBBAFF1E768ED100EF01D8 /* Kommand.swift in Sources */,
@@ -808,6 +813,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5D3583C1FA9E70500F1C79B /* KommandCancelledError.swift in Sources */,
 				81DBBB081E768EF100EF01D8 /* Kommander.swift in Sources */,
 				81DBBB021E768ED700EF01D8 /* CurrentDispatcher.swift in Sources */,
 				81DBBB001E768ED100EF01D8 /* Kommand.swift in Sources */,
@@ -984,7 +990,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 3VW789WSMP;
 				DYLIB_COMPATIBILITY_VERSION = 0.9.0;
-				DYLIB_CURRENT_VERSION = 0.9.1;
+				DYLIB_CURRENT_VERSION = 0.9.2;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1056,7 +1062,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3VW789WSMP;
 				DYLIB_COMPATIBILITY_VERSION = 0.9.0;
-				DYLIB_CURRENT_VERSION = 0.9.1;
+				DYLIB_CURRENT_VERSION = 0.9.2;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

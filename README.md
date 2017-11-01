@@ -21,6 +21,7 @@ Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommande
 - [x] Make kommand or multiple kommands
 - [x] Execute kommand or multiple kommands
 - [x] Cancel kommand or multiple kommands
+- [x] Retry kommand or multiple kommands
 - [x] Set kommand success block
 - [x] Set kommand error block
 - [x] Main thread dispatcher
@@ -79,7 +80,7 @@ dependencies: [
 
 ## Usage
 
-#### Making, executing and cancelling Kommands:
+#### Making, executing, cancelling and retrying Kommands:
 
 ```swift
 Kommander().makeKommand {
@@ -119,6 +120,8 @@ let kommand = Kommander().makeKommand { () -> Any? in
 }).execute()
 
 kommand.cancel()
+
+kommand.retry()
 ```
 
 #### Creating Kommanders:

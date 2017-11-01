@@ -178,6 +178,8 @@ class KommanderTests: XCTestCase {
                     XCTAssertEqual(error.recoveryOptions, ["Retry the Kommand"])
                     let recoverySuccess = error.attemptRecovery(optionIndex: 0)
                     XCTAssert(recoverySuccess)
+                    let secondRecoverySuccess = error.attemptRecovery(optionIndex: 0)
+                    XCTAssertFalse(secondRecoverySuccess)
                 })
                 .execute()
                 .cancel(true, after: .seconds(2))

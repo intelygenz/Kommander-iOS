@@ -12,7 +12,7 @@ public struct KommandCancelledError<Result>: RecoverableError {
 
     private let kommand: Kommand<Result>
 
-    init(kommand: Kommand<Result>) {
+    init(_ kommand: Kommand<Result>) {
         self.kommand = kommand
     }
 
@@ -21,6 +21,9 @@ public struct KommandCancelledError<Result>: RecoverableError {
     }
 
     public func attemptRecovery(optionIndex recoveryOptionIndex: Int) -> Bool {
+        guard kommand.state == .canceled else {
+            return false
+        }
         kommand.retry()
         return true
     }
