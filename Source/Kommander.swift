@@ -114,4 +114,18 @@ open class Kommander {
         }
     }
 
+    /// Retry [Kommand<Result>] instances collection after delay
+    open func retry<Result>(_ kommands: [Kommand<Result>], after delay: DispatchTimeInterval) {
+        executor.execute(after: delay) {
+            self.retry(kommands)
+        }
+    }
+
+    /// Retry [Kommand<Result>] instances collection
+    open func retry<Result>(_ kommands: [Kommand<Result>]) {
+        for kommand in kommands {
+            kommand.retry()
+        }
+    }
+
 }

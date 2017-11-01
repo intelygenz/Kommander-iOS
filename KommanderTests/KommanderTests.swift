@@ -125,6 +125,67 @@ class KommanderTests: XCTestCase {
         waitForExpectations(timeout: 100, handler: nil)
     }
 
+    func test_nCalls_andCancel_andRetry() {
+
+        let ex = expectation(description: String(describing: type(of: self)))
+
+        var successes = 0
+        let calls = Int(arc4random_uniform(10) + 1)
+
+        for i in 0..<calls {
+            interactor.getCounter(name: "C\(i)", to: 3)
+                .onSuccess({ (name) in
+                    successes+=1
+                    print("success \(successes)")
+                    if successes>=calls {
+                        ex.fulfill()
+                    }
+                })
+                .onError({ (error) in
+                    ex.fulfill()
+                    XCTFail()
+                })
+                .execute()
+                .cancel(false, after: .seconds(2))
+                .retry(after: .seconds(5))
+        }
+
+        waitForExpectations(timeout: 100, handler: nil)
+    }
+
+    func test_nCalls_andCancel_andRetryFromError() {
+        let ex = expectation(description: String(describing: type(of: self)))
+
+        var successes = 0
+        let calls = Int(arc4random_uniform(10) + 1)
+
+        for i in 0..<calls {
+            interactor.getCounter(name: "C\(i)", to: 3)
+                .onSuccess({ (name) in
+                    successes+=1
+                    print("success \(successes)")
+                    if successes>=calls {
+                        ex.fulfill()
+                    }
+                })
+                .onError({ (error) in
+                    guard let error = error as? KommandCancelledError<String> else {
+                        ex.fulfill()
+                        XCTFail()
+                        return
+                    }
+
+                    XCTAssertEqual(error.recoveryOptions, ["Retry the Kommand"])
+                    let recoverySuccess = error.attemptRecovery(optionIndex: 0)
+                    XCTAssert(recoverySuccess)
+                })
+                .execute()
+                .cancel(true, after: .seconds(2))
+        }
+
+        waitForExpectations(timeout: 100, handler: nil)
+    }
+
     func test_nCalls() {
 
         let ex = expectation(description: String(describing: type(of: self)))
