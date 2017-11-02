@@ -4,6 +4,7 @@
 [![Version](https://img.shields.io/cocoapods/v/Kommander.svg?style=flat)](http://cocoapods.org/pods/Kommander)
 [![License](https://img.shields.io/cocoapods/l/Kommander.svg?style=flat)](http://cocoapods.org/pods/Kommander)
 [![Platform](https://img.shields.io/cocoapods/p/Kommander.svg?style=flat)](http://cocoapods.org/pods/Kommander)
+[![Swift](https://img.shields.io/badge/Swift-4-orange.svg?style=flat)](https://swift.org)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Swift Package Manager Compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
 [![Build Status](https://travis-ci.org/intelygenz/Kommander-iOS.svg?branch=master)](https://travis-ci.org/intelygenz/Kommander-iOS)
