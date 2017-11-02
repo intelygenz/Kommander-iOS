@@ -21,7 +21,7 @@ public struct KommandCancelledError<Result>: RecoverableError {
     }
 
     public func attemptRecovery(optionIndex recoveryOptionIndex: Int) -> Bool {
-        guard kommand.state == .canceled else {
+        guard kommand.state == .cancelled else {
             return false
         }
         kommand.retry()

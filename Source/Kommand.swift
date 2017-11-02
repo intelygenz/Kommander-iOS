@@ -19,7 +19,7 @@ public enum State {
     /// Finished state
     case finished
     /// Cancelled state
-    case canceled
+    case cancelled
 }
 
 /// Generic Kommand
@@ -127,7 +127,7 @@ open class Kommand<Result> {
 
     /// Cancel Kommand<Result>
     @discardableResult open func cancel(_ throwingError: Bool = false) -> Self {
-        guard state != .canceled else {
+        guard state != .cancelled else {
             return self
         }
         self.deliverer?.execute {
@@ -138,7 +138,7 @@ open class Kommand<Result> {
         if let operation = operation, !operation.isFinished {
             operation.cancel()
         }
-        state = .canceled
+        state = .cancelled
         return self
     }
 
@@ -152,7 +152,7 @@ open class Kommand<Result> {
 
     /// Retry Kommand<Result>
     @discardableResult open func retry() -> Self {
-        guard state == .canceled else {
+        guard state == .cancelled else {
             return self
         }
         state = .ready
