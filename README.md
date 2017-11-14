@@ -17,7 +17,7 @@ Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommande
 
 ![Kommander](https://raw.githubusercontent.com/intelygenz/Kommander-iOS/master/Kommander.png)
 
-## Features
+## 🌟 Features
 
 - [x] Make kommand or multiple kommands
 - [x] Execute kommand or multiple kommands
@@ -39,7 +39,7 @@ Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommande
 - [x] Swift 2 version
 - [x] Objective-C version
 
-## Installation
+## 📲 Installation
 
 Kommander is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
@@ -80,7 +80,7 @@ dependencies: [
 ]
 ```
 
-## Usage
+## 🐒 Usage
 
 #### Making, executing, cancelling and retrying Kommands:
 
@@ -176,12 +176,12 @@ Dispatcher.utility
 Dispatcher.background
 ```
 
-## Etc.
+## ❤️ Etc.
 
 * Contributions are very welcome.
 * Attribution is appreciated (let's spread the word!), but not mandatory.
 
-## Authors
+## 👨‍💻 Authors
 
 [alexruperez](https://github.com/alexruperez), alejandro.ruperez@intelygenz.com
 
@@ -189,6 +189,6 @@ Dispatcher.background
 
 [RobertoEstrada](https://github.com/RobertoEstrada), roberto.estrada@intelygenz.com
 
-## License
+## 👮‍♂️ License
 
 Kommander is available under the MIT license. See the LICENSE file for more info.
