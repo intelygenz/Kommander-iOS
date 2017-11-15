@@ -1,3 +1,7 @@
+# Release 0.9.3
+
+- [x] Canceled (US English) Kommand state becomes cancelled (British English).
+
 # Release 0.9.2
 
 - [x] Retry kommand or multiple kommands throwing a [RecoverableError](https://github.com/apple/swift-evolution/blob/master/proposals/0112-nserror-bridging.md#new-protocols).
