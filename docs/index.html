@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Kommander  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="Kommander  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">Kommander Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/intelygenz/Kommander-iOS"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fintelygenz%2Egithub%2Eio%2Fdocsets%2FKommander%2Exml"><img src="img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">Kommander Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Kommander  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/CurrentDispatcher.html">CurrentDispatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Dispatcher.html">Dispatcher</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Kommand.html">Kommand</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Kommander.html">Kommander</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/MainDispatcher.html">MainDispatcher</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/State.html">State</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/KommandCancelledError.html">KommandCancelledError</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <p><img src="https://raw.githubusercontent.com/intelygenz/Kommander-iOS/master/Logo.png" alt="Kommander"></p>
+
+<p><a href="http://twitter.com/intelygenz"><img src="https://img.shields.io/badge/contact-@intelygenz-0FABFF.svg?style=flat" alt="Twitter"></a>
+<a href="http://cocoapods.org/pods/Kommander"><img src="https://img.shields.io/cocoapods/v/Kommander.svg?style=flat" alt="Version"></a>
+<a href="http://cocoapods.org/pods/Kommander"><img src="https://img.shields.io/cocoapods/l/Kommander.svg?style=flat" alt="License"></a>
+<a href="http://cocoapods.org/pods/Kommander"><img src="https://img.shields.io/cocoapods/p/Kommander.svg?style=flat" alt="Platform"></a>
+<a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-4-orange.svg?style=flat" alt="Swift"></a>
+<a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible"></a>
+<a href="https://github.com/apple/swift-package-manager"><img src="https://img.shields.io/badge/Swift%20Package%20Manager-compatible-4BC51D.svg?style=flat" alt="Swift Package Manager Compatible"></a>
+<a href="https://travis-ci.org/intelygenz/Kommander-iOS"><img src="https://travis-ci.org/intelygenz/Kommander-iOS.svg?branch=master" alt="Build Status"></a>
+<a href="http://cocoapods.org/pods/Kommander"><img src="https://img.shields.io/cocoapods/dt/Kommander.svg" alt="Downloads"></a></p>
+
+<p><strong>Kommander</strong> is a Swift library to manage the task execution in different threads. Through the definition a simple but powerful concept, <a href="https://en.wikipedia.org/wiki/Command_pattern"><strong>Kommand</strong></a>.</p>
+
+<p>Inspired on the Java library <a href="https://github.com/Wokdsem/Kommander"><strong>Kommander</strong></a> from <a href="https://github.com/Wokdsem"><strong>Wokdsem</strong></a>.</p>
+
+<p><img src="https://raw.githubusercontent.com/intelygenz/Kommander-iOS/master/Kommander.png" alt="Kommander"></p>
+<h2 id='features' class='heading'>🌟 Features</h2>
+
+<ul>
+<li>[x] Make kommand or multiple kommands</li>
+<li>[x] Execute kommand or multiple kommands</li>
+<li>[x] Cancel kommand or multiple kommands</li>
+<li>[x] Retry kommand or multiple kommands</li>
+<li>[x] Set kommand success block</li>
+<li>[x] Set kommand error block</li>
+<li>[x] Main thread dispatcher</li>
+<li>[x] Current thread dispatcher</li>
+<li>[x] Custom OperationQueue dispatcher</li>
+<li>[x] Execute single or multiple Operation</li>
+<li>[x] Execute sequential or concurrent blocks</li>
+<li>[x] Execute DispatchWorkItem</li>
+<li>[x] Kommand state</li>
+<li>[x] watchOS compatible</li>
+<li>[x] tvOS compatible</li>
+<li>[x] macOS compatible</li>
+<li>[x] Swift 3 version</li>
+<li>[x] Swift 2 version</li>
+<li>[x] Objective-C version</li>
+</ul>
+<h2 id='installation' class='heading'>📲 Installation</h2>
+
+<p>Kommander is available through <a href="http://cocoapods.org">CocoaPods</a>. To install
+it, simply add the following line to your Podfile:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'Kommander'</span>
+</code></pre>
+
+<p>For Swift 3 compatibility use:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'Kommander'</span><span class="p">,</span> <span class="s1">'~&gt; 0.7'</span>
+</code></pre>
+
+<p>For Swift 2 compatibility use:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'Kommander'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span> <span class="s1">'https://github.com/intelygenz/Kommander-iOS.git'</span><span class="p">,</span> <span class="ss">:tag</span> <span class="o">=&gt;</span> <span class="s1">'0.3.0-swift2'</span>
+</code></pre>
+
+<p>For Objective-C compatibility use:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'Kommander'</span><span class="p">,</span> <span class="ss">:git</span> <span class="o">=&gt;</span> <span class="s1">'https://github.com/intelygenz/Kommander-iOS.git'</span><span class="p">,</span> <span class="ss">:tag</span> <span class="o">=&gt;</span> <span class="s1">'0.2.3-objc'</span>
+</code></pre>
+<h4 id='or-you-can-install-it-with-a-href-https-github-com-carthage-carthage-carthage-a' class='heading'>Or you can install it with <a href="https://github.com/Carthage/Carthage">Carthage</a>:</h4>
+<pre class="highlight plaintext"><code>github "intelygenz/Kommander-iOS"
+</code></pre>
+<h4 id='or-install-it-with-a-href-https-swift-org-package-manager-swift-package-manager-a' class='heading'>Or install it with <a href="https://swift.org/package-manager/">Swift Package Manager</a>:</h4>
+<pre class="highlight swift"><code><span class="nv">dependencies</span><span class="p">:</span> <span class="p">[</span>
+    <span class="o">.</span><span class="kt">Package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/intelygenz/Kommander-iOS.git"</span><span class="p">)</span>
+<span class="p">]</span>
+</code></pre>
+<h2 id='usage' class='heading'>🐒 Usage</h2>
+<h4 id='making-executing-cancelling-and-retrying-kommands' class='heading'>Making, executing, cancelling and retrying Kommands:</h4>
+<pre class="highlight swift"><code><span class="kt">Kommander</span><span class="p">()</span><span class="o">.</span><span class="n">makeKommand</span> <span class="p">{</span>
+    <span class="c1">// Your code here</span>
+<span class="p">}</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
+</code></pre>
+<pre class="highlight swift"><code><span class="kt">Kommander</span><span class="p">()</span><span class="o">.</span><span class="n">makeKommand</span> <span class="p">{</span>
+    <span class="c1">// Your code here</span>
+<span class="p">}</span><span class="o">.</span><span class="nf">execute</span><span class="p">(</span><span class="nv">after</span><span class="p">:</span> <span class="o">.</span><span class="nf">seconds</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</code></pre>
+<pre class="highlight swift"><code><span class="kt">Kommander</span><span class="p">()</span><span class="o">.</span><span class="n">makeKommand</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">"Your string"</span>
+<span class="p">}</span><span class="o">.</span><span class="n">onSuccess</span> <span class="p">{</span> <span class="n">yourString</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">yourString</span><span class="p">)</span>
+<span class="p">}</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
+</code></pre>
+<pre class="highlight swift"><code><span class="kt">Kommander</span><span class="p">()</span><span class="o">.</span><span class="n">makeKommand</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="kt">CocoaError</span><span class="p">(</span><span class="o">.</span><span class="n">featureUnsupported</span><span class="p">)</span>
+<span class="p">}</span><span class="o">.</span><span class="nf">onError</span><span class="p">({</span> <span class="n">error</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="kt">String</span><span class="p">(</span><span class="nv">describing</span><span class="p">:</span> <span class="n">error</span><span class="o">!</span><span class="p">))</span>
+<span class="p">})</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
+</code></pre>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">kommand</span> <span class="o">=</span> <span class="kt">Kommander</span><span class="p">()</span><span class="o">.</span><span class="n">makeKommand</span> <span class="p">{</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span> <span class="k">in</span>
+    <span class="c1">// Your code here</span>
+<span class="p">}</span><span class="o">.</span><span class="n">onSuccess</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="c1">// Your success handling here</span>
+<span class="p">}</span><span class="o">.</span><span class="nf">onError</span><span class="p">({</span> <span class="n">error</span> <span class="k">in</span>
+    <span class="c1">// Your error handling here</span>
+<span class="p">})</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
+
+<span class="n">kommand</span><span class="o">.</span><span class="nf">cancel</span><span class="p">()</span>
+
+<span class="n">kommand</span><span class="o">.</span><span class="nf">retry</span><span class="p">()</span>
+</code></pre>
+<h4 id='creating-kommanders' class='heading'>Creating Kommanders:</h4>
+<pre class="highlight swift"><code><span class="kt">Kommander</span><span class="p">(</span><span class="nv">deliverer</span><span class="p">:</span> <span class="kt">Dispatcher</span> <span class="o">=</span> <span class="o">.</span><span class="n">current</span><span class="p">,</span> <span class="nv">executor</span><span class="p">:</span> <span class="kt">Dispatcher</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span>
+
+<span class="kt">Kommander</span><span class="p">(</span><span class="nv">deliverer</span><span class="p">:</span> <span class="kt">Dispatcher</span> <span class="o">=</span> <span class="o">.</span><span class="n">current</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">qos</span><span class="p">:</span> <span class="kt">QualityOfService</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">maxConcurrentOperationCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span>
+</code></pre>
+<pre class="highlight swift"><code><span class="kt">Kommander</span><span class="o">.</span><span class="n">main</span>
+
+<span class="kt">Kommander</span><span class="o">.</span><span class="n">current</span>
+
+<span class="kt">Kommander</span><span class="o">.</span><span class="k">default</span>
+
+<span class="kt">Kommander</span><span class="o">.</span><span class="n">userInteractive</span>
+
+<span class="kt">Kommander</span><span class="o">.</span><span class="n">userInitiated</span>
+
+<span class="kt">Kommander</span><span class="o">.</span><span class="n">utility</span>
+
+<span class="kt">Kommander</span><span class="o">.</span><span class="n">background</span>
+</code></pre>
+<h4 id='creating-dispatchers' class='heading'>Creating Dispatchers:</h4>
+<pre class="highlight swift"><code><span class="kt">CurrentDispatcher</span><span class="p">()</span>
+
+<span class="kt">MainDispatcher</span><span class="p">()</span>
+
+<span class="kt">Dispatcher</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">qos</span><span class="p">:</span> <span class="kt">QualityOfService</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">maxConcurrentOperationCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span>
+</code></pre>
+<pre class="highlight swift"><code><span class="kt">Dispatcher</span><span class="o">.</span><span class="n">main</span>
+
+<span class="kt">Dispatcher</span><span class="o">.</span><span class="n">current</span>
+
+<span class="kt">Dispatcher</span><span class="o">.</span><span class="k">default</span>
+
+<span class="kt">Dispatcher</span><span class="o">.</span><span class="n">userInteractive</span>
+
+<span class="kt">Dispatcher</span><span class="o">.</span><span class="n">userInitiated</span>
+
+<span class="kt">Dispatcher</span><span class="o">.</span><span class="n">utility</span>
+
+<span class="kt">Dispatcher</span><span class="o">.</span><span class="n">background</span>
+</code></pre>
+<h2 id='etc' class='heading'>❤️ Etc.</h2>
+
+<ul>
+<li>Contributions are very welcome.</li>
+<li>Attribution is appreciated (let&rsquo;s spread the word!), but not mandatory.</li>
+</ul>
+<h2 id='authors' class='heading'>👨‍💻 Authors</h2>
+
+<p><a href="https://github.com/alexruperez">alexruperez</a>, <a href="mailto:alejandro.ruperez@intelygenz.com">alejandro.ruperez@intelygenz.com</a></p>
+
+<p><a href="https://github.com/juantrias">juantrias</a>, <a href="mailto:juan.trias@intelygenz.com">juan.trias@intelygenz.com</a></p>
+
+<p><a href="https://github.com/RobertoEstrada">RobertoEstrada</a>, <a href="mailto:roberto.estrada@intelygenz.com">roberto.estrada@intelygenz.com</a></p>
+<h2 id='license' class='heading'>👮‍♂️ License</h2>
+
+<p>Kommander is available under the MIT license. See the LICENSE file for more info.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2017 <a class="link" href="https://www.intelygenz.com" target="_blank" rel="external">Intelygenz</a>. All rights reserved. (Last updated: 2017-11-22)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
