@@ -49,14 +49,14 @@ open class Dispatcher {
         operationQueue.addOperations(operations, waitUntilFinished: waitUntilFinished)
     }
 
-    /// Execute block in priority queue
+    /// Execute block in OperationQueue
     @discardableResult open func execute(_ block: @escaping () -> Void) -> Operation {
         let blockOperation = BlockOperation(block: block)
         execute(blockOperation)
         return blockOperation
     }
 
-    /// Execute [block] collection in priority queue (if possible) concurrently or sequentially
+    /// Execute [block] collection in OperationQueue concurrently or sequentially
     @discardableResult open func execute(_ blocks: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Operation] {
         var lastOperation: Operation?
         let operations = blocks.map { block -> Operation in

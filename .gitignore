@@ -23,6 +23,7 @@ xcuserdata/
 ## Other
 *.moved-aside
 *.xcuserstate
+docs/undocumented.json
 
 ## Obj-C/Swift specific
 *.hmap
