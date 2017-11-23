@@ -1,0 +1,16 @@
+module: Kommander
+module_version: 0.9.3
+github_url: https://github.com/intelygenz/Kommander-iOS
+github_file_prefix: https://github.com/intelygenz/Kommander-iOS/tree/master
+
+author: Intelygenz
+author_url: https://www.intelygenz.com
+root_url: https://intelygenz.github.io/Kommander-iOS
+
+clean: true
+readme: README.md
+
+skip_undocumented: false
+hide_documentation_coverage: false
+
+xcodebuild_arguments: [-scheme, Kommander]
