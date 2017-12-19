@@ -77,7 +77,7 @@ github "intelygenz/Kommander-iOS"
 
 ```swift
 dependencies: [
-    .Package(url: "https://github.com/intelygenz/Kommander-iOS.git")
+    .package(url: "https://github.com/intelygenz/Kommander-iOS.git")
 ]
 ```
 
