@@ -10,6 +10,7 @@
 [![Build Status](https://travis-ci.org/intelygenz/Kommander-iOS.svg?branch=master)](https://travis-ci.org/intelygenz/Kommander-iOS)
 [![Documentation](https://img.shields.io/badge/documentation-100%25-brightgreen.svg?style=flat)](https://intelygenz.github.io/Kommander-iOS)
 [![Downloads](https://img.shields.io/cocoapods/dt/Kommander.svg)](http://cocoapods.org/pods/Kommander)
+[![Help Contribute to Open Source](https://www.codetriage.com/intelygenz/kommander-ios/badges/users.svg)](https://www.codetriage.com/intelygenz/kommander-ios)
 
 **Kommander** is a Swift library to manage the task execution in different threads. Through the definition a simple but powerful concept, [**Kommand**](https://en.wikipedia.org/wiki/Command_pattern).
 
