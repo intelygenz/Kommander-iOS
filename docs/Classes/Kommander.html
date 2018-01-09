@@ -326,9 +326,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9KommanderAACAbA10DispatcherC9deliverer_SS4nameSC16QualityOfServiceO3qosSi27maxConcurrentOperationCounttcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(deliverer:name:qos:maxConcurrentOperationCount:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9KommanderAACAbA10DispatcherC9deliverer_SS4nameSC16QualityOfServiceO3qosSi27maxConcurrentOperationCounttcfc">init(deliverer:name:qos:maxConcurrentOperationCount:)</a>
+                    <a name="/s:9KommanderAACAbA10DispatcherC9deliverer_SS4nameSC16QualityOfServiceO3qosSi23maxConcurrentOperationstcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(deliverer:name:qos:maxConcurrentOperations:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9KommanderAACAbA10DispatcherC9deliverer_SS4nameSC16QualityOfServiceO3qosSi23maxConcurrentOperationstcfc">init(deliverer:name:qos:maxConcurrentOperations:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -343,7 +343,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">deliverer</span><span class="p">:</span> <span class="kt"><a href="../Classes/Dispatcher.html">Dispatcher</a></span> <span class="o">=</span> <span class="o">.</span><span class="n"><a href="../Classes/Kommander.html#/s:9KommanderAAC7currentABvZ">current</a></span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">,</span> <span class="nv">qos</span><span class="p">:</span> <span class="kt">QualityOfService</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">maxConcurrentOperationCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kt">OperationQueue</span><span class="o">.</span><span class="n">defaultMaxConcurrentOperationCount</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">deliverer</span><span class="p">:</span> <span class="kt"><a href="../Classes/Dispatcher.html">Dispatcher</a></span> <span class="o">=</span> <span class="o">.</span><span class="n"><a href="../Classes/Kommander.html#/s:9KommanderAAC7currentABvZ">current</a></span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="p">,</span> <span class="nv">qos</span><span class="p">:</span> <span class="kt">QualityOfService</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">maxConcurrentOperations</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kt">OperationQueue</span><span class="o">.</span><span class="n">defaultMaxConcurrentOperationCount</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -356,9 +356,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9KommanderAAC11makeKommandAA0C0CyxGxyKclF"></a>
-                    <a name="//apple_ref/swift/Method/makeKommand(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9KommanderAAC11makeKommandAA0C0CyxGxyKclF">makeKommand(_:)</a>
+                    <a name="/s:9KommanderAAC4makeAA7KommandCyxGxyKclF"></a>
+                    <a name="//apple_ref/swift/Method/make(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9KommanderAAC4makeAA7KommandCyxGxyKclF">make(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -366,14 +366,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Build Kommand<Result> instance with an actionBlock returning generic and throwing errors</p>
+                        <p>Build Kommand<Result> instance with an actionClosure returning generic and throwing errors</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="n">makeKommand</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">actionBlock</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Kommand.html">Kommand</a></span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="n">make</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">actionClosure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Kommand.html">Kommand</a></span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -386,9 +386,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9KommanderAAC12makeKommandsSayAA7KommandCyxGGSayxyKcGlF"></a>
-                    <a name="//apple_ref/swift/Method/makeKommands(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9KommanderAAC12makeKommandsSayAA7KommandCyxGGSayxyKcGlF">makeKommands(_:)</a>
+                    <a name="/s:9KommanderAAC4makeSayAA7KommandCyxGGSayxyKcGlF"></a>
+                    <a name="//apple_ref/swift/Method/make(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9KommanderAAC4makeSayAA7KommandCyxGGSayxyKcGlF">make(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -396,14 +396,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Build [Kommand<Result>] instances collection with actionBlocks returning generic and throwing errors</p>
+                        <p>Build [Kommand<Result>] instances collection with actionClosures returning generic and throwing errors</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="n">makeKommands</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">actionBlocks</span><span class="p">:</span> <span class="p">[()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/Kommand.html">Kommand</a></span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">]</span></code></pre>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="n">make</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">actionClosures</span><span class="p">:</span> <span class="p">[()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/Kommand.html">Kommand</a></span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -598,7 +598,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2017 <a class="link" href="https://www.intelygenz.com" target="_blank" rel="external">Intelygenz</a>. All rights reserved. (Last updated: 2017-11-22)</p>
+          <p>&copy; 2018 <a class="link" href="https://www.intelygenz.com" target="_blank" rel="external">Intelygenz</a>. All rights reserved. (Last updated: 2018-01-09)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

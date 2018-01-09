@@ -32,10 +32,10 @@ open class Dispatcher {
     open static var background: Dispatcher { return Dispatcher(qos: .background) }
 
     /// Dispatcher instance with custom OperationQueue
-    public init(name: String = UUID().uuidString, qos: QualityOfService = .default, maxConcurrentOperationCount: Int = OperationQueue.defaultMaxConcurrentOperationCount) {
+    public init(name: String = UUID().uuidString, qos: QualityOfService = .default, maxConcurrentOperations: Int = OperationQueue.defaultMaxConcurrentOperationCount) {
         operationQueue.name = name
         operationQueue.qualityOfService = qos
-        operationQueue.maxConcurrentOperationCount = maxConcurrentOperationCount
+        operationQueue.maxConcurrentOperationCount = maxConcurrentOperations
         dispatchQueue = DispatchQueue(label: name, qos: dispatchQoS(qos), attributes: .concurrent, autoreleaseFrequency: .inherit, target: operationQueue.underlyingQueue)
     }
 
@@ -49,34 +49,34 @@ open class Dispatcher {
         operationQueue.addOperations(operations, waitUntilFinished: waitUntilFinished)
     }
 
-    /// Execute block in OperationQueue
-    @discardableResult open func execute(_ block: @escaping () -> Void) -> Operation {
-        let blockOperation = BlockOperation(block: block)
-        execute(blockOperation)
-        return blockOperation
+    /// Execute closure in OperationQueue
+    @discardableResult open func execute(_ closure: @escaping () -> Void) -> Operation {
+        let operation = BlockOperation(block: closure)
+        execute(operation)
+        return operation
     }
 
-    /// Execute [block] collection in OperationQueue concurrently or sequentially
-    @discardableResult open func execute(_ blocks: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Operation] {
+    /// Execute [closure] collection in OperationQueue concurrently or sequentially
+    @discardableResult open func execute(_ closures: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Operation] {
         var lastOperation: Operation?
-        let operations = blocks.map { block -> Operation in
-            let blockOperation = BlockOperation(block: block)
+        let operations = closures.map { closure -> Operation in
+            let operation = BlockOperation(block: closure)
             if let lastOperation = lastOperation, !concurrent {
-                blockOperation.addDependency(lastOperation)
+                operation.addDependency(lastOperation)
             }
-            lastOperation = blockOperation
-            return blockOperation
+            lastOperation = operation
+            return operation
         }
         execute(operations, waitUntilFinished: waitUntilFinished)
         return operations
     }
 
-    /// Execute block in DispatchQueue after delay
-    open func execute(after delay: DispatchTimeInterval, block: @escaping () -> Void) {
+    /// Execute closure in DispatchQueue after delay
+    open func execute(after delay: DispatchTimeInterval, closure: @escaping () -> Void) {
         guard delay != .never else {
             return
         }
-        dispatchQueue.asyncAfter(deadline: .now() + delay, execute: block)
+        dispatchQueue.asyncAfter(deadline: .now() + delay, execute: closure)
     }
 
     /// Execute DispatchWorkItem instance in DispatchQueue after delay

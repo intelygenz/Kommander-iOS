@@ -27,10 +27,10 @@ class KommanderTests: XCTestCase {
         let ex = expectation(description: String(describing: type(of: self)))
 
         interactor.getCounter(name: "C1", to: 3)
-            .onSuccess({ (name) in
+            .success({ (name) in
                 ex.fulfill()
             })
-            .onError({ (error) in
+            .error({ (error) in
                 ex.fulfill()
                 XCTFail()
             }).execute()
@@ -45,25 +45,25 @@ class KommanderTests: XCTestCase {
         var successes = 0
 
         let k1 = interactor.getCounter(name: "C1", to: 3)
-            .onSuccess({ (name) in
+            .success({ (name) in
                 successes+=1
                 if successes>=2 {
                     ex.fulfill()
                 }
             })
-            .onError({ (error) in
+            .error({ (error) in
                 ex.fulfill()
                 XCTFail()
             }).execute()
 
         let k2 = interactor.getCounter(name: "C2", to: 5)
-            .onSuccess({ (name) in
+            .success({ (name) in
                 successes+=1
                 if successes>=2 {
                     ex.fulfill()
                 }
             })
-            .onError({ (error) in
+            .error({ (error) in
                 ex.fulfill()
                 XCTFail()
             }).execute()
@@ -83,13 +83,13 @@ class KommanderTests: XCTestCase {
 
         for i in 0..<calls {
             interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
+                .success({ (name) in
                     successes+=1
                     if successes>=calls {
                         ex.fulfill()
                     }
                 })
-                .onError({ (error) in
+                .error({ (error) in
                     ex.fulfill()
                     XCTFail()
                 })
@@ -108,11 +108,11 @@ class KommanderTests: XCTestCase {
 
         for i in 0..<calls {
             interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
+                .success({ (name) in
                     ex.fulfill()
                     XCTFail()
                 })
-                .onError({ (error) in
+                .error({ (error) in
                     errors+=1
                     if errors>=calls {
                         ex.fulfill()
@@ -134,14 +134,14 @@ class KommanderTests: XCTestCase {
 
         for i in 0..<calls {
             interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
+                .success({ (name) in
                     successes+=1
                     print("success \(successes)")
                     if successes>=calls {
                         ex.fulfill()
                     }
                 })
-                .onError({ (error) in
+                .error({ (error) in
                     ex.fulfill()
                     XCTFail()
                 })
@@ -161,14 +161,14 @@ class KommanderTests: XCTestCase {
 
         for i in 0..<calls {
             interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
+                .success({ (name) in
                     successes+=1
                     print("success \(successes)")
                     if successes>=calls {
                         ex.fulfill()
                     }
                 })
-                .onError({ (error) in
+                .error({ (error) in
                     guard let error = error as? KommandCancelledError<String> else {
                         ex.fulfill()
                         XCTFail()
@@ -197,13 +197,13 @@ class KommanderTests: XCTestCase {
 
         for i in 0..<calls {
             interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
+                .success({ (name) in
                     successes+=1
                     if successes>=calls {
                         ex.fulfill()
                     }
                 })
-                .onError({ (error) in
+                .error({ (error) in
                     ex.fulfill()
                     XCTFail()
                 })
@@ -224,13 +224,13 @@ class KommanderTests: XCTestCase {
 
         for i in 0..<calls {
             kommands.append(interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
+                .success({ (name) in
                     successes+=1
                     if successes>=calls {
                         ex.fulfill()
                     }
                 })
-                .onError({ (error) in
+                .error({ (error) in
                     ex.fulfill()
                     XCTFail()
                 }))
@@ -252,13 +252,13 @@ class KommanderTests: XCTestCase {
 
         for i in 0..<calls {
             kommands.append(interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
+                .success({ (name) in
                     successes+=1
                     if successes>=calls {
                         ex.fulfill()
                     }
                 })
-                .onError({ (error) in
+                .error({ (error) in
                     ex.fulfill()
                     XCTFail()
                 }))
@@ -280,13 +280,13 @@ class KommanderTests: XCTestCase {
 
         for i in 0..<calls {
             kommands.append(interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
+                .success({ (name) in
                     successes+=1
                     if successes>=calls {
                         ex.fulfill()
                     }
                 })
-                .onError({ (error) in
+                .error({ (error) in
                     ex.fulfill()
                     XCTFail()
                 }))
@@ -308,13 +308,13 @@ class KommanderTests: XCTestCase {
 
         for i in 0..<calls {
             kommands.append(interactor.getCounter(name: "C\(i)", to: 3)
-                .onSuccess({ (name) in
+                .success({ (name) in
                     successes+=1
                     if successes>=calls {
                         ex.fulfill()
                     }
                 })
-                .onError({ (error) in
+                .error({ (error) in
                     ex.fulfill()
                     XCTFail()
                 }))
@@ -326,7 +326,7 @@ class KommanderTests: XCTestCase {
     }
 
     func testInitializers() {
-        let custom = Kommander(name: "Test", maxConcurrentOperationCount: 2)
+        let custom = Kommander(name: "Test", maxConcurrentOperations: 2)
         XCTAssertEqual(custom.executor.operationQueue.name, "Test")
         XCTAssertEqual(custom.executor.operationQueue.maxConcurrentOperationCount, 2)
         XCTAssertEqual(Kommander.main.executor.operationQueue, OperationQueue.main)
@@ -352,7 +352,7 @@ extension KommanderTests {
         }
 
         func getCounter(name: String, to: Int) -> Kommand<String> {
-            return kommander.makeKommand({ () -> String in
+            return kommander.make({ () -> String in
                 print (name + " Starts\n")
                 var cont = 0
                 while cont < to {
