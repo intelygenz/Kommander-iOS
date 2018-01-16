@@ -116,6 +116,7 @@ private extension Kommander {
                 if let actionClosure = kommand.actionClosure {
                     kommand.state = .running
                     let result = try actionClosure()
+                    kommand.executionCount += 1
                     guard kommand.state == .running else {
                         return
                     }
@@ -131,6 +132,12 @@ private extension Kommander {
                 self.deliverer.execute {
                     kommand.state = .finished
                     kommand.errorClosure?(error)
+                    self.executor.execute {
+                        if kommand.retryClosure?(error, kommand.executionCount) == true {
+                            kommand.state = .ready
+                            kommand.execute()
+                        }
+                    }
                 }
             }
         }

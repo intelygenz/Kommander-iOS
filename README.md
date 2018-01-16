@@ -109,23 +109,37 @@ Kommander().make {
 ```swift
 Kommander().make {
     throw CocoaError(.featureUnsupported)
-}.error({ error in
+}.error { error in
     print(String(describing: error!))
-}).execute()
+}.execute()
 ```
+
+##### Retry after cancellation:
 
 ```swift
 let kommand = Kommander().make { () -> Any? in
     // Your code here
 }.success { result in
     // Your success handling here
-}.error({ error in
+}.error { error in
     // Your error handling here
-}).execute()
+}.execute()
 
 kommand.cancel()
 
 kommand.retry()
+```
+
+##### Retry after failure:
+
+```swift
+let kommand = Kommander().make { () -> Any? in
+    // Your code here
+}.error { error in
+    // Your error handling here
+}.retry { error, executionCount in
+    return executionCount < 2
+}.execute()
 ```
 
 #### Creating Kommanders:
