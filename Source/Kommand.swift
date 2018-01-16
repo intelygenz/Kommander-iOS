@@ -31,6 +31,8 @@ open class Kommand<Result> {
     public typealias SuccessClosure = (_ result: Result) -> Void
     /// Error closure type
     public typealias ErrorClosure = (_ error: Error?) -> Void
+    /// Retry closure type
+    public typealias RetryClosure = (_ error: Error?, _ executionCount: UInt) -> Bool
 
     /// Kommand<Result> state
     internal(set) public final var state = State.uninitialized
@@ -45,6 +47,10 @@ open class Kommand<Result> {
     private(set) final var successClosure: SuccessClosure?
     /// Error closure
     private(set) final var errorClosure: ErrorClosure?
+    /// Retry closure
+    private(set) final var retryClosure: RetryClosure?
+    /// Retry count
+    internal(set) final var executionCount: UInt
     /// Operation to cancel
     internal(set) final weak var operation: Operation?
 
@@ -53,6 +59,7 @@ open class Kommand<Result> {
         self.deliverer = deliverer
         self.executor = executor
         self.actionClosure = actionClosure
+        executionCount = 0
         state = .ready
     }
 
@@ -78,6 +85,12 @@ open class Kommand<Result> {
         return self
     }
 
+    /// Specify Kommand<Result> retry closure
+    @discardableResult open func retry(_ retry: @escaping RetryClosure) -> Self {
+        self.retryClosure = retry
+        return self
+    }
+
     /// Execute Kommand<Result> after delay
     @discardableResult open func execute(after delay: DispatchTimeInterval) -> Self {
         executor?.execute(after: delay, closure: { 
@@ -96,6 +109,7 @@ open class Kommand<Result> {
                 if let actionClosure = self.actionClosure {
                     self.state = .running
                     let result = try actionClosure()
+                    self.executionCount += 1
                     guard self.state == .running else {
                         return
                     }
@@ -111,6 +125,12 @@ open class Kommand<Result> {
                 self.deliverer?.execute {
                     self.state = .finished
                     self.errorClosure?(error)
+                    self.executor?.execute {
+                        if self.retryClosure?(error, self.executionCount) == true {
+                            self.state = .ready
+                            self.execute()
+                        }
+                    }
                 }
             }
         }
