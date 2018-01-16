@@ -48,7 +48,7 @@ class DispatcherTests: XCTestCase {
 
     func testCustomDispatcherOperationQueue() {
         let randomName = UUID().uuidString
-        dispatcher = Dispatcher(name: randomName, qos: .background, maxConcurrentOperationCount: 1)
+        dispatcher = Dispatcher(name: randomName, qos: .background, maxConcurrentOperations: 1)
         XCTAssertEqual(dispatcher.operationQueue.name, randomName)
         XCTAssertEqual(dispatcher.operationQueue.maxConcurrentOperationCount, 1)
         XCTAssertEqual(dispatcher.operationQueue.qualityOfService, .background)

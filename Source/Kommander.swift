@@ -38,21 +38,21 @@ open class Kommander {
     }
 
     /// Kommander instance with deliverer and custom OperationQueue executor
-    public init(deliverer: Dispatcher = .current, name: String = UUID().uuidString, qos: QualityOfService = .default, maxConcurrentOperationCount: Int = OperationQueue.defaultMaxConcurrentOperationCount) {
+    public init(deliverer: Dispatcher = .current, name: String = UUID().uuidString, qos: QualityOfService = .default, maxConcurrentOperations: Int = OperationQueue.defaultMaxConcurrentOperationCount) {
         self.deliverer = deliverer
-        executor = Dispatcher(name: name, qos: qos, maxConcurrentOperationCount: maxConcurrentOperationCount)
+        executor = Dispatcher(name: name, qos: qos, maxConcurrentOperations: maxConcurrentOperations)
     }
 
-    /// Build Kommand<Result> instance with an actionBlock returning generic and throwing errors
-    open func makeKommand<Result>(_ actionBlock: @escaping () throws -> Result) -> Kommand<Result> {
-        return Kommand<Result>(deliverer: deliverer, executor: executor, actionBlock: actionBlock)
+    /// Build Kommand<Result> instance with an actionClosure returning generic and throwing errors
+    open func make<Result>(_ actionClosure: @escaping () throws -> Result) -> Kommand<Result> {
+        return Kommand<Result>(deliverer: deliverer, executor: executor, actionClosure: actionClosure)
     }
 
-    /// Build [Kommand<Result>] instances collection with actionBlocks returning generic and throwing errors
-    open func makeKommands<Result>(_ actionBlocks: [() throws -> Result]) -> [Kommand<Result>] {
+    /// Build [Kommand<Result>] instances collection with actionClosures returning generic and throwing errors
+    open func make<Result>(_ actionClosures: [() throws -> Result]) -> [Kommand<Result>] {
         var kommands = [Kommand<Result>]()
-        for actionBlock in actionBlocks {
-            kommands.append(Kommand<Result>(deliverer: deliverer, executor: executor, actionBlock: actionBlock))
+        for actionClosure in actionClosures {
+            kommands.append(Kommand<Result>(deliverer: deliverer, executor: executor, actionClosure: actionClosure))
         }
         return kommands
     }
@@ -66,10 +66,10 @@ open class Kommander {
 
     /// Execute [Kommand<Result>] instances collection concurrently or sequentially
     open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
-        let executionBlocks = kommands.map { kommand in
-            executionBlock(kommand)
+        let executionClosures = kommands.map { kommand in
+            executionClosure(kommand)
         }
-        let operations = executor.execute(executionBlocks, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
+        let operations = executor.execute(executionClosures, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
         for (index, kommand) in kommands.enumerated() {
             kommand.operation = operations[index]
         }
@@ -107,21 +107,21 @@ open class Kommander {
 
 private extension Kommander {
 
-    final func executionBlock<Result>(_ kommand: Kommand<Result>) -> () -> Void {
+    final func executionClosure<Result>(_ kommand: Kommand<Result>) -> () -> Void {
         return {
             guard kommand.state == .ready else {
                 return
             }
             do {
-                if let actionBlock = kommand.actionBlock {
+                if let actionClosure = kommand.actionClosure {
                     kommand.state = .running
-                    let result = try actionBlock()
+                    let result = try actionClosure()
                     guard kommand.state == .running else {
                         return
                     }
                     self.deliverer.execute {
                         kommand.state = .finished
-                        kommand.successBlock?(result)
+                        kommand.successClosure?(result)
                     }
                 }
             } catch {
@@ -130,7 +130,7 @@ private extension Kommander {
                 }
                 self.deliverer.execute {
                     kommand.state = .finished
-                    kommand.errorBlock?(error)
+                    kommand.errorClosure?(error)
                 }
             }
         }
