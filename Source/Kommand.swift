@@ -54,8 +54,6 @@ open class Kommand<Result> {
     public typealias ErrorClosure = (_ error: Swift.Error?) -> Void
     /// Retry closure type
     public typealias RetryClosure = (_ error: Swift.Error?, _ executionCount: UInt) -> Bool
-    /// Undo closure type
-    public typealias UndoClosure = (_ result: Result) -> Bool
 
     /// Kommand<Result> state
     internal(set) public final var state = State.uninitialized
@@ -72,8 +70,6 @@ open class Kommand<Result> {
     private(set) final var errorClosure: ErrorClosure?
     /// Retry closure
     private(set) final var retryClosure: RetryClosure?
-    /// Undo closure
-    private(set) final var undoClosure: UndoClosure?
     /// Execution count
     internal(set) final var executionCount: UInt
     /// Operation to cancel
@@ -97,7 +93,6 @@ open class Kommand<Result> {
         successClosure = nil
         errorClosure = nil
         retryClosure = nil
-        undoClosure = nil
     }
 
     /// Specify Kommand<Result> success closure
@@ -115,12 +110,6 @@ open class Kommand<Result> {
     /// Specify Kommand<Result> retry closure
     @discardableResult open func retry(_ retry: @escaping RetryClosure) -> Self {
         self.retryClosure = retry
-        return self
-    }
-
-    /// Specify Kommand<Result> undo closure
-    @discardableResult open func undo(_ undo: @escaping UndoClosure) -> Self {
-        self.undoClosure = undo
         return self
     }
 
@@ -227,23 +216,6 @@ open class Kommand<Result> {
         }
         state = .ready
         return execute()
-    }
-
-    /// Undo Kommand<Result> after delay
-    @discardableResult open func undo(after delay: DispatchTimeInterval) -> Self {
-        executor?.execute(after: delay, closure: {
-            self.undo()
-        })
-        return self
-    }
-
-    /// Undo Kommand<Result>
-    @discardableResult open func undo() -> Self {
-        guard let result = result, undoClosure?(result) == true else {
-            return self
-        }
-        state = .ready
-        return self
     }
 
 }
