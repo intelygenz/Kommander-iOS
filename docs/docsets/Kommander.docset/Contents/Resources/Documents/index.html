@@ -41,18 +41,13 @@
                 <a href="Classes/Kommand.html">Kommand</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/Kommand/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/Kommander.html">Kommander</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/MainDispatcher.html">MainDispatcher</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Enums.html">Enumerations</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Enums/State.html">State</a>
               </li>
             </ul>
           </li>
@@ -81,7 +76,8 @@
 <a href="https://github.com/apple/swift-package-manager"><img src="https://img.shields.io/badge/Swift%20Package%20Manager-compatible-4BC51D.svg?style=flat" alt="Swift Package Manager Compatible"></a>
 <a href="https://travis-ci.org/intelygenz/Kommander-iOS"><img src="https://travis-ci.org/intelygenz/Kommander-iOS.svg?branch=master" alt="Build Status"></a>
 <a href="https://intelygenz.github.io/Kommander-iOS"><img src="https://img.shields.io/badge/documentation-100%25-brightgreen.svg?style=flat" alt="Documentation"></a>
-<a href="http://cocoapods.org/pods/Kommander"><img src="https://img.shields.io/cocoapods/dt/Kommander.svg" alt="Downloads"></a></p>
+<a href="http://cocoapods.org/pods/Kommander"><img src="https://img.shields.io/cocoapods/dt/Kommander.svg" alt="Downloads"></a>
+<a href="https://www.codetriage.com/intelygenz/kommander-ios"><img src="https://www.codetriage.com/intelygenz/kommander-ios/badges/users.svg" alt="Help Contribute to Open Source"></a></p>
 
 <p><strong>Kommander</strong> is a Swift library to manage the task execution in different threads. Through the definition a simple but powerful concept, <a href="https://en.wikipedia.org/wiki/Command_pattern"><strong>Kommand</strong></a>.</p>
 
@@ -155,21 +151,31 @@ it, simply add the following line to your Podfile:</p>
 </code></pre>
 <pre class="highlight swift"><code><span class="kt">Kommander</span><span class="p">()</span><span class="o">.</span><span class="n">make</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="kt">CocoaError</span><span class="p">(</span><span class="o">.</span><span class="n">featureUnsupported</span><span class="p">)</span>
-<span class="p">}</span><span class="o">.</span><span class="nf">error</span><span class="p">({</span> <span class="n">error</span> <span class="k">in</span>
+<span class="p">}</span><span class="o">.</span><span class="n">error</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
     <span class="nf">print</span><span class="p">(</span><span class="kt">String</span><span class="p">(</span><span class="nv">describing</span><span class="p">:</span> <span class="n">error</span><span class="o">!</span><span class="p">))</span>
-<span class="p">})</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
+<span class="p">}</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
 </code></pre>
+<h5 id='retry-after-cancellation' class='heading'>Retry after cancellation:</h5>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">kommand</span> <span class="o">=</span> <span class="kt">Kommander</span><span class="p">()</span><span class="o">.</span><span class="n">make</span> <span class="p">{</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span> <span class="k">in</span>
     <span class="c1">// Your code here</span>
 <span class="p">}</span><span class="o">.</span><span class="n">success</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
     <span class="c1">// Your success handling here</span>
-<span class="p">}</span><span class="o">.</span><span class="nf">error</span><span class="p">({</span> <span class="n">error</span> <span class="k">in</span>
+<span class="p">}</span><span class="o">.</span><span class="n">error</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
     <span class="c1">// Your error handling here</span>
-<span class="p">})</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
+<span class="p">}</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
 
 <span class="n">kommand</span><span class="o">.</span><span class="nf">cancel</span><span class="p">()</span>
 
 <span class="n">kommand</span><span class="o">.</span><span class="nf">retry</span><span class="p">()</span>
+</code></pre>
+<h5 id='retry-after-failure' class='heading'>Retry after failure:</h5>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">kommand</span> <span class="o">=</span> <span class="kt">Kommander</span><span class="p">()</span><span class="o">.</span><span class="n">make</span> <span class="p">{</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Any</span><span class="p">?</span> <span class="k">in</span>
+    <span class="c1">// Your code here</span>
+<span class="p">}</span><span class="o">.</span><span class="n">error</span> <span class="p">{</span> <span class="n">error</span> <span class="k">in</span>
+    <span class="c1">// Your error handling here</span>
+<span class="p">}</span><span class="o">.</span><span class="n">retry</span> <span class="p">{</span> <span class="n">error</span><span class="p">,</span> <span class="n">executionCount</span> <span class="k">in</span>
+    <span class="k">return</span> <span class="n">executionCount</span> <span class="o">&lt;</span> <span class="mi">2</span>
+<span class="p">}</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
 </code></pre>
 <h4 id='creating-kommanders' class='heading'>Creating Kommanders:</h4>
 <pre class="highlight swift"><code><span class="kt">Kommander</span><span class="p">(</span><span class="nv">deliverer</span><span class="p">:</span> <span class="kt">Dispatcher</span> <span class="o">=</span> <span class="o">.</span><span class="n">current</span><span class="p">,</span> <span class="nv">executor</span><span class="p">:</span> <span class="kt">Dispatcher</span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span>
@@ -231,7 +237,7 @@ it, simply add the following line to your Podfile:</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://www.intelygenz.com" target="_blank" rel="external">Intelygenz</a>. All rights reserved. (Last updated: 2018-01-09)</p>
+          <p>&copy; 2018 <a class="link" href="https://www.intelygenz.com" target="_blank" rel="external">Intelygenz</a>. All rights reserved. (Last updated: 2018-01-18)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
