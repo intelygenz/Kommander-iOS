@@ -12,7 +12,7 @@ import Foundation
 open class Kommand<Result> {
 
     /// Kommand<Result> state
-    public enum State: Equatable {
+    public indirect enum State: Equatable {
         /// Uninitialized state
         case uninitialized
         /// Ready state
