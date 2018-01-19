@@ -188,6 +188,40 @@ class KommanderTests: XCTestCase {
         waitForExpectations(timeout: 100, handler: nil)
     }
 
+    func testError_nRetries() {
+
+        let ex = expectation(description: String(describing: type(of: self)))
+
+        var throwingError = true
+        var executions = 0
+        let retries = Int(arc4random_uniform(10) + 1)
+
+        kommander.make({
+            print("Execution: \(executions)")
+            if throwingError {
+                throw CocoaError(.featureUnsupported)
+            }
+        })
+        .success({
+            print("Succeeded with \(executions) executions")
+            ex.fulfill()
+            XCTAssertEqual(executions, retries)
+        })
+        .error({ (error) in
+            print("Failed with \(executions) executions")
+            ex.fulfill()
+            XCTFail()
+        }).retry({ _, executionCount in
+            if executionCount == retries {
+                throwingError = false
+            }
+            executions += 1
+            return true
+        }).execute()
+
+        waitForExpectations(timeout: 100, handler: nil)
+    }
+
     func test_nCalls() {
 
         let ex = expectation(description: String(describing: type(of: self)))
@@ -353,7 +387,7 @@ extension KommanderTests {
 
         func getCounter(name: String, to: Int) -> Kommand<String> {
             return kommander.make({ () -> String in
-                print (name + " Starts\n")
+                print ("\(name) Starts")
                 var cont = 0
                 while cont < to {
                     // for _ in 0...1000000 {}
@@ -361,7 +395,7 @@ extension KommanderTests {
                     print(cont)
                     cont+=1
                 }
-                print(name + "Ends\n")
+                print ("\(name) Ends")
                 return name
             })
         }

@@ -8,29 +8,52 @@
 
 import Foundation
 
-/// Kommand<Result> state
-public enum State {
-    /// Uninitialized state
-    case uninitialized
-    /// Ready state
-    case ready
-    /// Executing state
-    case running
-    /// Finished state
-    case finished
-    /// Cancelled state
-    case cancelled
-}
-
 /// Generic Kommand
 open class Kommand<Result> {
+
+    /// Kommand<Result> state
+    public indirect enum State: Equatable {
+        /// Uninitialized state
+        case uninitialized
+        /// Ready state
+        case ready
+        /// Executing state
+        case running
+        /// Succeeded state
+        case succeeded(Result)
+        /// Failed state
+        case failed(Swift.Error?)
+        /// Cancelled state
+        case cancelled
+
+        public static func ==(lhs: State, rhs: State) -> Bool {
+            switch (lhs, rhs) {
+            case (.uninitialized, .uninitialized):
+                return true
+            case (.ready, .ready):
+                return true
+            case (.running, .running):
+                return true
+            case (.succeeded, .succeeded):
+                return true
+            case (.failed, .failed):
+                return true
+            case (.cancelled, .cancelled):
+                return true
+            default:
+                return false
+            }
+        }
+    }
 
     /// Action closure type
     public typealias ActionClosure = () throws -> Result
     /// Success closure type
     public typealias SuccessClosure = (_ result: Result) -> Void
     /// Error closure type
-    public typealias ErrorClosure = (_ error: Error?) -> Void
+    public typealias ErrorClosure = (_ error: Swift.Error?) -> Void
+    /// Retry closure type
+    public typealias RetryClosure = (_ error: Swift.Error?, _ executionCount: UInt) -> Bool
 
     /// Kommand<Result> state
     internal(set) public final var state = State.uninitialized
@@ -45,6 +68,10 @@ open class Kommand<Result> {
     private(set) final var successClosure: SuccessClosure?
     /// Error closure
     private(set) final var errorClosure: ErrorClosure?
+    /// Retry closure
+    private(set) final var retryClosure: RetryClosure?
+    /// Execution count
+    internal(set) final var executionCount: UInt
     /// Operation to cancel
     internal(set) final weak var operation: Operation?
 
@@ -53,6 +80,7 @@ open class Kommand<Result> {
         self.deliverer = deliverer
         self.executor = executor
         self.actionClosure = actionClosure
+        executionCount = 0
         state = .ready
     }
 
@@ -64,6 +92,7 @@ open class Kommand<Result> {
         actionClosure = nil
         successClosure = nil
         errorClosure = nil
+        retryClosure = nil
     }
 
     /// Specify Kommand<Result> success closure
@@ -76,6 +105,30 @@ open class Kommand<Result> {
     @discardableResult open func error(_ error: @escaping ErrorClosure) -> Self {
         self.errorClosure = error
         return self
+    }
+
+    /// Specify Kommand<Result> retry closure
+    @discardableResult open func retry(_ retry: @escaping RetryClosure) -> Self {
+        self.retryClosure = retry
+        return self
+    }
+
+    var result: Result? {
+        switch state {
+        case .succeeded(let result):
+            return result
+        default:
+            return nil
+        }
+    }
+
+    var error: Error? {
+        switch state {
+        case .failed(let error):
+            return error
+        default:
+            return nil
+        }
     }
 
     /// Execute Kommand<Result> after delay
@@ -95,12 +148,13 @@ open class Kommand<Result> {
             do {
                 if let actionClosure = self.actionClosure {
                     self.state = .running
+                    self.executionCount += 1
                     let result = try actionClosure()
                     guard self.state == .running else {
                         return
                     }
                     self.deliverer?.execute {
-                        self.state = .finished
+                        self.state = .succeeded(result)
                         self.successClosure?(result)
                     }
                 }
@@ -109,8 +163,13 @@ open class Kommand<Result> {
                     return
                 }
                 self.deliverer?.execute {
-                    self.state = .finished
-                    self.errorClosure?(error)
+                    self.state = .failed(error)
+                    if self.retryClosure?(error, self.executionCount) == true {
+                        self.state = .ready
+                        self.execute()
+                    } else {
+                        self.errorClosure?(error)
+                    }
                 }
             }
         }
@@ -127,7 +186,7 @@ open class Kommand<Result> {
 
     /// Cancel Kommand<Result>
     @discardableResult open func cancel(_ throwingError: Bool = false) -> Self {
-        guard state != .cancelled else {
+        guard state == .ready || state == .running else {
             return self
         }
         self.deliverer?.execute {
