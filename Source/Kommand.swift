@@ -186,7 +186,7 @@ open class Kommand<Result> {
 
     /// Cancel Kommand<Result>
     @discardableResult open func cancel(_ throwingError: Bool = false) -> Self {
-        guard state == .running else {
+        guard state == .ready || state == .running else {
             return self
         }
         self.deliverer?.execute {
