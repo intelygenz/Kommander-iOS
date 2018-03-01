@@ -34,9 +34,11 @@ Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommande
 - [x] Execute sequential or concurrent closures
 - [x] Execute DispatchWorkItem
 - [x] Kommand state
+- [x] iOS compatible
 - [x] watchOS compatible
 - [x] tvOS compatible
 - [x] macOS compatible
+- [x] Swift 4 version
 - [x] Swift 3 version
 - [x] Swift 2 version
 - [x] Objective-C version
@@ -150,6 +152,8 @@ Kommander(deliverer: Dispatcher = .current, executor: Dispatcher = .default)
 Kommander(deliverer: Dispatcher = .current, name: String, qos: QualityOfService = .default, maxConcurrentOperations: Int = .default)
 ```
 
+##### Shortcuts:
+
 ```swift
 Kommander.main
 
@@ -175,6 +179,8 @@ MainDispatcher()
 
 Dispatcher(name: String, qos: QualityOfService = .default, maxConcurrentOperations: Int = .default)
 ```
+
+##### Shortcuts:
 
 ```swift
 Dispatcher.main

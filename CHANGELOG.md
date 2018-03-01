@@ -1,3 +1,8 @@
+# Release 1.0
+
+- [x] General retry policy.
+- [x] New API naming.
+
 # Release 0.9.3
 
 - [x] Canceled (US English) Kommand state becomes cancelled (British English).
