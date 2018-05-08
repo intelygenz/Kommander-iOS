@@ -95,6 +95,18 @@ open class Dispatcher {
 
 }
 
+public extension Array where Element: Operation {
+    /// Execute [Operation] instance collection in OperationQueue
+    public func execute(in operationQueue: OperationQueue, waitUntilFinished: Bool = false) {
+        operationQueue.addOperations(self, waitUntilFinished: waitUntilFinished)
+    }
+
+    /// Execute [Operation] instance collection in Dispatcher
+    public func execute(in dispatcher: Dispatcher, waitUntilFinished: Bool = false) {
+        dispatcher.execute(self, waitUntilFinished: waitUntilFinished)
+    }
+}
+
 private extension Dispatcher {
 
     final func dispatchQoS(_ qos: QualityOfService) -> DispatchQoS {

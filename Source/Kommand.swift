@@ -76,7 +76,7 @@ open class Kommand<Result> {
     internal(set) final weak var operation: Operation?
 
     /// Kommand<Result> instance with deliverer, executor and actionClosure returning generic and throwing errors
-    public init(deliverer: Dispatcher = .current, executor: Dispatcher = .default, actionClosure: @escaping ActionClosure) {
+    public required init(deliverer: Dispatcher = .current, executor: Dispatcher = .default, actionClosure: @escaping ActionClosure) {
         self.deliverer = deliverer
         self.executor = executor
         self.actionClosure = actionClosure
