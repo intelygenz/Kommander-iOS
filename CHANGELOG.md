@@ -1,3 +1,9 @@
+# Release 1.0.1
+
+- [x] Result and error Kommand helpers.
+- [x] Ready for Swift 4.1.
+- [x] [Operation].execute(in:) extensions.
+
 # Release 1.0
 
 - [x] General retry policy.
