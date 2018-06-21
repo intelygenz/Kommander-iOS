@@ -1,5 +1,5 @@
 module: Kommander
-module_version: 0.9.3
+module_version: 1.0.2
 github_url: https://github.com/intelygenz/Kommander-iOS
 github_file_prefix: https://github.com/intelygenz/Kommander-iOS/tree/master
 

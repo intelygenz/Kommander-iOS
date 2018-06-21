@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>KommandCancelledError Structure Reference</title>
+    <title>Array Extension Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/KommandCancelledError" class="dashAnchor"></a>
-    <a title="KommandCancelledError Structure Reference"></a>
+    <a name="//apple_ref/swift/Extension/Array" class="dashAnchor"></a>
+    <a title="Array Extension Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">Kommander Docs</a> (97% documented)</p>
@@ -23,7 +23,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">Kommander Reference</a>
         <img id="carat" src="../img/carat.png" />
-        KommandCancelledError Structure Reference
+        Array Extension Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -73,15 +73,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>KommandCancelledError</h1>
+            <h1>Array</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">KommandCancelledError</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">RecoverableError</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">struct</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
-            <p>Kommander cancelled error</p>
-
+            
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -89,9 +88,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Kommander21KommandCancelledErrorV15recoveryOptionsSaySSGvp"></a>
-                    <a name="//apple_ref/swift/Property/recoveryOptions" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Kommander21KommandCancelledErrorV15recoveryOptionsSaySSGvp">recoveryOptions</a>
+                    <a name="/s:Sa9KommanderSo9OperationCRbzlE7executeySo0B5QueueC2by_Sb17waitUntilFinishedtF"></a>
+                    <a name="//apple_ref/swift/Method/execute(by:waitUntilFinished:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa9KommanderSo9OperationCRbzlE7executeySo0B5QueueC2by_Sb17waitUntilFinishedtF">execute(by:waitUntilFinished:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -99,19 +98,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Provides a set of possible recovery options to present to the user.</p>
+                        <p>Execute [Operation] instance collection in OperationQueue</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">recoveryOptions</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="n">by</span> <span class="nv">operationQueue</span><span class="p">:</span> <span class="kt">OperationQueue</span><span class="p">,</span> <span class="nv">waitUntilFinished</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/KommandCancelledError.swift#L21-L23">Show on GitHub</a>
+                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Dispatcher.swift#L100-L102">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -119,9 +118,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Kommander21KommandCancelledErrorV15attemptRecoverySbSi11optionIndex_tF"></a>
-                    <a name="//apple_ref/swift/Method/attemptRecovery(optionIndex:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Kommander21KommandCancelledErrorV15attemptRecoverySbSi11optionIndex_tF">attemptRecovery(optionIndex:)</a>
+                    <a name="/s:Sa9KommanderSo9OperationCRbzlE7executeyAA10DispatcherC2by_Sb17waitUntilFinishedtF"></a>
+                    <a name="//apple_ref/swift/Method/execute(by:waitUntilFinished:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa9KommanderSo9OperationCRbzlE7executeyAA10DispatcherC2by_Sb17waitUntilFinishedtF">execute(by:waitUntilFinished:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -129,26 +128,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Attempt to recover from this error when the user selected the
-option at the given index. Returns true to indicate
-successful recovery, and false otherwise.</p>
-
-<p>This entry point is used for recovery of errors handled at
-the <q>application</q> granularity, where nothing else in the
-application can proceed until the attempted error recovery
-completes.</p>
+                        <p>Execute [Operation] instance collection in Dispatcher</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">attemptRecovery</span><span class="p">(</span><span class="n">optionIndex</span> <span class="nv">recoveryOptionIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="n">by</span> <span class="nv">dispatcher</span><span class="p">:</span> <span class="kt"><a href="../Classes/Dispatcher.html">Dispatcher</a></span><span class="p">,</span> <span class="nv">waitUntilFinished</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/KommandCancelledError.swift#L33-L39">Show on GitHub</a>
+                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Dispatcher.swift#L105-L107">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

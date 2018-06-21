@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Kommander'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'A command pattern implementation written in Swift'
 
   s.homepage         = 'https://github.com/intelygenz/Kommander-iOS'
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/intelygenz/Kommander-iOS.git', :tag => s.version.to_s }
   s.social_media_url = "https://twitter.com/intelygenz"
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   s.watchos.deployment_target = '2.0'
   s.tvos.deployment_target = '9.0'
   s.osx.deployment_target = '10.10'

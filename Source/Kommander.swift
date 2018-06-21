@@ -17,19 +17,19 @@ open class Kommander {
     final let executor: Dispatcher
 
     /// Kommander instance with CurrentDispatcher deliverer and MainDispatcher executor
-    open static var main: Kommander { return Kommander(executor: .main) }
+    public static var main: Kommander { return Kommander(executor: .main) }
     /// Kommander instance with CurrentDispatcher deliverer and CurrentDispatcher executor
-    open static var current: Kommander { return Kommander(executor: .current) }
+    public static var current: Kommander { return Kommander(executor: .current) }
     /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with default quality of service
-    open static var `default`: Kommander { return Kommander() }
+    public static var `default`: Kommander { return Kommander() }
     /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with user interactive quality of service
-    open static var userInteractive: Kommander { return Kommander(executor: .userInteractive) }
+    public static var userInteractive: Kommander { return Kommander(executor: .userInteractive) }
     /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with user initiated quality of service
-    open static var userInitiated: Kommander { return Kommander(executor: .userInitiated) }
+    public static var userInitiated: Kommander { return Kommander(executor: .userInitiated) }
     /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with utility quality of service
-    open static var utility: Kommander { return Kommander(executor: .utility) }
+    public static var utility: Kommander { return Kommander(executor: .utility) }
     /// Kommander instance with CurrentDispatcher deliverer and Dispatcher executor with background quality of service
-    open static var background: Kommander { return Kommander(executor: .background) }
+    public static var background: Kommander { return Kommander(executor: .background) }
 
     /// Kommander instance with deliverer and executor
     public init(deliverer: Dispatcher = .current, executor: Dispatcher = .default) {

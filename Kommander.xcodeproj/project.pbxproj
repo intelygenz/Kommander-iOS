@@ -604,13 +604,13 @@
 					81925CC41E3A0FFC001701F3 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					81925CCD1E3A0FFC001701F3 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3VW789WSMP;
-						LastSwiftMigration = "";
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					819D155C1E76AEFB00BB1F07 = {
@@ -992,7 +992,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 3VW789WSMP;
 				DYLIB_COMPATIBILITY_VERSION = 1.0.1;
-				DYLIB_CURRENT_VERSION = 1.0.1;
+				DYLIB_CURRENT_VERSION = 1.0.2;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1020,7 +1020,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1066,7 +1066,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3VW789WSMP;
 				DYLIB_COMPATIBILITY_VERSION = 1.0.1;
-				DYLIB_CURRENT_VERSION = 1.0.1;
+				DYLIB_CURRENT_VERSION = 1.0.2;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1086,7 +1086,7 @@
 				PRODUCT_NAME = Kommander;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;

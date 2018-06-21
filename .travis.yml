@@ -1,8 +1,8 @@
 language: swift
-osx_image: xcode9.3
+osx_image: xcode9.4
 script:
 - xcodebuild -workspace Kommander.xcworkspace -scheme Major -destination "platform=iOS
-  Simulator,name=iPhone X,OS=11.3" -configuration Debug -enableCodeCoverage YES clean
+  Simulator,name=iPhone X,OS=11.4" -configuration Debug -enableCodeCoverage YES clean
   build test
 after_success:
 - bash <(curl -s https://codecov.io/bash)

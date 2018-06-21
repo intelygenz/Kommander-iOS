@@ -14,7 +14,7 @@
     <a title="Kommand Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Kommander Docs</a> (100% documented)</p>
+        <p><a href="../index.html">Kommander Docs</a> (97% documented)</p>
         <p class="header-right"><a href="https://github.com/intelygenz/Kommander-iOS"><img src="../img/gh.png"/>View on GitHub</a></p>
         <p class="header-right"><a href="dash-feed://https%3A%2F%2Fintelygenz%2Egithub%2Eio%2Fdocsets%2FKommander%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
       </div>
@@ -49,6 +49,14 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/MainDispatcher.html">MainDispatcher</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
               </li>
             </ul>
           </li>
@@ -232,9 +240,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:9Kommander7KommandC5stateAC5StateOyx_Gv"></a>
+                    <a name="/s:9Kommander7KommandC5stateAC5StateOyx_Gvp"></a>
                     <a name="//apple_ref/swift/Property/state" class="dashAnchor"></a>
-                    <a class="token" href="#/s:9Kommander7KommandC5stateAC5StateOyx_Gv">state</a>
+                    <a class="token" href="#/s:9Kommander7KommandC5stateAC5StateOyx_Gvp">state</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -279,7 +287,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">deliverer</span><span class="p">:</span> <span class="kt"><a href="../Classes/Dispatcher.html">Dispatcher</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">current</span><span class="p">,</span> <span class="nv">executor</span><span class="p">:</span> <span class="kt"><a href="../Classes/Dispatcher.html">Dispatcher</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">actionClosure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/Kommand.html#/s:9Kommander7KommandC13ActionClosurea">ActionClosure</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">(</span><span class="nv">deliverer</span><span class="p">:</span> <span class="kt"><a href="../Classes/Dispatcher.html">Dispatcher</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">current</span><span class="p">,</span> <span class="nv">executor</span><span class="p">:</span> <span class="kt"><a href="../Classes/Dispatcher.html">Dispatcher</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span> <span class="nv">actionClosure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Classes/Kommand.html#/s:9Kommander7KommandC13ActionClosurea">ActionClosure</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -382,6 +390,66 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:9Kommander7KommandC6resultxSgvp"></a>
+                    <a name="//apple_ref/swift/Property/result" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Kommander7KommandC6resultxSgvp">result</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">result</span><span class="p">:</span> <span class="kt">Result</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L116-L121">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9Kommander7KommandC5errors5Error_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/error" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9Kommander7KommandC5errors5Error_pSgvp">error</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="k">var</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L123-L128">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:9Kommander7KommandC7executeACyxGXD8Dispatch0D12TimeIntervalO5after_tF"></a>
                     <a name="//apple_ref/swift/Method/execute(after:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:9Kommander7KommandC7executeACyxGXD8Dispatch0D12TimeIntervalO5after_tF">execute(after:)</a>
@@ -404,7 +472,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L135-L140">Show on GitHub</a>
+                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L131-L136">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -434,7 +502,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L143-L177">Show on GitHub</a>
+                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L139-L173">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -464,7 +532,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L180-L185">Show on GitHub</a>
+                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L176-L181">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -494,7 +562,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L188-L202">Show on GitHub</a>
+                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L184-L198">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -524,7 +592,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L205-L210">Show on GitHub</a>
+                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L201-L206">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -554,7 +622,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L213-L219">Show on GitHub</a>
+                        <a href="https://github.com/intelygenz/Kommander-iOS/tree/master/Source/Kommand.swift#L209-L215">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -564,7 +632,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="https://www.intelygenz.com" target="_blank" rel="external">Intelygenz</a>. All rights reserved. (Last updated: 2018-01-19)</p>
+          <p>&copy; 2018 <a class="link" href="https://www.intelygenz.com" target="_blank" rel="external">Intelygenz</a>. All rights reserved. (Last updated: 2018-06-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

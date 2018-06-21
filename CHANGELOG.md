@@ -1,3 +1,7 @@
+# Release 1.0.2
+
+- [x] Ready for Swift 4.2.
+
 # Release 1.0.1
 
 - [x] Result and error Kommand helpers.

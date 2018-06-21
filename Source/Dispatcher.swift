@@ -17,19 +17,19 @@ open class Dispatcher {
     final var dispatchQueue = DispatchQueue(label: UUID().uuidString)
 
     /// Main queue dispatcher
-    open static var main: Dispatcher { return MainDispatcher() }
+    public static var main: Dispatcher { return MainDispatcher() }
     /// Current queue dispatcher
-    open static var current: Dispatcher { return CurrentDispatcher() }
+    public static var current: Dispatcher { return CurrentDispatcher() }
     /// Dispatcher with default quality of service
-    open static var `default`: Dispatcher { return Dispatcher() }
+    public static var `default`: Dispatcher { return Dispatcher() }
     /// Dispatcher with user interactive quality of service
-    open static var userInteractive: Dispatcher { return Dispatcher(qos: .userInteractive) }
+    public static var userInteractive: Dispatcher { return Dispatcher(qos: .userInteractive) }
     /// Dispatcher with user initiated quality of service
-    open static var userInitiated: Dispatcher { return Dispatcher(qos: .userInitiated) }
+    public static var userInitiated: Dispatcher { return Dispatcher(qos: .userInitiated) }
     /// Dispatcher with utility quality of service
-    open static var utility: Dispatcher { return Dispatcher(qos: .utility) }
+    public static var utility: Dispatcher { return Dispatcher(qos: .utility) }
     /// Dispatcher with background quality of service
-    open static var background: Dispatcher { return Dispatcher(qos: .background) }
+    public static var background: Dispatcher { return Dispatcher(qos: .background) }
 
     /// Dispatcher instance with custom OperationQueue
     public init(name: String = UUID().uuidString, qos: QualityOfService = .default, maxConcurrentOperations: Int = OperationQueue.defaultMaxConcurrentOperationCount) {
