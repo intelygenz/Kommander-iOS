@@ -33,7 +33,7 @@ class KommanderTests: XCTestCase {
             .error({ (error) in
                 ex.fulfill()
                 XCTFail()
-            }).execute()
+            }).run()
 
         waitForExpectations(timeout: 100, handler: nil)
     }
@@ -54,7 +54,7 @@ class KommanderTests: XCTestCase {
             .error({ (error) in
                 ex.fulfill()
                 XCTFail()
-            }).execute()
+            }).run()
 
         let k2 = interactor.getCounter(name: "C2", to: 5)
             .success({ (name) in
@@ -66,10 +66,10 @@ class KommanderTests: XCTestCase {
             .error({ (error) in
                 ex.fulfill()
                 XCTFail()
-            }).execute()
+            }).run()
 
-        k1.execute()
-        k2.execute()
+        k1.run()
+        k2.run()
 
         waitForExpectations(timeout: 100, handler: nil)
     }
@@ -93,7 +93,7 @@ class KommanderTests: XCTestCase {
                     ex.fulfill()
                     XCTFail()
                 })
-                .execute(after: .seconds(1))
+                .run(after: .seconds(1))
         }
 
         waitForExpectations(timeout: 100, handler: nil)
@@ -118,7 +118,7 @@ class KommanderTests: XCTestCase {
                         ex.fulfill()
                     }
                 })
-                .execute()
+                .run()
                 .cancel(true, after: .seconds(2))
         }
 
@@ -145,7 +145,7 @@ class KommanderTests: XCTestCase {
                     ex.fulfill()
                     XCTFail()
                 })
-                .execute()
+                .run()
                 .cancel(false, after: .seconds(2))
                 .retry(after: .seconds(5))
         }
@@ -181,7 +181,7 @@ class KommanderTests: XCTestCase {
                     let secondRecoverySuccess = error.attemptRecovery(optionIndex: 0)
                     XCTAssertFalse(secondRecoverySuccess)
                 })
-                .execute()
+                .run()
                 .cancel(true, after: .seconds(2))
         }
 
@@ -196,7 +196,7 @@ class KommanderTests: XCTestCase {
         var executions = 0
         let retries = Int(arc4random_uniform(10) + 1)
 
-        kommander.make({
+        kommander.do({
             print("Execution: \(executions)")
             if throwingError {
                 throw CocoaError(.featureUnsupported)
@@ -217,7 +217,7 @@ class KommanderTests: XCTestCase {
             }
             executions += 1
             return true
-        }).execute()
+        }).run()
 
         waitForExpectations(timeout: 100, handler: nil)
     }
@@ -241,7 +241,7 @@ class KommanderTests: XCTestCase {
                     ex.fulfill()
                     XCTFail()
                 })
-                .execute()
+                .run()
         }
 
         waitForExpectations(timeout: 100, handler: nil)
@@ -270,7 +270,7 @@ class KommanderTests: XCTestCase {
                 }))
         }
 
-        interactor.kommander.execute(kommands, concurrent: true, waitUntilFinished: true)
+        interactor.kommander.run(kommands, concurrent: true, waitUntilFinished: true)
 
         waitForExpectations(timeout: 100, handler: nil)
     }
@@ -298,7 +298,7 @@ class KommanderTests: XCTestCase {
                 }))
         }
 
-        interactor.kommander.execute(kommands, concurrent: true, waitUntilFinished: false)
+        interactor.kommander.run(kommands, concurrent: true, waitUntilFinished: false)
 
         waitForExpectations(timeout: 100, handler: nil)
     }
@@ -326,7 +326,7 @@ class KommanderTests: XCTestCase {
                 }))
         }
 
-        interactor.kommander.execute(kommands, concurrent: false, waitUntilFinished: true)
+        interactor.kommander.run(kommands, concurrent: false, waitUntilFinished: true)
 
         waitForExpectations(timeout: 100, handler: nil)
     }
@@ -354,7 +354,7 @@ class KommanderTests: XCTestCase {
                 }))
         }
 
-        interactor.kommander.execute(kommands, concurrent: false, waitUntilFinished: false)
+        interactor.kommander.run(kommands, concurrent: false, waitUntilFinished: false)
 
         waitForExpectations(timeout: 100, handler: nil)
     }
@@ -386,7 +386,7 @@ extension KommanderTests {
         }
 
         func getCounter(name: String, to: Int) -> Kommand<String> {
-            return kommander.make({ () -> String in
+            return kommander.do({ () -> String in
                 print ("\(name) Starts")
                 var cont = 0
                 while cont < to {

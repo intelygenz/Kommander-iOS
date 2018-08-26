@@ -27,6 +27,7 @@ Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommande
 - [x] Retry kommand or multiple kommands
 - [x] Set kommand success closure
 - [x] Set kommand error closure
+- [x] Set kommand error closure specifying Error type
 - [x] Main thread dispatcher
 - [x] Current thread dispatcher
 - [x] Custom OperationQueue dispatcher
@@ -89,43 +90,53 @@ dependencies: [
 #### Making, executing, cancelling and retrying Kommands:
 
 ```swift
-Kommander().make {
+Kommander().do {
     // Your code here
-}.execute()
+}.run()
 ```
 
 ```swift
-Kommander().make {
+Kommander().do {
     // Your code here
-}.execute(after: .seconds(2))
+}.run(after: .seconds(2))
 ```
 
 ```swift
-Kommander().make {
+Kommander().do {
     return "Your string"
 }.success { yourString in
     print(yourString)
-}.execute()
+}.run()
 ```
 
 ```swift
-Kommander().make {
+Kommander().do {
     throw CocoaError(.featureUnsupported)
 }.error { error in
     print(String(describing: error!))
-}.execute()
+}.run()
+```
+
+##### Specify Error type:
+
+```swift
+Kommander().do {
+    throw MyError.error
+}.error(MyError.self) { error in
+    // error is MyError? type.
+}.run()
 ```
 
 ##### Retry after cancellation:
 
 ```swift
-let kommand = Kommander().make { () -> Any? in
+let kommand = Kommander().do { () -> Any? in
     // Your code here
 }.success { result in
     // Your success handling here
 }.error { error in
     // Your error handling here
-}.execute()
+}.run()
 
 kommand.cancel()
 
@@ -135,13 +146,13 @@ kommand.retry()
 ##### Retry after failure:
 
 ```swift
-let kommand = Kommander().make { () -> Any? in
+let kommand = Kommander().do { () -> Any? in
     // Your code here
 }.error { error in
     // Your error handling here
 }.retry { error, executionCount in
     return executionCount < 2
-}.execute()
+}.run()
 ```
 
 #### Creating Kommanders:

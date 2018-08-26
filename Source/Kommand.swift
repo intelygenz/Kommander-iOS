@@ -107,9 +107,32 @@ open class Kommand<Result> {
         return self
     }
 
+    /// Specify Kommand<Result> error closure
+    @discardableResult open func error<Reason: Swift.Error>(_ type: Reason.Type, _ error: @escaping (_ error: Reason?) -> Void) -> Self {
+        self.errorClosure = {
+            guard let reason = $0 as? Reason else {
+                error(nil)
+                return
+            }
+            error(reason)
+        }
+        return self
+    }
+
     /// Specify Kommand<Result> retry closure
     @discardableResult open func retry(_ retry: @escaping RetryClosure) -> Self {
         self.retryClosure = retry
+        return self
+    }
+
+    /// Specify Kommand<Result> error closure
+    @discardableResult open func retry<Reason: Swift.Error>(_ type: Reason.Type, _ retry: @escaping (_ error: Reason?, _ executionCount: UInt) -> Bool) -> Self {
+        self.retryClosure = {
+            guard let reason = $0 as? Reason else {
+                return retry(nil, $1)
+            }
+            return retry(reason, $1)
+        }
         return self
     }
 
@@ -128,19 +151,19 @@ open class Kommand<Result> {
     }
 
     /// Execute Kommand<Result> after delay
-    @discardableResult open func execute(after delay: DispatchTimeInterval) -> Self {
-        executor?.execute(after: delay, closure: { 
-            self.execute()
+    @discardableResult open func run(after delay: DispatchTimeInterval) -> Self {
+        executor?.run(after: delay, closure: {
+            self.run()
         })
         return self
     }
 
     /// Execute Kommand<Result>
-    @discardableResult open func execute() -> Self {
+    @discardableResult open func run() -> Self {
         guard state == .ready else {
             return self
         }
-        operation = executor?.execute {
+        operation = executor?.run {
             do {
                 if let actionClosure = self.actionClosure {
                     self.state = .running
@@ -149,7 +172,7 @@ open class Kommand<Result> {
                     guard self.state == .running else {
                         return
                     }
-                    self.deliverer?.execute {
+                    self.deliverer?.run {
                         self.state = .succeeded(result)
                         self.successClosure?(result)
                     }
@@ -158,11 +181,11 @@ open class Kommand<Result> {
                 guard self.state == .running else {
                     return
                 }
-                self.deliverer?.execute {
+                self.deliverer?.run {
                     self.state = .failed(error)
                     if self.retryClosure?(error, self.executionCount) == true {
                         self.state = .ready
-                        self.execute()
+                        self.run()
                     } else {
                         self.errorClosure?(error)
                     }
@@ -174,7 +197,7 @@ open class Kommand<Result> {
 
     /// Cancel Kommand<Result> after delay
     @discardableResult open func cancel(_ throwingError: Bool = false, after delay: DispatchTimeInterval) -> Self {
-        executor?.execute(after: delay, closure: {
+        executor?.run(after: delay, closure: {
             self.cancel(throwingError)
         })
         return self
@@ -185,7 +208,7 @@ open class Kommand<Result> {
         guard state == .ready || state == .running else {
             return self
         }
-        self.deliverer?.execute {
+        self.deliverer?.run {
             if throwingError {
                 self.errorClosure?(KommandCancelledError(self))
             }
@@ -199,7 +222,7 @@ open class Kommand<Result> {
 
     /// Retry Kommand<Result> after delay
     @discardableResult open func retry(after delay: DispatchTimeInterval) -> Self {
-        executor?.execute(after: delay, closure: {
+        executor?.run(after: delay, closure: {
             self.retry()
         })
         return self
@@ -211,7 +234,7 @@ open class Kommand<Result> {
             return self
         }
         state = .ready
-        return execute()
+        return run()
     }
 
 }

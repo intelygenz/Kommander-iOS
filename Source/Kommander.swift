@@ -44,12 +44,12 @@ open class Kommander {
     }
 
     /// Build Kommand<Result> instance with an actionClosure returning generic and throwing errors
-    open func make<Result>(_ actionClosure: @escaping () throws -> Result) -> Kommand<Result> {
+    open func `do`<Result>(_ actionClosure: @escaping () throws -> Result) -> Kommand<Result> {
         return Kommand<Result>(deliverer: deliverer, executor: executor, actionClosure: actionClosure)
     }
 
     /// Build [Kommand<Result>] instances collection with actionClosures returning generic and throwing errors
-    open func make<Result>(_ actionClosures: [() throws -> Result]) -> [Kommand<Result>] {
+    open func `do`<Result>(_ actionClosures: [() throws -> Result]) -> [Kommand<Result>] {
         var kommands = [Kommand<Result>]()
         for actionClosure in actionClosures {
             kommands.append(Kommand<Result>(deliverer: deliverer, executor: executor, actionClosure: actionClosure))
@@ -58,18 +58,18 @@ open class Kommander {
     }
 
     /// Execute [Kommand<Result>] instances collection concurrently or sequentially after delay
-    open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false, after delay: DispatchTimeInterval) {
-        executor.execute(after: delay) { 
-            self.execute(kommands, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
+    open func run<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false, after delay: DispatchTimeInterval) {
+        executor.run(after: delay) {
+            self.run(kommands, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
         }
     }
 
     /// Execute [Kommand<Result>] instances collection concurrently or sequentially
-    open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
+    open func run<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false) {
         let executionClosures = kommands.map { kommand in
             executionClosure(kommand)
         }
-        let operations = executor.execute(executionClosures, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
+        let operations = executor.run(executionClosures, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
         for (index, kommand) in kommands.enumerated() {
             kommand.operation = operations[index]
         }
@@ -77,7 +77,7 @@ open class Kommander {
 
     /// Cancel [Kommand<Result>] instances collection after delay
     open func cancel<Result>(_ kommands: [Kommand<Result>], throwingError: Bool = false, after delay: DispatchTimeInterval) {
-        executor.execute(after: delay) {
+        executor.run(after: delay) {
             self.cancel(kommands, throwingError: throwingError)
         }
     }
@@ -91,7 +91,7 @@ open class Kommander {
 
     /// Retry [Kommand<Result>] instances collection after delay
     open func retry<Result>(_ kommands: [Kommand<Result>], after delay: DispatchTimeInterval) {
-        executor.execute(after: delay) {
+        executor.run(after: delay) {
             self.retry(kommands)
         }
     }
@@ -120,7 +120,7 @@ private extension Kommander {
                     guard kommand.state == .running else {
                         return
                     }
-                    self.deliverer.execute {
+                    self.deliverer.run {
                         kommand.state = .succeeded(result)
                         kommand.successClosure?(result)
                     }
@@ -129,11 +129,11 @@ private extension Kommander {
                 guard kommand.state == .running else {
                     return
                 }
-                self.deliverer.execute {
+                self.deliverer.run {
                     kommand.state = .failed(error)
                     if kommand.retryClosure?(error, kommand.executionCount) == true {
                         kommand.state = .ready
-                        kommand.execute()
+                        kommand.run()
                     } else {
                         kommand.errorClosure?(error)
                     }

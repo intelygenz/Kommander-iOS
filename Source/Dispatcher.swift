@@ -40,24 +40,24 @@ open class Dispatcher {
     }
 
     /// Execute Operation instance in OperationQueue
-    open func execute(_ operation: Operation) {
+    open func run(_ operation: Operation) {
         operationQueue.addOperation(operation)
     }
 
     /// Execute [Operation] instance collection in OperationQueue
-    open func execute(_ operations: [Operation], waitUntilFinished: Bool = false) {
+    open func run(_ operations: [Operation], waitUntilFinished: Bool = false) {
         operationQueue.addOperations(operations, waitUntilFinished: waitUntilFinished)
     }
 
     /// Execute closure in OperationQueue
-    @discardableResult open func execute(_ closure: @escaping () -> Void) -> Operation {
+    @discardableResult open func run(_ closure: @escaping () -> Void) -> Operation {
         let operation = BlockOperation(block: closure)
-        execute(operation)
+        run(operation)
         return operation
     }
 
     /// Execute [closure] collection in OperationQueue concurrently or sequentially
-    @discardableResult open func execute(_ closures: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Operation] {
+    @discardableResult open func run(_ closures: [() -> Void], concurrent: Bool = true, waitUntilFinished: Bool = false) -> [Operation] {
         var lastOperation: Operation?
         let operations = closures.map { closure -> Operation in
             let operation = BlockOperation(block: closure)
@@ -67,12 +67,12 @@ open class Dispatcher {
             lastOperation = operation
             return operation
         }
-        execute(operations, waitUntilFinished: waitUntilFinished)
+        run(operations, waitUntilFinished: waitUntilFinished)
         return operations
     }
 
     /// Execute closure in DispatchQueue after delay
-    open func execute(after delay: DispatchTimeInterval, closure: @escaping () -> Void) {
+    open func run(after delay: DispatchTimeInterval, closure: @escaping () -> Void) {
         guard delay != .never else {
             return
         }
@@ -80,7 +80,7 @@ open class Dispatcher {
     }
 
     /// Execute DispatchWorkItem instance in DispatchQueue after delay
-    open func execute(after delay: DispatchTimeInterval, work: DispatchWorkItem) {
+    open func run(after delay: DispatchTimeInterval, work: DispatchWorkItem) {
         guard delay != .never else {
             work.cancel()
             return
@@ -89,7 +89,7 @@ open class Dispatcher {
     }
 
     /// Execute DispatchWorkItem instance in DispatchQueue
-    open func execute(_ work: DispatchWorkItem) {
+    open func run(_ work: DispatchWorkItem) {
         dispatchQueue.async(execute: work)
     }
 
@@ -97,13 +97,13 @@ open class Dispatcher {
 
 public extension Array where Element: Operation {
     /// Execute [Operation] instance collection in OperationQueue
-    public func execute(by operationQueue: OperationQueue, waitUntilFinished: Bool = false) {
+    public func run(in operationQueue: OperationQueue, waitUntilFinished: Bool = false) {
         operationQueue.addOperations(self, waitUntilFinished: waitUntilFinished)
     }
 
     /// Execute [Operation] instance collection in Dispatcher
-    public func execute(by dispatcher: Dispatcher, waitUntilFinished: Bool = false) {
-        dispatcher.execute(self, waitUntilFinished: waitUntilFinished)
+    public func run(in dispatcher: Dispatcher, waitUntilFinished: Bool = false) {
+        dispatcher.run(self, waitUntilFinished: waitUntilFinished)
     }
 }
 

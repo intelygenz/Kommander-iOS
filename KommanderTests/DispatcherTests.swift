@@ -32,7 +32,7 @@ class DispatcherTests: XCTestCase {
     }
 
     func testDefaultDispatcherOperationQueue() {
-        let operation = dispatcher.execute({ sleep(2) })
+        let operation = dispatcher.run({ sleep(2) })
         XCTAssertGreaterThan(dispatcher.operationQueue.operationCount, 0)
         operation.cancel()
         XCTAssertTrue(operation.isCancelled)
@@ -40,7 +40,7 @@ class DispatcherTests: XCTestCase {
 
     func testDefaultDispatcherDispatchQueue() {
         let dispatchWorkItem = DispatchWorkItem(qos: .default, flags: .assignCurrentContext) { sleep(2) }
-        dispatcher.execute(dispatchWorkItem)
+        dispatcher.run(dispatchWorkItem)
         XCTAssertFalse(dispatchWorkItem.isCancelled)
         dispatchWorkItem.cancel()
         XCTAssertTrue(dispatchWorkItem.isCancelled)
@@ -52,7 +52,7 @@ class DispatcherTests: XCTestCase {
         XCTAssertEqual(dispatcher.operationQueue.name, randomName)
         XCTAssertEqual(dispatcher.operationQueue.maxConcurrentOperationCount, 1)
         XCTAssertEqual(dispatcher.operationQueue.qualityOfService, .background)
-        let operation = dispatcher.execute({ sleep(2) })
+        let operation = dispatcher.run({ sleep(2) })
         XCTAssertGreaterThan(dispatcher.operationQueue.operationCount, 0)
         operation.cancel()
         XCTAssertTrue(operation.isCancelled)
@@ -60,7 +60,7 @@ class DispatcherTests: XCTestCase {
 
     func testMainDispatcherOperationQueue() {
         dispatcher = .main
-        let operation = dispatcher.execute({ sleep(2) })
+        let operation = dispatcher.run({ sleep(2) })
         XCTAssertEqual(dispatcher.operationQueue, OperationQueue.main)
         XCTAssertGreaterThan(dispatcher.operationQueue.operationCount, 0)
         operation.cancel()
@@ -70,7 +70,7 @@ class DispatcherTests: XCTestCase {
     func testMainDispatcherDispatchQueue() {
         dispatcher = .main
         let dispatchWorkItem = DispatchWorkItem(qos: .default, flags: .assignCurrentContext) { sleep(2) }
-        dispatcher.execute(dispatchWorkItem)
+        dispatcher.run(dispatchWorkItem)
         XCTAssertEqual(dispatcher.dispatchQueue, DispatchQueue.main)
         XCTAssertFalse(dispatchWorkItem.isCancelled)
         dispatchWorkItem.cancel()
@@ -81,7 +81,7 @@ class DispatcherTests: XCTestCase {
         let operationQueue = OperationQueue()
         operationQueue.addOperation {
             self.dispatcher = .current
-            let operation = self.dispatcher.execute({ sleep(2) })
+            let operation = self.dispatcher.run({ sleep(2) })
             XCTAssertGreaterThan(self.dispatcher.operationQueue.operationCount, 0)
             operation.cancel()
             XCTAssertTrue(operation.isCancelled)
@@ -93,7 +93,7 @@ class DispatcherTests: XCTestCase {
         dispatchQueue.async {
             self.dispatcher = .current
             let dispatchWorkItem = DispatchWorkItem(qos: .default, flags: .assignCurrentContext) { sleep(2) }
-            self.dispatcher.execute(dispatchWorkItem)
+            self.dispatcher.run(dispatchWorkItem)
             XCTAssertFalse(dispatchWorkItem.isCancelled)
             dispatchWorkItem.cancel()
             XCTAssertTrue(dispatchWorkItem.isCancelled)
