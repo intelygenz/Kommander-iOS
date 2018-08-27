@@ -96,6 +96,7 @@ open class Dispatcher {
 }
 
 public extension Array where Element: Operation {
+
     /// Execute [Operation] instance collection in OperationQueue
     public func run(in operationQueue: OperationQueue, waitUntilFinished: Bool = false) {
         operationQueue.addOperations(self, waitUntilFinished: waitUntilFinished)
@@ -105,6 +106,7 @@ public extension Array where Element: Operation {
     public func run(in dispatcher: Dispatcher, waitUntilFinished: Bool = false) {
         dispatcher.run(self, waitUntilFinished: waitUntilFinished)
     }
+
 }
 
 private extension Dispatcher {
