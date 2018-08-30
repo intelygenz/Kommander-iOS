@@ -108,10 +108,9 @@ open class Kommand<Result> {
     }
 
     /// Specify Kommand<Result> error closure
-    @discardableResult open func error<Reason: Swift.Error>(_ type: Reason.Type, _ error: @escaping (_ error: Reason?) -> Void) -> Self {
+    @discardableResult open func error<Reason: Swift.Error>(_ type: Reason.Type, _ error: @escaping (_ error: Reason) -> Void) -> Self {
         self.errorClosure = {
             guard let reason = $0 as? Reason else {
-                error(nil)
                 return
             }
             error(reason)

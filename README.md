@@ -123,7 +123,7 @@ Kommander().do {
 Kommander().do {
     throw MyError.error
 }.error(MyError.self) { error in
-    // error is MyError? type.
+    // error is MyError type.
 }.run()
 ```
 
