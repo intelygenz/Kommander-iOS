@@ -90,53 +90,53 @@ dependencies: [
 #### Making, executing, cancelling and retrying Kommands:
 
 ```swift
-Kommander().do {
+Kommander().make {
     // Your code here
-}.run()
+}.execute()
 ```
 
 ```swift
-Kommander().do {
+Kommander().make {
     // Your code here
-}.run(after: .seconds(2))
+}.execute(after: .seconds(2))
 ```
 
 ```swift
-Kommander().do {
+Kommander().make {
     return "Your string"
 }.success { yourString in
     print(yourString)
-}.run()
+}.execute()
 ```
 
 ```swift
-Kommander().do {
+Kommander().make {
     throw CocoaError(.featureUnsupported)
 }.error { error in
     print(String(describing: error!))
-}.run()
+}.execute()
 ```
 
 ##### Specify Error type:
 
 ```swift
-Kommander().do {
+Kommander().make {
     throw MyError.error
 }.error(MyError.self) { error in
     // error is MyError type.
-}.run()
+}.execute()
 ```
 
 ##### Retry after cancellation:
 
 ```swift
-let kommand = Kommander().do { () -> Any? in
+let kommand = Kommander().make { () -> Any? in
     // Your code here
 }.success { result in
     // Your success handling here
 }.error { error in
     // Your error handling here
-}.run()
+}.execute()
 
 kommand.cancel()
 
@@ -146,13 +146,13 @@ kommand.retry()
 ##### Retry after failure:
 
 ```swift
-let kommand = Kommander().do { () -> Any? in
+let kommand = Kommander().make { () -> Any? in
     // Your code here
 }.error { error in
     // Your error handling here
 }.retry { error, executionCount in
     return executionCount < 2
-}.run()
+}.execute()
 ```
 
 #### Creating Kommanders:

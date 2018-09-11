@@ -15,16 +15,16 @@ class ViewController: UIViewController {
     let sleepTime: UInt32 = 2
 
     @IBAction func singleAction(_ sender: UIButton) {
-        kommander.do { () -> TimeInterval in
+        kommander.make { () -> TimeInterval in
             sleep(self.sleepTime)
             return Date().timeIntervalSince1970
         }.success { result in
             print("Single: " + String(describing: result))
-        }.run()
+        }.execute()
     }
 
     @IBAction func concurrentAction(_ sender: UIButton) {
-        kommander.run(kommander.do([ { () -> Any? in
+        kommander.execute(kommander.make([ { () -> Any? in
             sleep(self.sleepTime)
             print("Concurrent first: " + String(describing: Date().timeIntervalSince1970))
             return nil
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func sequentialAction(_ sender: UIButton) {
-        kommander.run(kommander.do([ { () -> Any? in
+        kommander.execute(kommander.make([ { () -> Any? in
             sleep(self.sleepTime)
             print("Sequential first: " + String(describing: Date().timeIntervalSince1970))
             return nil
@@ -56,18 +56,18 @@ class ViewController: UIViewController {
     }
 
     @IBAction func errorAction(_ sender: UIButton) {
-        kommander.do {
+        kommander.make {
             sleep(self.sleepTime)
             throw CocoaError(.featureUnsupported)
         }.error(CocoaError.self) {
             print("Error: " + $0.localizedDescription)
-        }.run()
+        }.execute()
     }
 
     @IBAction func crashAction(_ sender: UIButton) {
-        kommander.do {
+        kommander.make {
             sleep(self.sleepTime)
             fatalError()
-        }.run()
+        }.execute()
     }
 }

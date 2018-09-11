@@ -111,6 +111,7 @@ open class Kommand<Result> {
     @discardableResult open func error<Reason: Swift.Error>(_ type: Reason.Type, _ error: @escaping (_ error: Reason) -> Void) -> Self {
         self.errorClosure = {
             guard let reason = $0 as? Reason else {
+                assertionFailure("Unexpected error thrown. \(Reason.self) expected, \($0.debugDescription) thrown.")
                 return
             }
             error(reason)
@@ -150,19 +151,19 @@ open class Kommand<Result> {
     }
 
     /// Execute Kommand<Result> after delay
-    @discardableResult open func run(after delay: DispatchTimeInterval) -> Self {
-        executor?.run(after: delay, closure: {
-            self.run()
+    @discardableResult open func execute(after delay: DispatchTimeInterval) -> Self {
+        executor?.execute(after: delay, closure: {
+            self.execute()
         })
         return self
     }
 
     /// Execute Kommand<Result>
-    @discardableResult open func run() -> Self {
+    @discardableResult open func execute() -> Self {
         guard state == .ready else {
             return self
         }
-        operation = executor?.run {
+        operation = executor?.execute {
             do {
                 if let actionClosure = self.actionClosure {
                     self.state = .running
@@ -171,7 +172,7 @@ open class Kommand<Result> {
                     guard self.state == .running else {
                         return
                     }
-                    self.deliverer?.run {
+                    self.deliverer?.execute {
                         self.state = .succeeded(result)
                         self.successClosure?(result)
                     }
@@ -180,11 +181,11 @@ open class Kommand<Result> {
                 guard self.state == .running else {
                     return
                 }
-                self.deliverer?.run {
+                self.deliverer?.execute {
                     self.state = .failed(error)
                     if self.retryClosure?(error, self.executionCount) == true {
                         self.state = .ready
-                        self.run()
+                        self.execute()
                     } else {
                         self.errorClosure?(error)
                     }
@@ -196,7 +197,7 @@ open class Kommand<Result> {
 
     /// Cancel Kommand<Result> after delay
     @discardableResult open func cancel(_ throwingError: Bool = false, after delay: DispatchTimeInterval) -> Self {
-        executor?.run(after: delay, closure: {
+        executor?.execute(after: delay, closure: {
             self.cancel(throwingError)
         })
         return self
@@ -207,7 +208,7 @@ open class Kommand<Result> {
         guard state == .ready || state == .running else {
             return self
         }
-        self.deliverer?.run {
+        self.deliverer?.execute {
             if throwingError {
                 self.errorClosure?(KommandCancelledError(self))
             }
@@ -221,7 +222,7 @@ open class Kommand<Result> {
 
     /// Retry Kommand<Result> after delay
     @discardableResult open func retry(after delay: DispatchTimeInterval) -> Self {
-        executor?.run(after: delay, closure: {
+        executor?.execute(after: delay, closure: {
             self.retry()
         })
         return self
@@ -233,7 +234,7 @@ open class Kommand<Result> {
             return self
         }
         state = .ready
-        return run()
+        return execute()
     }
 
 }
