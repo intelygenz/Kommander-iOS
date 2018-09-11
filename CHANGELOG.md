@@ -1,7 +1,6 @@
 # Release 1.1
 
 - [x] Set kommand error closure specifying Error type.
-- [x] Modern sugar syntax.
 
 # Release 1.0.2
 
