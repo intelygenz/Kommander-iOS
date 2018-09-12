@@ -1,3 +1,7 @@
+# Release 1.1
+
+- [x] Set kommand error closure specifying Error type.
+
 # Release 1.0.2
 
 - [x] Ready for Swift 4.2.

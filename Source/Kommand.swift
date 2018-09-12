@@ -107,9 +107,32 @@ open class Kommand<Result> {
         return self
     }
 
+    /// Specify Kommand<Result> error closure
+    @discardableResult open func error<Reason: Swift.Error>(_ type: Reason.Type, _ error: @escaping (_ error: Reason) -> Void) -> Self {
+        self.errorClosure = {
+            guard let reason = $0 as? Reason else {
+                assertionFailure("Unexpected error thrown. \(Reason.self) expected, \($0.debugDescription) thrown.")
+                return
+            }
+            error(reason)
+        }
+        return self
+    }
+
     /// Specify Kommand<Result> retry closure
     @discardableResult open func retry(_ retry: @escaping RetryClosure) -> Self {
         self.retryClosure = retry
+        return self
+    }
+
+    /// Specify Kommand<Result> error closure
+    @discardableResult open func retry<Reason: Swift.Error>(_ type: Reason.Type, _ retry: @escaping (_ error: Reason?, _ executionCount: UInt) -> Bool) -> Self {
+        self.retryClosure = {
+            guard let reason = $0 as? Reason else {
+                return retry(nil, $1)
+            }
+            return retry(reason, $1)
+        }
         return self
     }
 
@@ -129,7 +152,7 @@ open class Kommand<Result> {
 
     /// Execute Kommand<Result> after delay
     @discardableResult open func execute(after delay: DispatchTimeInterval) -> Self {
-        executor?.execute(after: delay, closure: { 
+        executor?.execute(after: delay, closure: {
             self.execute()
         })
         return self

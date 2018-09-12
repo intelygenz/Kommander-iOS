@@ -27,6 +27,7 @@ Inspired on the Java library [**Kommander**](https://github.com/Wokdsem/Kommande
 - [x] Retry kommand or multiple kommands
 - [x] Set kommand success closure
 - [x] Set kommand error closure
+- [x] Set kommand error closure specifying Error type
 - [x] Main thread dispatcher
 - [x] Current thread dispatcher
 - [x] Custom OperationQueue dispatcher
@@ -113,6 +114,16 @@ Kommander().make {
     throw CocoaError(.featureUnsupported)
 }.error { error in
     print(String(describing: error!))
+}.execute()
+```
+
+##### Specify Error type:
+
+```swift
+Kommander().make {
+    throw MyError.error
+}.error(MyError.self) { error in
+    // error is MyError type.
 }.execute()
 ```
 

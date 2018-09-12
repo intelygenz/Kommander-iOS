@@ -59,8 +59,8 @@ class ViewController: UIViewController {
         kommander.make {
             sleep(self.sleepTime)
             throw CocoaError(.featureUnsupported)
-        }.error { error in
-            print("Error: " + String(describing: error!))
+        }.error(CocoaError.self) {
+            print("Error: " + $0.localizedDescription)
         }.execute()
     }
 

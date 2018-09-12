@@ -59,7 +59,7 @@ open class Kommander {
 
     /// Execute [Kommand<Result>] instances collection concurrently or sequentially after delay
     open func execute<Result>(_ kommands: [Kommand<Result>], concurrent: Bool = true, waitUntilFinished: Bool = false, after delay: DispatchTimeInterval) {
-        executor.execute(after: delay) { 
+        executor.execute(after: delay) {
             self.execute(kommands, concurrent: concurrent, waitUntilFinished: waitUntilFinished)
         }
     }
