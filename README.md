@@ -222,6 +222,8 @@ Dispatcher.background
 
 [RobertoEstrada](https://github.com/RobertoEstrada), roberto.estrada@intelygenz.com
 
+[![](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/images/0)](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/links/0)[![](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/images/1)](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/links/1)[![](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/images/2)](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/links/2)[![](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/images/3)](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/links/3)[![](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/images/4)](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/links/4)[![](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/images/5)](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/links/5)[![](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/images/6)](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/links/6)[![](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/images/7)](https://sourcerer.io/fame/alexruperez/intelygenz/Kommander-iOS/links/7)
+
 ## 👮‍♂️ License
 
 Kommander is available under the MIT license. See the LICENSE file for more info.
